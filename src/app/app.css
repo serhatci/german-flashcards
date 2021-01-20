@@ -79,3 +79,20 @@ footer {
 .none-decoration {
   text-decoration: none;
 }
+
+/* APP colors */
+.white {
+  color: #ffffff;
+}
+
+.dark-green {
+  color: #086108ec;
+}
+
+.red {
+  color: rgb(221, 25, 25);
+}
+
+.dark-red {
+  color: rgb(122, 2, 2);
+}
