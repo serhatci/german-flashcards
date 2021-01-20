@@ -1,0 +1,18 @@
+.home-page-container {
+  padding: 10px 10px 0px;
+  max-width: 768px;
+  margin: auto;
+}
+
+.welcome-info {
+  padding: 5px 20px;
+  border: 1px solid rgb(44, 41, 41);
+  border-radius: 5px;
+  background-color: rgb(243, 243, 128);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.button-container {
+  padding: 10px 0px;
+}

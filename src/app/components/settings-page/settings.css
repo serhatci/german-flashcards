@@ -1,0 +1,20 @@
+.settings-wrapper {
+  z-index: 1;
+
+  position: fixed;
+  bottom: 45px;
+
+  width: 100%;
+}
+
+.settings-box {
+  padding: 0px 13px;
+  max-width: 768px;
+  height: 100px;
+  margin: auto;
+
+  border-top: 1px solid black;
+
+  background-attachment: fixed;
+  background-color: rgb(78, 119, 153);
+}

@@ -1,0 +1,30 @@
+.icon {
+  font-size: 32px;
+  line-height: 0px;
+}
+
+.settings-icon {
+  font-size: 48px;
+  line-height: 0px;
+}
+
+.small-icon {
+  font-size: 42px;
+  line-height: 0px;
+}
+
+.white {
+  color: #ffffff;
+}
+
+.dark-green {
+  color: #086108ec;
+}
+
+.red {
+  color: rgb(221, 25, 25);
+}
+
+.dark-red {
+  color: rgb(122, 2, 2);
+}

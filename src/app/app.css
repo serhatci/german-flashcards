@@ -1,0 +1,81 @@
+/* imports Bootstrap icons */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+/* Provides general style rules for the whole app */
+/* --------------------------------------------- */
+html,
+body,
+#root {
+  height: 100%;
+  background-color: rgb(220, 226, 218);
+}
+
+/* Does not support responsiveness below 280px width */
+body {
+  min-width: 280px;
+  font-size: 100%;
+}
+
+/* Apply box-sizing model */
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  border: 0px;
+}
+
+/* This is the layout applied to the whole app */
+/* ------------------------------------------- */
+.app-container {
+  display: grid;
+  grid-template-rows: 40px auto 45px;
+  grid-template-areas:
+    "header"
+    "mainPage"
+    "footer";
+
+  height: 100%;
+}
+
+/* Additional styles of header can be found in header-footer.css */
+header {
+  grid-area: header;
+}
+
+/* Additional styles of footer can be found in header-footer.css */
+footer {
+  grid-area: footer;
+}
+
+/* Main page can be scrolled if content is larger */
+.main-page {
+  grid-area: mainPage;
+  overflow-y: auto;
+}
+
+/* Shared css classes among all elements of this project */
+/* ----------------------------------------------- */
+
+.flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.show {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.none-decoration {
+  text-decoration: none;
+}

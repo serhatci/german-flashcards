@@ -1,0 +1,26 @@
+.home-buttons {
+  display: block;
+
+  margin-bottom: 0.5em;
+  padding: 16px 24px;
+
+  background-color: #f1f7f2;
+
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  font-size: 1.4em;
+  font-weight: bolder;
+  text-decoration: none;
+  text-align: center;
+  color: #1d50af;
+
+  cursor: pointer;
+}
+
+.home-buttons:hover {
+  box-shadow: -1px -1px rgb(169, 177, 171) inset;
+  text-decoration: none;
+}

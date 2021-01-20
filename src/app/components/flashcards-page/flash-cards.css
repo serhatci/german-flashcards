@@ -1,0 +1,68 @@
+.flashcards-container {
+  display: grid;
+  grid-template-rows: 60% 40%;
+  grid-template-areas:
+    "words"
+    "controlButtons";
+
+  padding: 10px 13px 10px;
+  max-width: 768px;
+  height: 100%;
+
+  justify-items: center;
+  margin: auto;
+}
+
+.word-container {
+  grid-area: words;
+
+  padding-top: 8%;
+
+  text-align: center;
+}
+
+.word {
+  font-size: 3em;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.info {
+  padding-top: 3%;
+
+  font-size: 1.2em;
+  font-style: italic;
+  text-align: center;
+}
+
+.results {
+  padding-top: 8%;
+  padding-left: 27%;
+
+  text-align: left;
+}
+
+.card-buttons {
+  grid-area: controlButtons;
+
+  width: 100%;
+}
+
+.average-button {
+  width: 30%;
+  max-width: 100px;
+}
+
+.img-center {
+  display: block;
+  margin: auto;
+}
+
+.small-button {
+  width: 15%;
+}
+
+.flex-width-400 {
+  max-width: 400px;
+  margin: auto;
+}

@@ -1,0 +1,74 @@
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+form {
+  max-width: 400px;
+  margin: auto;
+}
+
+fieldset {
+  padding: 3%;
+  border-radius: 6px;
+  border: 1px solid #b8aeae;
+}
+
+legend {
+  margin: auto;
+  padding: 1% 5%;
+
+  border-radius: 6px;
+  border: 1px solid #beb9b9;
+
+  font-size: x-large;
+  font-weight: bolder;
+  color: rgb(21, 77, 122);
+}
+
+label {
+  padding-left: 5px;
+  font-size: large;
+  color: rgb(21, 77, 122);
+}
+
+input {
+  padding: 10px 10px;
+  margin: 5px 0px 15px;
+  width: 100%;
+
+  font-size: medium;
+
+  border-radius: 6px;
+  border: 1px solid #beb9b9;
+  outline: none;
+}
+
+input:hover,
+input:focus {
+  border: 1px solid #f86a0b;
+}
+
+button {
+  display: block;
+  margin: auto;
+  padding: 2% 10%;
+
+  border-radius: 6px;
+  border: 1px solid #2c2a2a;
+
+  font-size: large;
+  font-weight: bolder;
+  color: rgb(228, 236, 230);
+  background-color: rgb(114, 143, 133);
+
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: -2px -2px 5px rgb(157, 167, 159) inset;
+  border-color: rgb(246, 247, 248);
+
+  color: aliceblue;
+}
