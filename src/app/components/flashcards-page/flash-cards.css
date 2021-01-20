@@ -44,22 +44,8 @@
 
 .card-buttons {
   grid-area: controlButtons;
-
   width: 100%;
-}
-
-.average-button {
-  width: 30%;
-  max-width: 100px;
-}
-
-.img-center {
-  display: block;
-  margin: auto;
-}
-
-.small-button {
-  width: 15%;
+  text-align: center;
 }
 
 .flex-width-400 {
