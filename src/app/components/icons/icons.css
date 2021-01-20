@@ -22,8 +22,23 @@
   animation-iteration-count: infinite;
   display: inline-block;
 }
-@keyframes ckw {
+
+.rotate.delayed {
+  animation-name: rotate-delayed;
+  animation-duration: 5s;
+}
+
+@keyframes rotate {
   20% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-delayed {
+  70% {
     transform: rotate(0deg);
   }
   100% {
