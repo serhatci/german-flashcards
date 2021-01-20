@@ -47,7 +47,7 @@ class GameButtons extends React.Component {
     if (this.props.isCardAQuestion) {
       return {
         correctButton: "hide",
-        flipButton: "bi bi-arrow-repeat icon large",
+        flipButton: "bi bi-arrow-repeat icon large rotate delayed",
         wrongButton: "hide",
       };
     } else {
