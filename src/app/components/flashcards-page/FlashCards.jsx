@@ -1,11 +1,7 @@
 import React from "react";
 import "./flash-cards.css";
 import { newWords } from "../../database/mock-db.js";
-import {
-  FlipButton,
-  CorrectButton,
-  WrongButton,
-} from "../buttons/FlashcardButtons.jsx";
+import { FlipIcon, CorrectIcon, WrongIcon } from "../icons/Icons.jsx";
 
 const Words = (props) => {
   return (
@@ -38,7 +34,10 @@ const Score = (props) => {
 const PlayAgain = (props) => {
   return (
     <div className="card-buttons">
-      <FlipButton func={props.func} styles="average-button img-center" />
+      <FlipIcon
+        func={props.func}
+        styles="bi bi-arrow-repeat icon large rotate"
+      />
     </div>
   );
 };
@@ -47,15 +46,15 @@ class GameButtons extends React.Component {
   getStyles = () => {
     if (this.props.isCardAQuestion) {
       return {
-        correctButton: "hide small-button",
-        flipButton: "show average-button",
-        wrongButton: "hide small-button",
+        correctButton: "hide",
+        flipButton: "bi bi-arrow-repeat icon large",
+        wrongButton: "hide",
       };
     } else {
       return {
-        correctButton: "show average-button",
-        flipButton: "show small-button",
-        wrongButton: "show average-button",
+        correctButton: "show bi bi-check-square-fill dark-green icon large",
+        flipButton: "bi bi-arrow-repeat icon medium",
+        wrongButton: "show bi bi-x-square-fill dark-red icon large",
       };
     }
   };
@@ -67,15 +66,15 @@ class GameButtons extends React.Component {
           className="flex-horizontal flex-width-400"
           id="answer-buttons-container"
         >
-          <CorrectButton
+          <CorrectIcon
             func={this.props.bringNextWord}
             styles={this.getStyles().correctButton}
           />
-          <FlipButton
+          <FlipIcon
             func={this.props.changeCard}
             styles={this.getStyles().flipButton}
           />
-          <WrongButton
+          <WrongIcon
             func={this.props.bringNextWord}
             styles={this.getStyles().wrongButton}
           />
