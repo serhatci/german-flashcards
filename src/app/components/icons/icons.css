@@ -23,7 +23,7 @@
   display: inline-block;
 }
 @keyframes ckw {
-  70% {
+  20% {
     transform: rotate(0deg);
   }
   100% {
