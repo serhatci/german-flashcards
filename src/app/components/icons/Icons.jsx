@@ -58,8 +58,8 @@ export const VolumeIcon = () => {
 export const NightModeIcon = () => {
   const user = useNightMode();
   const iconType = user
-    ? "bi bi-brightness-high white icon adjusted"
-    : "bi bi-moon dark-red icon adjusted";
+    ? "bi bi-moon dark-red icon adjusted"
+    : "bi bi-brightness-high white icon adjusted";
 
   return (
     <i
