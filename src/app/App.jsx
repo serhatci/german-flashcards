@@ -5,7 +5,7 @@ import "./app.css";
 
 import Header from "./components/header-footer/Header.jsx";
 import Footer from "./components/header-footer/Footer.jsx";
-import Settings from "./components/settings/Settings.jsx";
+import Settings from "./components/settings-page/Settings.jsx";
 import HomePage from "./components/home-page/HomePage.jsx";
 import FlashCards from "./components/flashcards-page/FlashCards.jsx";
 // Authentication imports
