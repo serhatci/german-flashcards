@@ -22,7 +22,7 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div className="home-page-container" id="app-homepage">
+      <div className="home-page-container fade-in" id="app-homepage">
         <div className="welcome-info" id="app-welcome-info">
           <WelcomeInfo />
         </div>

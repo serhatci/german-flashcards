@@ -14,7 +14,7 @@ const Words = (props) => {
 
 const Score = (props) => {
   return (
-    <div className="word-container">
+    <div className="fade-in word-container">
       <h3>You have completed all Flashcards.</h3>
       <div className="results" id="results">
         <p>
@@ -52,9 +52,10 @@ class GameButtons extends React.Component {
       };
     } else {
       return {
-        correctButton: "show bi bi-check-square-fill dark-green icon large",
+        correctButton:
+          "show fade-in bi bi-check-square-fill dark-green icon large",
         flipButton: "bi bi-arrow-repeat icon medium",
-        wrongButton: "show bi bi-x-square-fill dark-red icon large",
+        wrongButton: "show fade-in bi bi-x-square-fill dark-red icon large",
       };
     }
   };
@@ -166,7 +167,7 @@ class FlashCards extends React.Component {
 
   render() {
     return (
-      <div className="flashcards-container">
+      <div className="flashcards-container fade-in">
         {this.getPage()[0]}
         {this.getPage()[1]}
       </div>

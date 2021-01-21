@@ -31,7 +31,7 @@ export default function Login() {
   }
 
   return (
-    <div className="auth-container">
+    <div className="auth-container fade-in">
       <Form id="login" method="post">
         <Input label="Email" id="email" type="email" />
         <Input label="Password" id="password" type="password" />
