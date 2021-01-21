@@ -16,7 +16,7 @@ const Header = () => {
         </Link>
       </div>
       <div id="title">
-        <h2>German Flashcards</h2>
+        <h1>German Flashcards</h1>
       </div>
       <div id="user-icon">
         <Link to="/login">
