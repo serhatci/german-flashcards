@@ -17,6 +17,7 @@
   grid-area: words;
 
   padding-top: 8%;
+  width: 100%;
 
   text-align: center;
 }
@@ -51,4 +52,18 @@
 .flex-width-400 {
   max-width: 400px;
   margin: auto;
+}
+
+.score-box {
+  border: 1px solid grey;
+  background-color: lightgreen;
+  border-radius: 12px;
+  padding: 1em 0;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+table {
+  padding-top: 1em;
+  margin: 0 auto;
 }
