@@ -16,7 +16,7 @@ export default function Signup() {
           id="password-confirm"
           type="password"
         />
-        <FormButton title="Sign-Up" type="submit" />
+        <FormButton title="Submit" type="submit" />
       </Form>
       <div className="links-container">
         Already have an account?{" "}

@@ -20,7 +20,7 @@ export default function Login() {
         </Link>
         <br></br>
         or did you{" "}
-        <Link to="/signup">
+        <Link to="/forgot-password">
           <strong>forget your password?</strong>
         </Link>
       </div>
