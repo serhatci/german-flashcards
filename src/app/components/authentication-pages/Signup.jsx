@@ -1,67 +1,28 @@
-import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
-import { useAuth } from "../../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./authentication.css";
+
+import Input from "../form-components/Input";
+import Form from "../form-components/Form";
+import FormButton from "../form-components/FormButton";
 
 export default function Signup() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const history = useHistory();
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
-    }
-
-    try {
-      setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/");
-    } catch {
-      setError("Failed to create an account");
-    }
-
-    setLoading(false);
-  }
-
   return (
-    <div className="authentication-container">
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-2">Sign Up</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control
-                type="password"
-                ref={passwordConfirmRef}
-                required
-              />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Sign Up
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Log In</Link>
+    <div className="auth-container fade-in">
+      <Form id="sign-up" method="post" legend="SIGN UP">
+        <Input label="Email" id="email" type="email" />
+        <Input label="Password" id="password" type="password" />
+        <Input
+          label="Confirm Password"
+          id="password-confirm"
+          type="password"
+        />
+        <FormButton title="Sign-Up" type="submit" />
+      </Form>
+      <div className="links-container">
+        Already have an account?{" "}
+        <Link to="/login">
+          <strong>Log In</strong>
+        </Link>
       </div>
     </div>
   );
