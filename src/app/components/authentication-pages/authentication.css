@@ -4,3 +4,13 @@
   max-width: 768px;
   margin: auto;
 }
+
+.links-container {
+  padding-top: 2em;
+  line-height: 3em;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
