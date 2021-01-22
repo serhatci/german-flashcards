@@ -12,7 +12,9 @@ import {
 } from "../../contexts/SettingsContext";
 
 export const HomeIcon = () => {
-  return <i className="bi bi-house-fill white icon"></i>;
+  return (
+    <i id="home-icon" alt="home" className="bi bi-house-fill white icon"></i>
+  );
 };
 
 export const UserIcon = () => {
@@ -21,7 +23,14 @@ export const UserIcon = () => {
     ? "bi bi-person-check-fill dark-green icon"
     : "bi bi-person-fill white icon";
 
-  return <i className={iconType} onClick={useUserUpdate()}></i>;
+  return (
+    <i
+      id="user-icon"
+      alt="user"
+      className={iconType}
+      onClick={useUserUpdate()}
+    ></i>
+  );
 };
 
 export const SettingsIcon = () => {
