@@ -10,21 +10,15 @@ const Header = () => {
       className="flex-horizontal header-footer-container"
       id="header-container"
     >
-      <div id="home-icon">
-        <Link to="/">
-          <HomeIcon />
-        </Link>
-      </div>
-      <div id="title">
-        <h1>German Flashcards</h1>
-      </div>
-      <div id="user-icon">
-        <Link to="/login">
-          <UserProvider>
-            <UserIcon />
-          </UserProvider>
-        </Link>
-      </div>
+      <Link to="/">
+        <HomeIcon />
+      </Link>
+      <h1 id="app-title">German Flashcards</h1>
+      <Link to="/login">
+        <UserProvider>
+          <UserIcon />
+        </UserProvider>
+      </Link>
     </div>
   );
 };

@@ -7,12 +7,8 @@ const Footer = () => {
       className="flex-horizontal header-footer-container"
       id="footer-container"
     >
-      <div id="settings-button">
-        <SettingsIcon />
-      </div>
-      <div id="year">
-        <h5>@2020</h5>
-      </div>
+      <SettingsIcon />
+      <strong id="year">@2020</strong>
     </div>
   );
 };
