@@ -36,14 +36,19 @@ body {
   height: 100%;
 }
 
-/* Additional styles of header can be found in header-footer.css */
 header {
   grid-area: header;
+  background-color: rgb(224, 101, 19);
+  border-bottom: 1px solid rgb(143, 143, 143);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  color: aliceblue;
 }
 
-/* Additional styles of footer can be found in header-footer.css */
 footer {
   grid-area: footer;
+  background-color: rgb(21, 77, 122);
+  border-top: 1px solid rgb(0, 0, 0);
+  color: aliceblue;
 }
 
 /* Main page can be scrolled if content is larger */
