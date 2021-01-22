@@ -59,7 +59,6 @@ footer {
 
 /* Shared css classes among all elements of this project */
 /* ----------------------------------------------- */
-
 .flex-horizontal {
   display: flex;
   flex-direction: row;
@@ -100,4 +99,21 @@ footer {
 
 .dark-red {
   color: rgb(122, 2, 2);
+}
+
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.2s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
