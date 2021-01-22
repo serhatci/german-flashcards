@@ -15,17 +15,28 @@ const Words = (props) => {
 const Score = (props) => {
   return (
     <div className="fade-in word-container">
-      <h3>You have completed all Flashcards.</h3>
-      <div className="results" id="results">
-        <p>
-          Total Cards: <b>{props.result.total}</b>
-        </p>
-        <p>
-          Correct Answers: <b>{props.result.correctAnswer}</b>
-        </p>
-        <p>
-          Wrong Answers: <b>{props.result.wrongAnswer}</b>
-        </p>
+      <div className="score-box" id="score">
+        <strong>You have completed all Flashcards!</strong>
+        <table id="score-table">
+          <tr>
+            <td>Total Cards Played: </td>
+            <td>
+              <strong>{props.result.total}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td>Correct Answers: </td>
+            <td>
+              <strong>{props.result.correctAnswer}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td>Wrong Answers: </td>
+            <td>
+              <strong>{props.result.wrongAnswer}</strong>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   );
