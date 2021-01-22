@@ -7,7 +7,7 @@ import FormButton from "../form-components/FormButton";
 
 export default function ForgotPassword() {
   return (
-    <div className="auth-container">
+    <div className="auth-container fade-in">
       <Form id="password-reset" method="post" legend="RESET PASSWORD">
         <Input label="Email" id="email" type="email" />
         <FormButton title="Submit" type="submit" />
