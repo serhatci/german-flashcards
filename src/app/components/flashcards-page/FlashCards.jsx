@@ -47,7 +47,7 @@ const PlayAgain = (props) => {
     <div className="card-buttons">
       <FlipIcon
         func={props.func}
-        styles="bi bi-arrow-repeat dark-red icon large rotate"
+        styles="bi bi-arrow-repeat dark-green icon large rotate"
       />
     </div>
   );
