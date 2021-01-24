@@ -2,10 +2,7 @@ import "./icons.css";
 
 import { useUser, useUserUpdate } from "../../contexts/UserContext";
 import { useVolume, useVolumeUpdate } from "../../contexts/VolumeContext";
-import {
-  useNightMode,
-  useNightModeUpdate,
-} from "../../contexts/NightModeContext";
+import { useTheme, useThemeUpdate } from "../../contexts/ThemeContext";
 import {
   useSettings,
   useSettingsUpdate,
@@ -64,51 +61,58 @@ export const VolumeIcon = () => {
   );
 };
 
-export const NightModeIcon = () => {
-  const user = useNightMode();
-  const iconType = user
-    ? "bi bi-moon dark-red icon adjusted"
-    : "bi bi-brightness-high white icon adjusted";
+export const ThemeIcon = () => {
+  const theme = useTheme();
+  const iconType =
+    theme.name === "Night"
+      ? "bi bi-moon dark-red icon adjusted"
+      : "bi bi-brightness-high white icon adjusted";
 
   return (
     <i
       className={iconType}
       id="night-mode-icon"
       alt="nightMode"
-      onClick={useNightModeUpdate()}
+      onClick={useThemeUpdate()}
     ></i>
   );
 };
 
 export const FlipIcon = (props) => {
+  let theme = useTheme();
   return (
     <i
       className={props.styles}
       id="flip-icon"
       alt="flip"
       onClick={() => props.func()}
+      style={theme.flipButton}
     ></i>
   );
 };
 
 export const CorrectIcon = (props) => {
+  let theme = useTheme();
   return (
     <i
       className={props.styles}
       id="correct-icon"
       alt="correct"
       onClick={() => props.func(true)}
+      style={theme.correctButton}
     ></i>
   );
 };
 
 export const WrongIcon = (props) => {
+  let theme = useTheme();
   return (
     <i
       className={props.styles}
       id="wrong-icon"
       alt="wrong"
       onClick={() => props.func(false)}
+      style={theme.wrongButton}
     ></i>
   );
 };

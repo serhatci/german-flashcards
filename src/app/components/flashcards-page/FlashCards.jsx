@@ -2,10 +2,12 @@ import React from "react";
 import "./flash-cards.css";
 import { newWords } from "../../database/mock-db.js";
 import { FlipIcon, CorrectIcon, WrongIcon } from "../icons/Icons.jsx";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const Words = (props) => {
+  let theme = useTheme();
   return (
-    <div className="word-container">
+    <div className="word-container" style={theme.words}>
       <p className="word">{props.cardData[0]}</p>
       <p className="info">{props.cardData[1]}</p>
     </div>
@@ -13,9 +15,10 @@ const Words = (props) => {
 };
 
 const Score = (props) => {
+  let theme = useTheme();
   return (
     <div className="fade-in word-container">
-      <div className="score-box" id="score">
+      <div className="score-box" id="score" style={theme.score}>
         <strong>You have completed all Flashcards!</strong>
         <table id="score-table">
           <tr>
@@ -47,7 +50,7 @@ const PlayAgain = (props) => {
     <div className="card-buttons">
       <FlipIcon
         func={props.func}
-        styles="bi bi-arrow-repeat dark-green icon large rotate"
+        styles="bi bi-arrow-repeat icon large rotate"
       />
     </div>
   );
@@ -63,10 +66,9 @@ class GameButtons extends React.Component {
       };
     } else {
       return {
-        correctButton:
-          "show fade-in bi bi-check-square-fill dark-green icon large",
+        correctButton: "show fade-in bi bi-check-square-fill icon large",
         flipButton: "bi bi-arrow-repeat icon medium",
-        wrongButton: "show fade-in bi bi-x-square-fill dark-red icon large",
+        wrongButton: "show fade-in bi bi-x-square-fill icon large",
       };
     }
   };
