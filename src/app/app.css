@@ -7,7 +7,6 @@ html,
 body,
 #root {
   height: 100%;
-  background-color: rgb(220, 226, 218);
 }
 
 /* Does not support responsiveness below 280px width */
