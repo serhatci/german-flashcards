@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "../buttons/HomePageButtons.jsx";
 import "./home-page.css";
-import { homeButtonsData } from "../../database/mock-db.js";
 import { useTheme } from "../../contexts/ThemeContext";
 
 const WelcomeInfo = () => {
@@ -13,10 +12,11 @@ const WelcomeInfo = () => {
   return <p>{info}</p>;
 };
 
-const HomePage = () => {
+const HomePage = (props) => {
   const theme = useTheme();
+
   const createButtons = () => {
-    return homeButtonsData.map((item) => (
+    return props.buttons.map((item) => (
       <Button
         key={item.title}
         title={item.title}
