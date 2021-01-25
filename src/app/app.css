@@ -85,7 +85,8 @@ footer {
 
 .loading-container {
   text-align: center;
-  padding-top: 6em;
+  padding: 6em 1em;
+  font-weight: bolder;
 }
 
 /* APP colors */
