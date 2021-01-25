@@ -3,12 +3,16 @@ import { useSettings } from "../../contexts/SettingsContext";
 import { VolumeProvider } from "../../contexts/VolumeContext";
 
 import { VolumeIcon, ThemeIcon } from "../icons/Icons.jsx";
+import { useLocation } from "react-router-dom";
 
 const Settings = () => {
   const clicked = useSettings();
+  const loc = useLocation();
+
+  // setting is disabled at authorization pages
   const getStyle = (clicked) => {
-    if (clicked) {
-      return "settings-wrapper show";
+    if (loc.pathname === "/" || loc.pathname === "/flashcards") {
+      return clicked ? "settings-wrapper show" : "settings-wrapper hide";
     } else {
       return "settings-wrapper hide";
     }
