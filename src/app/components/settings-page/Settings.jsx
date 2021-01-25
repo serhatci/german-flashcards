@@ -1,10 +1,9 @@
 import React from "react";
 import "./settings.css";
-import { VolumeIcon, NightModeIcon } from "../icons/Icons.jsx";
-
 import { useSettings } from "../../contexts/SettingsContext";
 import { VolumeProvider } from "../../contexts/VolumeContext";
-import { NightModeProvider } from "../../contexts/NightModeContext";
+
+import { VolumeIcon, ThemeIcon } from "../icons/Icons.jsx";
 
 const Settings = () => {
   const clicked = useSettings();
@@ -23,9 +22,7 @@ const Settings = () => {
           <VolumeProvider>
             <VolumeIcon />
           </VolumeProvider>
-          <NightModeProvider>
-            <NightModeIcon />
-          </NightModeProvider>
+          <ThemeIcon />
         </nav>
       </div>
     </div>
