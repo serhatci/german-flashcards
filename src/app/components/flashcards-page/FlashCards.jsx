@@ -5,7 +5,7 @@ import { FlipIcon, CorrectIcon, WrongIcon } from "../icons/Icons.jsx";
 import { useTheme } from "../../contexts/ThemeContext";
 
 const Words = (props) => {
-  let theme = useTheme();
+  const theme = useTheme();
   return (
     <div className="word-container" style={theme.words}>
       <p className="word">{props.cardData[0]}</p>
@@ -15,7 +15,7 @@ const Words = (props) => {
 };
 
 const Score = (props) => {
-  let theme = useTheme();
+  const theme = useTheme();
   return (
     <div className="fade-in word-container">
       <div className="score-box" id="score" style={theme.score}>
@@ -57,21 +57,18 @@ const PlayAgain = (props) => {
 };
 
 class GameButtons extends React.Component {
-  getStyles = () => {
-    if (this.props.isCardAQuestion) {
-      return {
-        correctButton: "hide",
-        flipButton: "bi bi-arrow-repeat icon large rotate delayed",
-        wrongButton: "hide",
-      };
-    } else {
-      return {
-        correctButton: "show fade-in bi bi-check-square-fill icon large",
-        flipButton: "bi bi-arrow-repeat icon medium",
-        wrongButton: "show fade-in bi bi-x-square-fill icon large",
-      };
-    }
-  };
+  getStyles = () =>
+    this.props.isCardAQuestion
+      ? {
+          correctButton: "hide",
+          flipButton: "bi bi-arrow-repeat icon large rotate delayed",
+          wrongButton: "hide",
+        }
+      : {
+          correctButton: "show fade-in bi bi-check-square-fill icon large",
+          flipButton: "bi bi-arrow-repeat icon medium",
+          wrongButton: "show fade-in bi bi-x-square-fill icon large",
+        };
 
   render() {
     return (
