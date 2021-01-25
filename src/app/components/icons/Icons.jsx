@@ -125,3 +125,13 @@ export const WrongIcon = (props) => {
     ></i>
   );
 };
+
+export const LoadingIcon = () => {
+  return (
+    <i
+      className="bi bi-gear-wide icon large rotate white"
+      id="loading-icon"
+      alt="loading"
+    ></i>
+  );
+};
