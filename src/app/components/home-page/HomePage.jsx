@@ -14,9 +14,9 @@ const WelcomeInfo = () => {
 };
 
 const HomePage = () => {
-  let theme = useTheme();
+  const theme = useTheme();
   const createButtons = () => {
-    let buttons = homeButtonsData.map((item) => (
+    return homeButtonsData.map((item) => (
       <Button
         key={item.title}
         title={item.title}
@@ -24,7 +24,6 @@ const HomePage = () => {
         style={theme.button}
       />
     ));
-    return buttons;
   };
 
   return (
