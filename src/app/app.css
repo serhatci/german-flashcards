@@ -83,6 +83,11 @@ footer {
   text-decoration: none;
 }
 
+.loading-container {
+  text-align: center;
+  padding-top: 6em;
+}
+
 /* APP colors */
 .white {
   color: #ffffff;
