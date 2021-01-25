@@ -1,0 +1,16 @@
+{
+    "homeButton":[{"title": "New Words", "gameType": "FlashCards", "db_name": "newWords" },
+    { "title": "Tenses", "gameType": "FlashQuiz", "db_name": "newWords" },
+    {
+      "title": "Frequently Mixed Words",
+      "gameType": "FlashCards",
+      "db_name": "newWords"
+    },
+    {
+      "title": "Verbs with Prepositions",
+      "gameType": "FlashCards",
+      "db_name": "newWords"
+    },
+    { "title": "Common Phrases", "gameType": "FlashCards", "db_name": "newWords" }
+    ]
+}
