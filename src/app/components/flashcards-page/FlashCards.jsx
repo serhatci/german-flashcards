@@ -21,24 +21,26 @@ const Score = (props) => {
       <div className="score-box" id="score" style={theme.score}>
         <strong>You have completed all Flashcards!</strong>
         <table id="score-table">
-          <tr>
-            <td>Total Cards Played: </td>
-            <td>
-              <strong>{props.result.total}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>Correct Answers: </td>
-            <td>
-              <strong>{props.result.correctAnswer}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>Wrong Answers: </td>
-            <td>
-              <strong>{props.result.wrongAnswer}</strong>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Total Cards Played: </td>
+              <td>
+                <strong>{props.result.total}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>Correct Answers: </td>
+              <td>
+                <strong>{props.result.correctAnswer}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>Wrong Answers: </td>
+              <td>
+                <strong>{props.result.wrongAnswer}</strong>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
