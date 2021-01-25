@@ -1,4 +1,3 @@
-import React from "react";
 import "./settings.css";
 import { useSettings } from "../../contexts/SettingsContext";
 import { VolumeProvider } from "../../contexts/VolumeContext";
