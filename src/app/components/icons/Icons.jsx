@@ -74,8 +74,8 @@ export const ThemeIcon = () => {
   const theme = useTheme();
   const iconType =
     theme.name === "Night"
-      ? "bi bi-moon dark-red icon adjusted"
-      : "bi bi-brightness-high white icon adjusted";
+      ? "bi bi-brightness-high white icon adjusted"
+      : "bi bi-moon white icon adjusted";
 
   return (
     <i
