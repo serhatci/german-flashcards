@@ -1,4 +1,5 @@
 import "./icons.css";
+import { useLocation } from "react-router-dom";
 
 import { useUser, useUserUpdate } from "../../contexts/UserContext";
 import { useVolume, useVolumeUpdate } from "../../contexts/VolumeContext";
@@ -15,7 +16,7 @@ export const HomeIcon = () => {
 };
 
 export const UserIcon = () => {
-  const user = useUser();
+  let user = useUser();
   const iconType = user
     ? "bi bi-person-check-fill dark-green icon"
     : "bi bi-person-fill white icon";
@@ -31,14 +32,22 @@ export const UserIcon = () => {
 };
 
 export const SettingsIcon = () => {
-  const user = useSettings();
-  const iconType = user
-    ? "bi bi-x-circle-fill red icon"
-    : "bi bi-gear-fill white icon";
+  const clicked = useSettings();
+  const loc = useLocation();
 
+  // Settings are disabled at authorization pages
+  const iconType = () => {
+    if (loc.pathname === "/" || loc.pathname === "/flashcards") {
+      return clicked
+        ? "bi bi-x-circle-fill red icon"
+        : "bi bi-gear-fill white icon";
+    } else {
+      return "bi bi-gear-fill dark-red icon";
+    }
+  };
   return (
     <i
-      className={iconType}
+      className={iconType()}
       id="setting-icon"
       alt="settings"
       onClick={useSettingsUpdate()}
