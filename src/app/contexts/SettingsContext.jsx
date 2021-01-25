@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const SettingsContext = React.createContext();
 const SettingsUpdateContext = React.createContext();
@@ -13,9 +14,13 @@ export const useSettingsUpdate = () => {
 
 export function SettingsProvider({ children }) {
   const [settingsClicked, setSettingsClicked] = useState(false);
+  const loc = useLocation();
 
+  // settings are disabled at authorization pages
   function settingsHandler() {
-    setSettingsClicked((settingsClicked) => !settingsClicked);
+    if (loc.pathname === "/" || loc.pathname === "/flashcards") {
+      setSettingsClicked((settingsClicked) => !settingsClicked);
+    }
   }
 
   return (
