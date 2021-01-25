@@ -14,31 +14,50 @@ const App = () => {
   let theme = useTheme();
   const [homeButtons, setHomeButtons] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     fetch("https://my-json-server.typicode.com/serhatci/mockdb/buttons")
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(
+            "Sorry!... Something went terribly wrong, please tyr again later..."
+          );
+        }
+      })
       .then((data) => {
         setHomeButtons(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
         setLoading(false);
       });
   }, []);
 
-  const getMainPage = isLoading ? (
-    <div className="loading-container">
-      <LoadingIcon />
-    </div>
-  ) : (
-    <Main buttons={homeButtons} />
-  );
+  const getMainPage = () => {
+    if (isLoading) {
+      return (
+        <div className="loading-container">
+          <LoadingIcon />
+        </div>
+      );
+    } else if (error) {
+      return <div className="loading-container">{error.message}</div>;
+    } else {
+      return <Main buttons={homeButtons} />;
+    }
+  };
 
   return (
     <div className="app-container" id="app-container" style={theme.backg}>
       <header className="header">
         <Header />
       </header>
-      <main className="main-page">{getMainPage}</main>
+      <main className="main-page">{getMainPage()}</main>
       <SettingsProvider>
         <footer className="footer">
           <Footer />
