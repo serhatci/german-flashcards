@@ -29,7 +29,7 @@
 }
 
 @keyframes rotate {
-  20% {
+  0% {
     transform: rotate(0deg);
   }
   100% {
