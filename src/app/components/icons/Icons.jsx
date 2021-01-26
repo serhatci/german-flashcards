@@ -42,7 +42,7 @@ export const SettingsIcon = () => {
         ? "bi bi-x-circle-fill red icon"
         : "bi bi-gear-fill white icon";
     } else {
-      return "bi bi-gear-fill dark-red icon";
+      return "bi bi-gear-fill grey icon";
     }
   };
   return (
