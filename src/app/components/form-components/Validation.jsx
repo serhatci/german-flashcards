@@ -19,7 +19,7 @@ export const SignupValSchema = yup.object().shape({
   passconfirm: yup
     .string()
     .oneOf([yup.ref("password"), null], "*Passwords must match")
-    .required("*Confirmation Required"),
+    .required("*Required"),
 });
 
 export const resetPasswordValSchema = yup.object().shape({
