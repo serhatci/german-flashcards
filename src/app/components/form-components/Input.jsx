@@ -1,15 +1,19 @@
 import "./form.css";
+import { useField } from "formik";
 
-// Base component for deriving input elements
-const Input = (props) => {
+const Input = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
   return (
     <>
-      <li>
-        <label htmlFor={props.id}>{props.label}: </label>
-      </li>
-      <li>
-        <input type={props.type} id={props.id} name={props.id}></input>
-      </li>
+      <label htmlFor={props.id || props.name}>{label}</label>{" "}
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+      <input
+        className={meta.touched && meta.error ? "input-error" : ""}
+        {...field}
+        {...props}
+      />
     </>
   );
 };
