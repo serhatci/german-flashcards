@@ -22,10 +22,16 @@ const Login = () => {
         }}
         validationSchema={LoginValSchema}
         onSubmit={(values, { setSubmitting }) => {
-          login(values.email, values.password).catch((error) => {
-            let errorMessage = error.message;
-            setConnError(errorMessage);
-          });
+          login(values.email, values.password).then(
+            () => {
+              history.push("/");
+              setConnError("");
+            },
+            (error) => {
+              let errorMessage = error.message;
+              setConnError(errorMessage);
+            }
+          );
           setSubmitting(false);
         }}
       >
