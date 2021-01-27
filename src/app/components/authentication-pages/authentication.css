@@ -47,5 +47,15 @@ a {
 
 .auth-error {
   text-align: center;
-  color: red;
+  color: rgb(141, 5, 5);
+  font-size: large;
+  padding-bottom: 5px;
+}
+
+.auth-container > p {
+  text-align: center;
+  color: rgb(9, 109, 41);
+  font-size: x-large;
+  padding-top: 10%;
+  margin-bottom: 1em;
 }
