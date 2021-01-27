@@ -1,23 +1,46 @@
-import { Link } from "react-router-dom";
-import "./authentication.css";
-
+import { useState } from "react";
+import { Formik, Form } from "formik";
+import { SignupValSchema } from "../form-components/Validation";
+import { Link, useHistory } from "react-router-dom";
 import Input from "../form-components/Input";
-import Form from "../form-components/Form";
-import FormButton from "../form-components/FormButton";
+import "./authentication.css";
+import SubmitButton from "../form-components/SubmitButton";
+import { useAuth } from "../../contexts/AuthContext";
 
-export default function Signup() {
+const Signup = () => {
+  const { signup } = useAuth();
+  const [connError, setConnError] = useState("");
+  const history = useHistory();
+
   return (
-    <div className="auth-container fade-in">
-      <Form id="sign-up" method="post" legend="SIGN UP">
-        <Input label="Email" id="email" type="email" />
-        <Input label="Password" id="password" type="password" />
-        <Input
-          label="Confirm Password"
-          id="password-confirm"
-          type="password"
-        />
-        <FormButton title="Submit" type="submit" />
-      </Form>
+    <div className="auth-container">
+      <div className="auth-error">{connError}</div>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+          passconfirm: "",
+        }}
+        validationSchema={SignupValSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          signup(values.email, values.password).catch((error) => {
+            let errorMessage = error.message;
+            setConnError(errorMessage);
+          });
+          setSubmitting(false);
+        }}
+      >
+        <Form id="signup">
+          <Input label="Email:" name="email" type="email" key="email" />
+          <Input label="Password:" name="password" type="password" />
+          <Input
+            label="Confirm Password:"
+            name="passconfirm"
+            type="password"
+          />
+          <SubmitButton />
+        </Form>
+      </Formik>
       <div className="links-container">
         Already have an account?{" "}
         <Link to="/login">
@@ -26,4 +49,6 @@ export default function Signup() {
       </div>
     </div>
   );
-}
+};
+
+export default Signup;

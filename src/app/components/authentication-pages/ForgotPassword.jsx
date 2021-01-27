@@ -1,17 +1,41 @@
-import { Link } from "react-router-dom";
-import "./authentication.css";
-
+import { useState } from "react";
+import { Formik, Form } from "formik";
+import { resetPasswordValSchema } from "../form-components/Validation";
+import { Link, useHistory } from "react-router-dom";
 import Input from "../form-components/Input";
-import Form from "../form-components/Form";
-import FormButton from "../form-components/FormButton";
+import "./authentication.css";
+import SubmitButton from "../form-components/SubmitButton";
+import { useAuth } from "../../contexts/AuthContext";
 
-export default function ForgotPassword() {
+const ForgotPassword = () => {
+  const { resetPassword } = useAuth();
+  const [connError, setConnError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const history = useHistory();
+
   return (
-    <div className="auth-container fade-in">
-      <Form id="password-reset" method="post" legend="RESET PASSWORD">
-        <Input label="Email" id="email" type="email" />
-        <FormButton title="Submit" type="submit" />
-      </Form>
+    <div className="auth-container">
+      <div className="auth-error">{connError}</div>
+      <Formik
+        initialValues={{
+          email: "",
+        }}
+        validationSchema={resetPasswordValSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          resetPassword(values.email)
+            .then(setSuccess(true))
+            .catch((error) => {
+              let errorMessage = error.message;
+              setConnError(errorMessage);
+            });
+          setSubmitting(false);
+        }}
+      >
+        <Form id="reset-password">
+          <Input label="Email:" name="email" type="email" key="email" />
+          <SubmitButton />
+        </Form>
+      </Formik>
       <div className="links-container">
         Do you need to{" "}
         <Link to="/signup">
@@ -25,4 +49,6 @@ export default function ForgotPassword() {
       </div>
     </div>
   );
-}
+};
+
+export default ForgotPassword;

@@ -1,22 +1,44 @@
-import { Link } from "react-router-dom";
-import "./authentication.css";
-
+import { useState } from "react";
+import { Formik, Form } from "formik";
+import { LoginValSchema } from "../form-components/Validation";
+import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import Input from "../form-components/Input";
-import Form from "../form-components/Form";
-import FormButton from "../form-components/FormButton";
+import "./authentication.css";
+import SubmitButton from "../form-components/SubmitButton";
 
-export default function Login() {
+const Login = () => {
+  const { login } = useAuth();
+  const [connError, setConnError] = useState("");
+  const history = useHistory();
+
   return (
-    <div className="auth-container fade-in">
-      <Form id="login" method="post" legend="LOG IN">
-        <Input label="Email" id="email" type="email" />
-        <Input label="Password" id="password" type="password" />
-        <FormButton title="Submit" type="submit" />
-      </Form>
+    <div className="auth-container">
+      <div className="auth-error">{connError}</div>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={LoginValSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          login(values.email, values.password).catch((error) => {
+            let errorMessage = error.message;
+            setConnError(errorMessage);
+          });
+          setSubmitting(false);
+        }}
+      >
+        <Form id="login">
+          <Input label="Email:" name="email" type="email" key="email" />
+          <Input label="Password:" name="password" type="password" />
+          <SubmitButton />
+        </Form>
+      </Formik>
       <div className="links-container">
-        Do you need to{" "}
+        Do you need an account?{" "}
         <Link to="/signup">
-          <strong>Sign Up?</strong>
+          <strong>Sign Up</strong>
         </Link>
         <br></br>
         or did you{" "}
@@ -26,4 +48,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;
