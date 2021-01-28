@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import { resetPasswordValSchema } from "../form-components/Validation";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Input from "../form-components/Input";
 import "./authentication.css";
 import SubmitButton from "../form-components/SubmitButton";
