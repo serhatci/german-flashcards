@@ -36,7 +36,7 @@ const Login = () => {
         }}
       >
         <Form id="login">
-          <Input label="Email:" name="email" type="email" key="email" />
+          <Input label="Email:" name="email" type="email" />
           <Input label="Password:" name="password" type="password" />
           <SubmitButton />
         </Form>
