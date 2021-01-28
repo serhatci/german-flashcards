@@ -17,12 +17,12 @@ label {
 
 .error {
   display: inline;
-  color: red;
+  color: rgb(206, 17, 17);
   font-size: large;
 }
 
 input {
-  padding: 5px 10px;
+  padding: 5px 0px 5px 15px;
   margin: 5px 0px 15px;
   width: 100%;
 
@@ -34,7 +34,11 @@ input {
 }
 
 .input-error {
-  border: 2px solid #f86a0b;
+  box-shadow: inset 9px 0px 0px #f86a0b;
+}
+
+.input-success {
+  box-shadow: inset 9px 0px 0px #0bce0b;
 }
 
 input:hover,
