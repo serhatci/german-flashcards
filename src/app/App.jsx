@@ -20,13 +20,10 @@ const App = () => {
     setLoading(true);
     fetch("https://my-json-server.typicode.com/serhatci/mockdb/buttons")
       .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error(
-            "Sorry!... Something went terribly wrong, please tyr again later..."
-          );
-        }
+        if (response.ok) return response.json();
+        throw new Error(
+          "Sorry!... Something went terribly wrong, please tyr again later..."
+        );
       })
       .then((data) => {
         setHomeButtons(data);
@@ -47,9 +44,8 @@ const App = () => {
       );
     } else if (error) {
       return <div className="loading-container">{error.message}</div>;
-    } else {
-      return <Main buttons={homeButtons} />;
     }
+    return <Main buttons={homeButtons} />;
   };
 
   return (
