@@ -13,14 +13,13 @@ import { useAuth } from "./contexts/AuthContext";
 
 const App = () => {
   let theme = useTheme();
-  const [homeButtons, setHomeButtons] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { currentUser } = useAuth();
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://127.0.0.1:5000/api/topics", {
+    fetch("http://127.0.0.1:5000/api/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +33,9 @@ const App = () => {
         );
       })
       .then((data) => {
-        setHomeButtons(data);
+        for (let title in data) {
+          localStorage.setItem(title, JSON.stringify(data[title]));
+        }
         setLoading(false);
       })
       .catch((error) => {
@@ -53,7 +54,7 @@ const App = () => {
     } else if (error) {
       return <div className="loading-container">{error.message}</div>;
     }
-    return <Main buttons={homeButtons} />;
+    return <Main />;
   };
 
   return (
