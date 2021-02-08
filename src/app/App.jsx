@@ -9,20 +9,28 @@ import Main from "./components/main/Main.jsx";
 import Footer from "./components/header-footer/Footer.jsx";
 import Settings from "./components/settings-page/Settings.jsx";
 import { LoadingIcon } from "./components/icons/Icons.jsx";
+import { useAuth } from "./contexts/AuthContext";
 
 const App = () => {
   let theme = useTheme();
   const [homeButtons, setHomeButtons] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://my-json-server.typicode.com/serhatci/mockdb/buttons")
+    fetch("http://127.0.0.1:5000/api/topics", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ uid: currentUser ? currentUser.uid : "guest" }),
+    })
       .then((response) => {
         if (response.ok) return response.json();
         throw new Error(
-          "Sorry!... Something went terribly wrong, please tyr again later..."
+          "Sorry!... Something went terribly wrong, please try again later..."
         );
       })
       .then((data) => {
@@ -33,7 +41,7 @@ const App = () => {
         setError(error);
         setLoading(false);
       });
-  }, []);
+  }, [currentUser]);
 
   const getMainPage = () => {
     if (isLoading) {
