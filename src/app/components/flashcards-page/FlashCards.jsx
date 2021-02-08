@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./flash-cards.css";
 import { newWords } from "../../database/mock-db.js";
 import { FlipIcon, CorrectIcon, WrongIcon } from "../icons/Icons.jsx";
@@ -58,9 +58,9 @@ const PlayAgain = (props) => {
   );
 };
 
-class GameButtons extends React.Component {
-  getStyles = () =>
-    this.props.isCardAQuestion
+const GameButtons = (props) => {
+  function getStyles() {
+    return props.isCardAQuestion
       ? {
           correctButton: "hide",
           flipButton: "bi bi-arrow-repeat icon large rotate delayed",
@@ -71,120 +71,100 @@ class GameButtons extends React.Component {
           flipButton: "bi bi-arrow-repeat icon medium",
           wrongButton: "show fade-in bi bi-x-square-fill icon large",
         };
+  }
 
-  render() {
-    return (
-      <div className="card-buttons" id="card-buttons">
-        <div
-          className="flex-horizontal flex-width-400"
-          id="answer-buttons-container"
-        >
-          <CorrectIcon
-            func={this.props.bringNextWord}
-            styles={this.getStyles().correctButton}
-          />
-          <FlipIcon
-            func={this.props.changeCard}
-            styles={this.getStyles().flipButton}
-          />
-          <WrongIcon
-            func={this.props.bringNextWord}
-            styles={this.getStyles().wrongButton}
-          />
-        </div>
+  return (
+    <div className="card-buttons" id="card-buttons">
+      <div
+        className="flex-horizontal flex-width-400"
+        id="answer-buttons-container"
+      >
+        <CorrectIcon
+          func={props.bringNextWord}
+          styles={getStyles().correctButton}
+        />
+        <FlipIcon func={props.changeCard} styles={getStyles().flipButton} />
+        <WrongIcon
+          func={props.bringNextWord}
+          styles={getStyles().wrongButton}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-class FlashCards extends React.Component {
-  constructor(props) {
-    super(props);
-    this.data = this.pullData();
-    this.state = {
-      regularOrder: true,
-      isCardAQuestion: true,
-      progress: { total: 0, correctAnswer: 0, wrongAnswer: 0 },
-      completed: false,
-    };
-  }
+const FlashCards = () => {
+  const data = pullData();
 
-  pullData = () => {
+  const [regularOrder, setRegularOrder] = useState(true);
+  const [isCardAQuestion, setIsCardAQuestion] = useState(true);
+  const [progress, setProgress] = useState({
+    total: 0,
+    correctAnswer: 0,
+    wrongAnswer: 0,
+  });
+  const [completed, setCompleted] = useState(false);
+
+  function pullData() {
     return newWords;
-  };
-
-  getPage = () => {
-    if (this.state.completed) {
-      return [
-        <Score result={this.state.progress} />,
-        <PlayAgain func={this.restartGame} />,
-      ];
-    } else {
-      return [
-        <Words cardData={this.getCardData()} />,
-        <GameButtons
-          changeCard={this.changeGameState}
-          bringNextWord={this.bringNextWord}
-          isCardAQuestion={this.state.isCardAQuestion}
-        />,
-      ];
-    }
-  };
-
-  getCardData = () => {
-    let cardData = Object.values(this.data[this.state.progress.total]);
-    if (!this.state.regularOrder) {
-      cardData = [cardData[2], cardData[3], cardData[0], cardData[1]];
-    }
-    if (this.state.isCardAQuestion) {
-      return cardData.slice(0, 2);
-    } else {
-      return cardData.slice(2, 4);
-    }
-  };
-
-  changeGameState = () => {
-    let stateCopy = Object.assign({}, this.state);
-    stateCopy.isCardAQuestion = !stateCopy.isCardAQuestion;
-    this.setState(stateCopy);
-  };
-
-  bringNextWord = (answer) => {
-    let stateCopy = Object.assign({}, this.state);
-    stateCopy = this.countAnswers(answer, stateCopy);
-    stateCopy.isCardAQuestion = !stateCopy.isCardAQuestion;
-    stateCopy.progress.total = ++stateCopy.progress.total;
-    if (this.data.length === stateCopy.progress.total) {
-      stateCopy.completed = !stateCopy.completed;
-    }
-    this.setState(stateCopy);
-  };
-
-  countAnswers = (answer, stateCopy) => {
-    if (answer) {
-      stateCopy.progress.correctAnswer = ++stateCopy.progress.correctAnswer;
-    } else {
-      stateCopy.progress.wrongAnswer = ++stateCopy.progress.wrongAnswer;
-    }
-    return stateCopy;
-  };
-
-  restartGame = () => {
-    let stateCopy = Object.assign({}, this.state);
-    stateCopy.isCardAQuestion = true;
-    stateCopy.progress = { total: 0, correctAnswer: 0, wrongAnswer: 0 };
-    stateCopy.completed = false;
-    this.setState(stateCopy);
-  };
-
-  render() {
-    return (
-      <div className="flashcards-container fade-in">
-        {this.getPage()[0]}
-        {this.getPage()[1]}
-      </div>
-    );
   }
-}
+
+  function getPage() {
+    return completed
+      ? [<Score result={progress} />, <PlayAgain func={restartGame} />]
+      : [
+          <Words cardData={getCardData()} />,
+          <GameButtons
+            changeCard={reverseCards}
+            bringNextWord={bringNextWord}
+            isCardAQuestion={isCardAQuestion}
+          />,
+        ];
+  }
+
+  function getCardData() {
+    let cardData = Object.values(data[progress.total]);
+    cardData = regularOrder
+      ? cardData
+      : [cardData[2], cardData[3], cardData[0], cardData[1]];
+    return isCardAQuestion ? cardData.slice(0, 2) : cardData.slice(2, 4);
+  }
+
+  function reverseCards() {
+    setIsCardAQuestion(!isCardAQuestion);
+  }
+
+  function bringNextWord(answer) {
+    answer
+      ? setProgress({
+          total: ++progress.total,
+          correctAnswer: ++progress.correctAnswer,
+          wrongAnswer: progress.wrongAnswer,
+        })
+      : setProgress({
+          total: ++progress.total,
+          correctAnswer: progress.correctAnswer,
+          wrongAnswer: ++progress.wrongAnswer,
+        });
+
+    setIsCardAQuestion(!isCardAQuestion);
+    if (data.length === progress.total) {
+      setCompleted(!completed);
+    }
+  }
+
+  function restartGame() {
+    setIsCardAQuestion(true);
+    setProgress({ total: 0, correctAnswer: 0, wrongAnswer: 0 });
+    setCompleted(false);
+  }
+
+  return (
+    <div className="flashcards-container fade-in">
+      {getPage()[0]}
+      {getPage()[1]}
+    </div>
+  );
+};
 
 export default FlashCards;
