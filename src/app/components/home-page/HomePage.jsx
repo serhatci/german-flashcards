@@ -14,17 +14,20 @@ const WelcomeInfo = () => {
 
 const HomePage = (props) => {
   const theme = useTheme();
+  const buttonTitles = localStorage.getItem("titles")
+    ? JSON.parse(localStorage.getItem("titles"))
+    : [];
 
-  const createButtons = () => {
-    return props.buttons.map((item) => (
+  function createButtons() {
+    return buttonTitles.map((title) => (
       <Button
-        key={item}
-        title={item}
-        targetPage="/flashcards"
+        key={title[1]}
+        title={title[0]}
+        targetPage={"/flashcards/" + title[1]}
         style={theme.button}
       />
     ));
-  };
+  }
 
   return (
     <div className="home-page-container fade-in" id="app-homepage">
