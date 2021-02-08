@@ -2,13 +2,13 @@ import React from "react";
 import Button from "../buttons/HomePageButtons.jsx";
 import "./home-page.css";
 import { useTheme } from "../../contexts/ThemeContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const WelcomeInfo = () => {
-  const info =
-    "ENV: " +
-    process.env.NODE_ENV +
-    " ID: " +
-    process.env.REACT_APP_FIREBASE_PROJECT_ID;
+  const { currentUser } = useAuth();
+  const info = `ENV: ${process.env.NODE_ENV} ID: ${
+    currentUser ? currentUser.email : "none"
+  }`;
   return <p>{info}</p>;
 };
 
@@ -18,8 +18,8 @@ const HomePage = (props) => {
   const createButtons = () => {
     return props.buttons.map((item) => (
       <Button
-        key={item.title}
-        title={item.title}
+        key={item}
+        title={item}
         targetPage="/flashcards"
         style={theme.button}
       />
