@@ -10,15 +10,11 @@ import PrivateRoute from "../authentication-pages/PrivateRoute";
 import ForgotPassword from "../authentication-pages/ForgotPassword";
 import UpdateProfile from "../authentication-pages/UpdateProfile";
 
-const Main = (props) => {
+const Main = () => {
   return (
     <Switch>
-      <Route
-        path="/"
-        exact
-        render={() => <HomePage buttons={props.buttons} />}
-      />
-      <Route path="/flashcards" component={FlashCards} />
+      <Route path="/" exact component={HomePage} />
+      <Route path="/flashcards/:title" component={FlashCards} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
       <PrivateRoute path="/update-profile" component={UpdateProfile} />
       <Route path="/signup" component={Signup} />
