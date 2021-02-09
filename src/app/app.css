@@ -110,6 +110,10 @@ footer {
   color: rgb(122, 2, 2);
 }
 
+.dark-blue {
+  color: rgb(21, 77, 122);
+}
+
 .fade-in {
   opacity: 1;
   animation-name: fadeInOpacity;
