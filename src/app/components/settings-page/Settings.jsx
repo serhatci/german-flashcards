@@ -11,11 +11,7 @@ const Settings = () => {
 
   // setting is disabled at authorization pages
   const getStyle = (clicked) => {
-    if (loc.pathname === "/" || loc.pathname === "/flashcards") {
-      return clicked ? "settings-wrapper show" : "settings-wrapper hide";
-    } else {
-      return "settings-wrapper hide";
-    }
+    return clicked ? "settings-wrapper show" : "settings-wrapper hide";
   };
 
   return (
