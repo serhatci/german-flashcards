@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./flash-cards.css";
 import { Words, Score, PlayAgain, GameButtons } from "./Flashcards-components";
+import { useShuffle } from "../../contexts/ShuffleContext";
 
 const FlashCards = (props) => {
   const data = JSON.parse(localStorage.getItem(props.match.params.title));
 
-  const [regularOrder, setRegularOrder] = useState(true);
+  const regularOrder = useShuffle();
   const [isCardAQuestion, setIsCardAQuestion] = useState(true);
   const [progress, setProgress] = useState({
     total: 0,
