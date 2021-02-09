@@ -2,7 +2,7 @@ import "./icons.css";
 import { useLocation } from "react-router-dom";
 
 import { useUser, useUserUpdate } from "../../contexts/UserContext";
-import { useVolume, useVolumeUpdate } from "../../contexts/VolumeContext";
+import { useShuffle, useShuffleUpdate } from "../../contexts/ShuffleContext";
 import { useTheme, useThemeUpdate } from "../../contexts/ThemeContext";
 import {
   useSettings,
@@ -54,17 +54,17 @@ export const SettingsIcon = () => {
   );
 };
 
-export const VolumeIcon = () => {
-  const user = useVolume();
-  const iconType = user
-    ? "bi bi-volume-mute-fill dark-red icon medium"
-    : "bi bi-volume-up-fill white icon medium";
+export const ShuffleIcon = () => {
+  const shuffle = useShuffle();
+  const iconType = shuffle
+    ? "bi bi-shuffle dark-blue icon adjusted"
+    : "bi bi-shuffle white icon adjusted";
   return (
     <i
       className={iconType}
-      id="volume-icon"
-      alt="volume"
-      onClick={useVolumeUpdate()}
+      id="shuffle-icon"
+      alt="shuffle"
+      onClick={useShuffleUpdate()}
     ></i>
   );
 };
@@ -74,7 +74,7 @@ export const ThemeIcon = () => {
   const iconType =
     theme.name === "Night"
       ? "bi bi-brightness-high white icon adjusted"
-      : "bi bi-moon white icon adjusted";
+      : "bi bi-moon dark-blue icon adjusted";
 
   return (
     <i
