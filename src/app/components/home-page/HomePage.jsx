@@ -21,9 +21,9 @@ const HomePage = (props) => {
   function createButtons() {
     return buttonTitles.map((title) => (
       <Button
-        key={title[1]}
-        title={title[0]}
-        targetPage={"/flashcards/" + title[1]}
+        key={title.camelCase}
+        title={title.str}
+        targetPage={"/flashcards/" + title.camelCase}
         style={theme.button}
       />
     ));
