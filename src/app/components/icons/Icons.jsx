@@ -24,10 +24,24 @@ export const UserIcon = () => {
     : "bi bi-person-fill white icon";
 
   const targetPath = currentUser ? "/logout" : "/login";
+  const theme = useTheme();
+  const updateTheme = useThemeUpdate();
+  const settingsClicked = useSettings();
+  const updateSettingsClicked = useSettingsUpdate();
+
+  function setThemeToDay() {
+    if (theme.name === "Night") updateTheme();
+    if (settingsClicked) updateSettingsClicked();
+  }
 
   return (
     <Link to={targetPath}>
-      <i id="user-icon" alt="user" className={iconType}></i>
+      <i
+        id="user-icon"
+        alt="user"
+        className={iconType}
+        onClick={setThemeToDay}
+      ></i>
     </Link>
   );
 };
