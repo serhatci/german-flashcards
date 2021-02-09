@@ -15,6 +15,12 @@ const FlashCards = (props) => {
   const [completed, setCompleted] = useState(false);
 
   function getPage() {
+    if (!data.length) {
+      return [
+        <Words cardData={["Empty!", "Use settings to add new flashcards"]} />,
+        [],
+      ];
+    }
     return completed
       ? [<Score result={progress} />, <PlayAgain func={restartGame} />]
       : [
