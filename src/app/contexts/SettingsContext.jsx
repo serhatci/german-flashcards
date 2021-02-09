@@ -18,7 +18,7 @@ export function SettingsProvider({ children }) {
 
   // settings are disabled at authorization pages
   function settingsHandler() {
-    if (loc.pathname === "/" || loc.pathname === "/flashcards") {
+    if (loc.pathname === "/" || loc.pathname.includes("flashcards")) {
       setSettingsClicked((settingsClicked) => !settingsClicked);
     }
   }
