@@ -37,14 +37,13 @@ export const SettingsIcon = () => {
 
   // Settings are disabled at authorization pages
   const iconType = () => {
-    if (loc.pathname === "/" || loc.pathname === "/flashcards") {
+    if (loc.pathname === "/" || loc.pathname.includes("flashcards"))
       return clicked
         ? "bi bi-x-circle-fill red icon"
         : "bi bi-gear-fill white icon";
-    } else {
-      return "bi bi-gear-fill grey icon";
-    }
+    return "bi bi-gear-fill grey icon";
   };
+
   return (
     <i
       className={iconType()}
