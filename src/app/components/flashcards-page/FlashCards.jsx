@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./flash-cards.css";
-import { newWords } from "../../database/mock-db.js";
 import { Words, Score, PlayAgain, GameButtons } from "./Flashcards-components";
 
-const FlashCards = () => {
-  const data = pullData();
+const FlashCards = (props) => {
+  const data = JSON.parse(localStorage.getItem(props.match.params.title));
 
   const [regularOrder, setRegularOrder] = useState(true);
   const [isCardAQuestion, setIsCardAQuestion] = useState(true);
@@ -14,10 +13,6 @@ const FlashCards = () => {
     wrongAnswer: 0,
   });
   const [completed, setCompleted] = useState(false);
-
-  function pullData() {
-    return newWords;
-  }
 
   function getPage() {
     return completed
