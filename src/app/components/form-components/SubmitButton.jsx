@@ -1,9 +1,9 @@
 import "./form.css";
 
-const SubmitButton = ({ label, ...props }) => {
+const SubmitButton = () => {
   return (
     <>
-      <button type="submit" className="auth-button">
+      <button type="submit" className="auth-button" id="submit">
         Submit
       </button>
     </>
