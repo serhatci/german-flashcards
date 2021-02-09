@@ -23,7 +23,7 @@ export const UserIcon = () => {
     ? "bi bi-person-check-fill dark-green icon"
     : "bi bi-person-fill white icon";
 
-  const targetPath = currentUser ? "/update-profile" : "/login";
+  const targetPath = currentUser ? "/logout" : "/login";
 
   return (
     <Link to={targetPath}>
