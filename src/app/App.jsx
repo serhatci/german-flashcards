@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SettingsProvider } from "./contexts/SettingsContext";
+import { ShuffleProvider } from "./contexts/ShuffleContext";
 import { useTheme } from "./contexts/ThemeContext";
 import "./app.css";
 
@@ -58,18 +59,22 @@ const App = () => {
   };
 
   return (
-    <div className="app-container" id="app-container" style={theme.backg}>
-      <header className="header">
-        <Header />
-      </header>
-      <main className="main-page">{getMainPage()}</main>
+    <ShuffleProvider>
       <SettingsProvider>
-        <footer className="footer">
-          <Footer />
-        </footer>
-        <Settings />
+        <div className="app-container" id="app-container" style={theme.backg}>
+          <header className="header">
+            <Header />
+          </header>
+
+          <main className="main-page">{getMainPage()}</main>
+
+          <footer className="footer">
+            <Footer />
+          </footer>
+          <Settings />
+        </div>
       </SettingsProvider>
-    </div>
+    </ShuffleProvider>
   );
 };
 
