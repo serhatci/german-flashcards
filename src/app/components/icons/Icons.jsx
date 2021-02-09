@@ -1,7 +1,7 @@
 import "./icons.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
-import { useUser, useUserUpdate } from "../../contexts/UserContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useShuffle, useShuffleUpdate } from "../../contexts/ShuffleContext";
 import { useTheme, useThemeUpdate } from "../../contexts/ThemeContext";
 import {
@@ -11,23 +11,24 @@ import {
 
 export const HomeIcon = () => {
   return (
-    <i id="home-icon" alt="home" className="bi bi-house-fill white icon"></i>
+    <Link to="/">
+      <i id="home-icon" alt="home" className="bi bi-house-fill white icon"></i>
+    </Link>
   );
 };
 
 export const UserIcon = () => {
-  let user = useUser();
-  const iconType = user
+  const { currentUser } = useAuth();
+  const iconType = currentUser
     ? "bi bi-person-check-fill dark-green icon"
     : "bi bi-person-fill white icon";
 
+  const targetPath = currentUser ? "/update-profile" : "/login";
+
   return (
-    <i
-      id="user-icon"
-      alt="user"
-      className={iconType}
-      onClick={useUserUpdate()}
-    ></i>
+    <Link to={targetPath}>
+      <i id="user-icon" alt="user" className={iconType}></i>
+    </Link>
   );
 };
 
