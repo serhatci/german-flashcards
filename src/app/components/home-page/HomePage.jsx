@@ -8,39 +8,47 @@ import { LoadingIcon } from "../icons/Icons.jsx";
 
 const WelcomeInfo = () => {
   const { currentUser } = useAuth();
-  const env = process.env.NODE_ENV
   const user = currentUser ? currentUser.email : "none";
+  const env = process.env.NODE_ENV
   return <p>{`ENV: ${env} ID: ${user}`}</p>;
 };
 
-const HomePage = (props) => {
+const MessageBoard = (props) => {
+  return (
+    <div className="loading-container">
+      {props.loading ? <LoadingIcon /> : props.error.message}
+    </div>
+  );
+}
+
+const HomePage = () => {
   const theme = useTheme();
   const { currentUser } = useAuth();
+
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [buttonTitles, setButtonTitles] = useState([]);
 
   useEffect(() => {
+    if (localStorage.getItem("titles")) return setButtons()
+
+    const uid = { uid: currentUser ? currentUser.uid : "guest" }
     const headers = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ uid: currentUser ? currentUser.uid : "guest" }),
+      body: JSON.stringify(uid),
     };
 
-    if (!localStorage.getItem("titles")) {
-      setLoading(true);
+    setLoading(true);
+    fetch("http://127.0.0.1:5000/api/", headers)
+      .then((response) => resolveResponse(response))
+      .then((data) => {
+        addLocalStorage(data);
+        setButtons()
+      })
+      .finally(() => setLoading(false))
+      .catch((error) => setError(error));
 
-      fetch("http://127.0.0.1:5000/api/", headers)
-        .finally(() => setLoading(false))
-        .then((response) => resolveResponse(response))
-        .then((data) => {
-          addLocalStorage(data);
-          setButtons();
-        })
-        .catch((error) => setError(error));
-    } else {
-      setButtons();
-    }
   }, [currentUser]);
 
   function resolveResponse(response) {
@@ -70,20 +78,11 @@ const HomePage = (props) => {
   }
 
   function getMainPage() {
-    if (isLoading || error) {
-      return (
-        <div className="loading-container">
-          {isLoading ? <LoadingIcon /> : error.message}
-        </div>
-      );
-    }
+    if (isLoading || error) return <MessageBoard loading={isLoading} error={error} />
+
     return (
       <>
-        <div
-          className="welcome-info"
-          id="app-welcome-info"
-          style={theme.welcome}
-        >
+        <div style={theme.welcome} className="welcome-info" id="welcome-info">
           <WelcomeInfo />
         </div>
         <div className="button-container" id="button-container">
