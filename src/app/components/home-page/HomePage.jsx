@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import "./home-page.css";
-import Button from "../buttons/HomePageButtons.jsx";
+import Button from "../buttons/HomePageButtons";
 import { useTheme } from "../../contexts/ThemeContext";
 import { useAuth } from "../../contexts/AuthContext";
-import { LoadingIcon } from "../icons/Icons.jsx";
+import { LoadingIcon } from "../icons/Icons";
 
 const WelcomeInfo = () => {
   const { currentUser } = useAuth();
@@ -16,7 +16,7 @@ const WelcomeInfo = () => {
 const MessageBoard = (props) => {
   return (
     <div className="loading-container">
-      {props.loading ? <LoadingIcon /> : props.error.message}
+      {props.loading ? <LoadingIcon /> : props.error}
     </div>
   );
 }
@@ -41,26 +41,19 @@ const HomePage = () => {
 
     setLoading(true);
     fetch("http://127.0.0.1:5000/api/", headers)
-      .then((response) => resolveResponse(response))
+      .then((response) => response.json())
       .then((data) => {
-        addLocalStorage(data);
+        if (!data.titles) throw new Error(data.message)
+        for (let title in data) {
+          localStorage.setItem(title, JSON.stringify(data[title]))
+        };
         setButtons()
       })
-      .finally(() => setLoading(false))
-      .catch((error) => setError(error));
+      .catch((error) => setError(error.message))
+      .finally(() => setLoading(false));
 
   }, [currentUser]);
 
-  function resolveResponse(response) {
-    if (response.status === 401) return { titles: [] };
-    return response.json();
-  }
-
-  function addLocalStorage(data) {
-    for (let title in data) {
-      localStorage.setItem(title, JSON.stringify(data[title]));
-    }
-  }
 
   function setButtons() {
     setButtonTitles(JSON.parse(localStorage.getItem("titles")));
