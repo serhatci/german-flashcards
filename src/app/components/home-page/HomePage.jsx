@@ -32,11 +32,11 @@ const HomePage = () => {
   useEffect(() => {
     if (localStorage.getItem("titles")) return setButtons()
 
-    const uid = { uid: currentUser ? currentUser.uid : "guest" }
     const headers = {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify(uid),
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "Authentication": currentUser ? currentUser.uid : "guest"
+      },
     };
 
     setLoading(true);
