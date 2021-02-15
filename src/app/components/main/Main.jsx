@@ -9,7 +9,7 @@ import Login from "../authentication-pages/Login";
 import Logout from "../authentication-pages/Logout";
 import PrivateRoute from "../authentication-pages/PrivateRoute";
 import ForgotPassword from "../authentication-pages/ForgotPassword";
-import UpdateProfile from "../authentication-pages/UpdateProfile";
+import UpdatePassword from "../authentication-pages/UpdatePassword";
 
 const Main = () => {
   return (
@@ -17,7 +17,7 @@ const Main = () => {
       <Route path="/" exact component={HomePage} />
       <Route path="/flashcards/:title" component={FlashCards} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
-      <PrivateRoute path="/update-profile" component={UpdateProfile} />
+      <PrivateRoute path="/update-profile" component={UpdatePassword} />
       <Route path="/signup" component={Signup} />
       <Route path="/login" component={Login} />
       <Route path="/logout" component={Logout} />
