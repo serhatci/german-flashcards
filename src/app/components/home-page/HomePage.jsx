@@ -7,10 +7,13 @@ import { useAuth } from "../../contexts/AuthContext";
 import { LoadingIcon } from "../icons/Icons";
 
 const WelcomeInfo = () => {
-  const { currentUser } = useAuth();
-  const user = currentUser ? currentUser.email : "none";
+  let username = JSON.parse(localStorage.getItem("username"))
   const env = process.env.NODE_ENV
-  return <p>{`ENV: ${env} ID: ${user}`}</p>;
+
+  if (username === "master") return <p>{`(${env}) 
+  Hello Guest! You can signup and have your own flashcards`}</p>;
+  return <p>{`(${env}) Hello ${username}! 
+  Use settings button to create your own flashcards.`}</p>;
 };
 
 const MessageBoard = (props) => {
