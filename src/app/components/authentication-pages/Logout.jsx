@@ -12,6 +12,7 @@ const Logout = () => {
     logout().then(
       () => {
         setConnError("");
+        localStorage.clear()
         history.push("/");
       },
       (error) => {
