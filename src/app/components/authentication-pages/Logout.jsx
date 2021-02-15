@@ -6,18 +6,30 @@ import { useAuth } from "../../contexts/AuthContext";
 const Logout = () => {
   const { logout } = useAuth();
   const [connError, setConnError] = useState("");
+  const [success, setSuccess] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    if (!success) return
+
+    var timer = setTimeout(() => {
+      history.push("/");
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [success, history])
 
   function logoutClicked() {
     logout().then(
       () => {
         setConnError("");
         localStorage.clear()
-        history.push("/");
+        setSuccess(true)
       },
       (error) => {
         let errorMessage = error.message;
         setConnError(errorMessage);
+        setSuccess(false)
       }
     );
   }
@@ -42,10 +54,14 @@ const Logout = () => {
     );
   }
 
+  function successMessage() {
+    return <p className="success-message">You have successfully logged out!</p>;
+  }
+
   return (
     <div className="auth-container">
       <div className="auth-error">{connError}</div>
-      {logoutPage()}
+      {success ? successMessage() : logoutPage()}
     </div>
   );
 };
