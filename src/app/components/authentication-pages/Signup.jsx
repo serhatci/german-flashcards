@@ -19,15 +19,12 @@ const Signup = () => {
     var timer = setTimeout(() => {
       history.push("/");
     }, 2000);
-
     return () => clearTimeout(timer);
-
   }, [history, success]);
 
   function signupForm() {
     async function submitForm(values, setSubmitting) {
       setConnError("")
-
       try {
         var newUser = await signup(values.email, values.password)
       } catch (err) {
@@ -49,7 +46,7 @@ const Signup = () => {
     }
 
     async function addUserToDB(newUser, username) {
-      let response = await fetch("http://127.0.0.1:5000/api/add-user", {
+      const response = await fetch("http://127.0.0.1:5000/api/add-user", {
         method: "POST",
         headers: { "Content-Type": "application/json;charset=utf-8" },
         body: JSON.stringify({
@@ -62,13 +59,11 @@ const Signup = () => {
       if (response.ok) {
         localStorage.clear();
         setSuccess(true);
-      }
-      else {
-        let err = await response.json()
+      } else {
+        const err = await response.json()
         throw new Error(err.message)
       }
     }
-
 
     return (
       <>
