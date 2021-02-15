@@ -19,7 +19,7 @@ a {
   text-align: center;
   color: rgb(141, 5, 5);
   font-size: large;
-  padding-bottom: 5px;
+  padding-bottom: 1em;
 }
 
 .auth-container > p {
