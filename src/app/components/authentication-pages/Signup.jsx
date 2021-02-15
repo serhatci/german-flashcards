@@ -8,53 +8,78 @@ import SubmitButton from "../form-components/SubmitButton";
 import { useAuth } from "../../contexts/AuthContext";
 
 const Signup = () => {
-  const { signup } = useAuth();
+  const { signup, logout, currentUser } = useAuth();
   const [connError, setConnError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [username, setUsername] = useState()
   const history = useHistory();
 
-  // if success, redirect to home page
   useEffect(() => {
-    if (success) {
-      const timer = setTimeout(() => {
+    if (!currentUser) return
+
+    try {
+      addUserToDB()
+      var timer = setTimeout(() => {
         history.push("/");
-      }, 3000);
-      return () => clearTimeout(timer);
+      }, 2000);
+    } catch (err) {
+      setConnError(err.message);
+      setSuccess(false);
     }
-  }, [success, history]);
+    return () => clearTimeout(timer);
+
+    function addUserToDB() {
+      fetch("http://127.0.0.1:5000/api/add-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json;charset=utf-8" },
+        body: JSON.stringify({
+          id: currentUser.uid,
+          username: username,
+          email: currentUser.email,
+        }).then(() => {
+          localStorage.clear();
+          setSuccess(true)
+        })
+      }).catch((err) => {
+        logout()
+        throw new Error(err)
+      })
+    }
+  }, [history, username, currentUser, logout]);
 
   function signupForm() {
+
+    async function submitForm(values, setSubmitting) {
+      try {
+        await signup(values.email, values.password)
+        setUsername(values.username)
+      } catch (err) {
+        setConnError(err.message);
+        setSuccess(false);
+      };
+      setSubmitting(true)
+    }
+
     return (
       <>
-        {" "}
         <Formik
           initialValues={{
+            username: "",
             email: "",
             password: "",
-            passconfirm: "",
+            passConfirm: "",
           }}
           validationSchema={SignupValSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            signup(values.email, values.password).then(
-              () => {
-                setSuccess(true);
-                setConnError("");
-              },
-              (error) => {
-                let errorMessage = error.message;
-                setConnError(errorMessage);
-                setSuccess(false);
-              }
-            );
-            setSubmitting(false);
-          }}
+          onSubmit={(values, { setSubmitting }) => submitForm(values, { setSubmitting })
+          }
         >
           <Form id="signup">
-            <Input label="Email:" name="email" type="email" key="email" />
+            <Input label="User Name:" name="username" type="text" />
+            <Input label="Email:" name="email" type="email" />
             <Input label="Password:" name="password" type="password" />
             <Input
               label="Confirm Password:"
-              name="passconfirm"
+              name="passConfirm"
               type="password"
             />
             <SubmitButton />
