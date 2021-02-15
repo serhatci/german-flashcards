@@ -8,57 +8,67 @@ import SubmitButton from "../form-components/SubmitButton";
 import { useAuth } from "../../contexts/AuthContext";
 
 const Signup = () => {
-  const { signup, logout, currentUser } = useAuth();
+  const { signup, deleteUser } = useAuth();
   const [connError, setConnError] = useState("");
   const [success, setSuccess] = useState(false);
-  const [username, setUsername] = useState()
   const history = useHistory();
 
   useEffect(() => {
-    if (!currentUser) return
+    if (!success) return
 
-    try {
-      addUserToDB()
-      var timer = setTimeout(() => {
-        history.push("/");
-      }, 2000);
-    } catch (err) {
-      setConnError(err.message);
-      setSuccess(false);
-    }
+    var timer = setTimeout(() => {
+      history.push("/");
+    }, 2000);
+
     return () => clearTimeout(timer);
 
-    function addUserToDB() {
-      fetch("http://127.0.0.1:5000/api/add-user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json;charset=utf-8" },
-        body: JSON.stringify({
-          id: currentUser.uid,
-          username: username,
-          email: currentUser.email,
-        }).then(() => {
-          localStorage.clear();
-          setSuccess(true)
-        })
-      }).catch((err) => {
-        logout()
-        throw new Error(err)
-      })
-    }
-  }, [history, username, currentUser, logout]);
+  }, [history, success]);
 
   function signupForm() {
-
     async function submitForm(values, setSubmitting) {
+      setConnError("")
+
       try {
-        await signup(values.email, values.password)
-        setUsername(values.username)
+        var newUser = await signup(values.email, values.password)
       } catch (err) {
         setConnError(err.message);
         setSuccess(false);
       };
+
+      if (!newUser.user) return
+
+      try {
+        await addUserToDB(newUser.user, values.username)
+      } catch (err) {
+        await deleteUser(newUser.user);
+        setConnError(err.message);
+        setSuccess(false);
+      };
+
       setSubmitting(true)
     }
+
+    async function addUserToDB(newUser, username) {
+      let response = await fetch("http://127.0.0.1:5000/api/add-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json;charset=utf-8" },
+        body: JSON.stringify({
+          id: newUser.uid,
+          username: username,
+          email: newUser.email,
+        })
+      })
+
+      if (response.ok) {
+        localStorage.clear();
+        setSuccess(true);
+      }
+      else {
+        let err = await response.json()
+        throw new Error(err.message)
+      }
+    }
+
 
     return (
       <>
@@ -70,7 +80,7 @@ const Signup = () => {
             passConfirm: "",
           }}
           validationSchema={SignupValSchema}
-          onSubmit={(values, { setSubmitting }) => submitForm(values, { setSubmitting })
+          onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)
           }
         >
           <Form id="signup">
