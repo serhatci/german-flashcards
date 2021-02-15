@@ -47,7 +47,7 @@ const Logout = () => {
         </button>
         <Link to="/update-profile">
           <div className="auth-button but-logout" id="Update Profile">
-            Update Profile
+            Update Password
           </div>
         </Link>
       </>
