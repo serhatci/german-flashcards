@@ -73,7 +73,7 @@ const DeleteView = (props) => {
       type="button"
       className="auth-button but-userpage"
       id="delete-button"
-      onClick={props.question(false)}>
+      onClick={() => props.question(true)}>
       Delete Account
     </button>
   );
@@ -84,12 +84,12 @@ const QuestionView = (props) => {
     <>
       <button
         className="fade-in question-buttons but-delete"
-        onClick={props.delete()}>
+        onClick={() => props.delete()}>
         DELETE
       </button>
       <button
         className="fade-in question-buttons"
-        onClick={props.question(false)}>
+        onClick={() => props.question(false)}>
         CANCEL
       </button>
     </>
