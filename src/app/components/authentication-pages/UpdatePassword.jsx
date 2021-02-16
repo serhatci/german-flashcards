@@ -51,7 +51,7 @@ const UpdatePassword = () => {
           </Form>
         </Formik>
         <div className="links-container">
-          <Link to="/logout">
+          <Link to="/user-page">
             <strong>GO BACK</strong>
           </Link>
         </div>
