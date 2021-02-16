@@ -27,7 +27,7 @@ const UserPage = () => {
     return (
       <>
         <LogoutButton err={setConnError} msg={setSuccessMessage} />
-        <Link to="/update-profile">
+        <Link to="/update-password">
           <UpdatePasswordButton />
         </Link>
         <DeleteAccountButton err={setConnError} msg={setSuccessMessage} />
