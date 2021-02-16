@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { LogoutButton, DeleteAccountButton, UpdatePasswordButton } from "../buttons/UserPageButtons"
+
+import {
+  LogoutButton,
+  DeleteAccountButton,
+  UpdatePasswordButton,
+} from "../buttons/UserPageButtons";
 import "./authentication.css";
 
 const UserPage = () => {
@@ -9,14 +14,14 @@ const UserPage = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (!successMessage) return
+    if (!successMessage) return;
 
     var timer = setTimeout(() => {
       history.push("/");
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [successMessage, history])
+  }, [successMessage, history]);
 
   function userPageView() {
     return (
