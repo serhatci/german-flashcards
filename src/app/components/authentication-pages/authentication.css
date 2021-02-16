@@ -5,6 +5,10 @@
   margin: auto;
 }
 
+.auth-center {
+  text-align: center;
+}
+
 .links-container {
   padding-top: 2em;
   line-height: 3em;
