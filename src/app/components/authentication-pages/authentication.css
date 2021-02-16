@@ -20,10 +20,13 @@ a {
 }
 
 .auth-error {
-  text-align: center;
+  margin: auto;
+  padding-bottom: 1em;
+  max-width: 400px;
+
   color: rgb(141, 5, 5);
   font-size: large;
-  padding-bottom: 1em;
+  text-align: center;
 }
 
 .auth-container > p {
