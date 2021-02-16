@@ -6,7 +6,7 @@ import FlashCards from "../flashcards-page/FlashCards.jsx";
 import Signup from "../authentication-pages/Signup";
 import Dashboard from "../authentication-pages/Dashboard";
 import Login from "../authentication-pages/Login";
-import Logout from "../authentication-pages/Logout";
+import UserPage from "../authentication-pages/UserPage";
 import PrivateRoute from "../authentication-pages/PrivateRoute";
 import ForgotPassword from "../authentication-pages/ForgotPassword";
 import UpdatePassword from "../authentication-pages/UpdatePassword";
@@ -20,7 +20,7 @@ const Main = () => {
       <PrivateRoute path="/update-profile" component={UpdatePassword} />
       <Route path="/signup" component={Signup} />
       <Route path="/login" component={Login} />
-      <Route path="/logout" component={Logout} />
+      <Route path="/user-page" component={UserPage} />
       <Route path="/forgot-password" component={ForgotPassword} />
     </Switch>
   );
