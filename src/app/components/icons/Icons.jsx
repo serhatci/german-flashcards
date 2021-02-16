@@ -23,7 +23,7 @@ export const UserIcon = () => {
     ? "bi bi-person-check-fill dark-green icon"
     : "bi bi-person-fill white icon";
 
-  const targetPath = currentUser ? "/logout" : "/login";
+  const targetPath = currentUser ? "/user-page" : "/login";
   const theme = useTheme();
   const updateTheme = useThemeUpdate();
   const settingsClicked = useSettings();
