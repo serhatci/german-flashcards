@@ -6,24 +6,6 @@ import { useTheme } from "../../contexts/ThemeContext";
 import { useAuth } from "../../contexts/AuthContext";
 import { LoadingIcon } from "../icons/Icons";
 
-const WelcomeInfo = () => {
-  let username = JSON.parse(localStorage.getItem("username"))
-  const env = process.env.NODE_ENV
-
-  if (username === "master") return <p>{`(${env}) 
-  Hello Guest! You can signup and have your own flashcards`}</p>;
-  return <p>{`(${env}) Hello ${username}! 
-  Use settings button to create your own flashcards.`}</p>;
-};
-
-const MessageBoard = (props) => {
-  return (
-    <div className="loading-container">
-      {props.loading ? <LoadingIcon /> : props.error}
-    </div>
-  );
-}
-
 const HomePage = () => {
   const theme = useTheme();
   const { currentUser } = useAuth();
@@ -33,12 +15,12 @@ const HomePage = () => {
   const [buttonTitles, setButtonTitles] = useState([]);
 
   useEffect(() => {
-    if (localStorage.getItem("titles")) return setButtons()
+    if (localStorage.getItem("titles")) return setButtons();
 
     const headers = {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        "Authentication": currentUser ? currentUser.uid : "guest"
+        Authentication: currentUser ? currentUser.uid : "guest",
       },
     };
 
@@ -46,17 +28,15 @@ const HomePage = () => {
     fetch("http://127.0.0.1:5000/api/", headers)
       .then((response) => response.json())
       .then((data) => {
-        if (!data.titles) throw new Error(data.message)
+        if (!data.titles) throw new Error(data.message);
         for (let title in data) {
-          localStorage.setItem(title, JSON.stringify(data[title]))
-        };
-        setButtons()
+          localStorage.setItem(title, JSON.stringify(data[title]));
+        }
+        setButtons();
       })
       .catch((error) => setError(error.message))
       .finally(() => setLoading(false));
-
   }, [currentUser]);
-
 
   function setButtons() {
     setButtonTitles(JSON.parse(localStorage.getItem("titles")));
@@ -73,24 +53,50 @@ const HomePage = () => {
     ));
   }
 
-  function getMainPage() {
-    if (isLoading || error) return <MessageBoard loading={isLoading} error={error} />
-
-    return (
-      <>
-        <div style={theme.welcome} className="welcome-info" id="welcome-info">
-          <WelcomeInfo />
-        </div>
-        <div className="button-container" id="button-container">
-          <nav aria-labelledby="content-navigation">{createButtons()}</nav>
-        </div>
-      </>
-    );
-  }
-
   return (
     <div className="home-page-container fade-in" id="app-homepage">
-      {getMainPage()}
+      {isLoading || error ? (
+        <MessageBoard loading={isLoading} error={error} />
+      ) : (
+        <MainPage create={createButtons} theme={theme} />
+      )}
+    </div>
+  );
+};
+
+const MainPage = (props) => {
+  return (
+    <>
+      <div
+        style={props.theme.welcome}
+        className="welcome-info"
+        id="welcome-info">
+        <WelcomeInfo />
+      </div>
+      <div className="button-container" id="button-container">
+        <nav aria-labelledby="content-navigation">{props.create()}</nav>
+      </div>
+    </>
+  );
+};
+
+const WelcomeInfo = () => {
+  let username = JSON.parse(localStorage.getItem("username"));
+  const env = process.env.NODE_ENV;
+
+  if (username === "master")
+    return (
+      <p>{`(${env}) Hello Guest! You can signup and have your own flashcards`}</p>
+    );
+  return (
+    <p>{`(${env}) Hello ${username}! Use settings button to create your own flashcards.`}</p>
+  );
+};
+
+const MessageBoard = (props) => {
+  return (
+    <div className="loading-container">
+      {props.loading ? <LoadingIcon /> : props.error}
     </div>
   );
 };
