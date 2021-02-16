@@ -24,3 +24,61 @@
   box-shadow: -1px -1px rgb(169, 177, 171) inset;
   text-decoration: none;
 }
+
+.auth-button {
+  display: block;
+  margin: 15px auto 0px;
+  padding: 2% 10%;
+
+  border-radius: 6px;
+  border: 1px solid #2c2a2a;
+
+  font-size: large;
+  font-weight: bolder;
+  color: rgb(228, 236, 230);
+  background-color: rgb(114, 143, 133);
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.auth-button:hover {
+  box-shadow: -2px -2px 5px rgb(157, 167, 159) inset;
+  border-color: rgb(246, 247, 248);
+
+  color: aliceblue;
+}
+
+.auth-button:disabled {
+  box-shadow: -2px -2px 5px rgb(157, 167, 159) inset;
+  border-color: rgb(246, 247, 248);
+
+  color: rgb(5, 5, 5);
+}
+
+.but-userpage {
+  padding: 0.8em;
+  margin: 15px auto 35px;
+
+  width: 70%;
+  max-width: 300px;
+}
+
+.question-buttons {
+  margin: 0px 0.5em;
+  padding: 1em;
+  width: 32%;
+  max-width: 140px;
+
+  border-radius: 6px;
+  border: 1px solid #2c2a2a;
+
+  cursor: pointer;
+}
+
+.but-delete {
+  color: rgb(253, 250, 250);
+  font-weight: bolder;
+
+  background-color: rgb(224, 101, 19);
+}
