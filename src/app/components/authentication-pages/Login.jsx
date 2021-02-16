@@ -31,6 +31,7 @@ const Login = () => {
       }}
       validationSchema={LoginValSchema}
       onSubmit={(values, { setSubmitting }) => {
+        setConnError("")
         login(values.email, values.password).then(
           () => {
             localStorage.clear()
