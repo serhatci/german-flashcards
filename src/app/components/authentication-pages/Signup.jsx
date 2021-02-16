@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
-import { SignupValSchema } from "../form-components/Validation";
 import { Link, useHistory } from "react-router-dom";
+
+import { SignupValSchema } from "../form-components/Validation";
 import Input from "../form-components/Input";
-import "./authentication.css";
 import SubmitButton from "../form-components/SubmitButton";
 import { useAuth } from "../../contexts/AuthContext";
+import "./authentication.css";
 
 const Signup = () => {
   const { signup, deleteUser } = useAuth();
@@ -14,7 +15,7 @@ const Signup = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (!success) return
+    if (!success) return;
 
     var timer = setTimeout(() => {
       history.push("/");
@@ -24,25 +25,25 @@ const Signup = () => {
 
   function signupForm() {
     async function submitForm(values, setSubmitting) {
-      setConnError("")
+      setConnError("");
       try {
-        var newUser = await signup(values.email, values.password)
+        var newUser = await signup(values.email, values.password);
       } catch (err) {
         setConnError(err.message);
         setSuccess(false);
-      };
+      }
 
-      if (!newUser.user) return
+      if (!newUser.user) return;
 
       try {
-        await addUserToDB(newUser.user, values.username)
+        await addUserToDB(newUser.user, values.username);
       } catch (err) {
         await deleteUser(newUser.user);
         setConnError(err.message);
         setSuccess(false);
-      };
+      }
 
-      setSubmitting(true)
+      setSubmitting(true);
     }
 
     async function addUserToDB(newUser, username) {
@@ -53,17 +54,20 @@ const Signup = () => {
           id: newUser.uid,
           username: username,
           email: newUser.email,
-        })
-      }
+        }),
+      };
 
-      const response = await fetch("http://127.0.0.1:5000/api/add-user", options)
+      const response = await fetch(
+        "http://127.0.0.1:5000/api/add-user",
+        options
+      );
 
       if (response.ok) {
         localStorage.clear();
         setSuccess(true);
       } else {
-        const err = await response.json()
-        throw new Error(err.message)
+        const err = await response.json();
+        throw new Error(err.message);
       }
     }
 
@@ -77,9 +81,9 @@ const Signup = () => {
             passConfirm: "",
           }}
           validationSchema={SignupValSchema}
-          onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)
-          }
-        >
+          onSubmit={(values, { setSubmitting }) =>
+            submitForm(values, setSubmitting)
+          }>
           <Form id="signup">
             <Input label="User Name:" name="username" type="text" />
             <Input label="Email:" name="email" type="email" />
