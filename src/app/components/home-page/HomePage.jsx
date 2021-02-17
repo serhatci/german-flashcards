@@ -81,13 +81,18 @@ const MainPage = (props) => {
 };
 
 const WelcomeInfo = () => {
-  let username = JSON.parse(localStorage.getItem("username"));
+  const username = JSON.parse(localStorage.getItem("username"));
+  const { currentUser } = useAuth();
   const env = process.env.NODE_ENV;
 
-  if (username === "master")
+  if (username === "master" && !currentUser)
     return (
       <p>{`(${env}) Hello Guest! You can signup and have your own flashcards`}</p>
     );
+
+  if (username === "master" && currentUser)
+    return <p>{`(${env}) Welcome Master!`}</p>;
+
   return (
     <p>{`(${env}) Hello ${username}! Use settings button to create your own flashcards.`}</p>
   );
