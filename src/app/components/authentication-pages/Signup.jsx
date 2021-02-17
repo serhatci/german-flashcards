@@ -98,9 +98,12 @@ const SignupForm = (props) => {
           passConfirm: "",
         }}
         validationSchema={SignupValSchema}
-        onSubmit={(values, { setSubmitting }) =>
-          submitForm(values, setSubmitting)
-        }>
+        onSubmit={(values, { setSubmitting }) => {
+          if (values.username === "master") {
+            return props.connErr("username master is already occupied :(");
+          }
+          submitForm(values, setSubmitting);
+        }}>
         <Form id="signup">
           <Input label="User Name:" name="username" type="text" />
           <Input label="Email:" name="email" type="email" />
