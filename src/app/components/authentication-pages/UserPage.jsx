@@ -26,11 +26,15 @@ const UserPage = () => {
   function userPageView() {
     return (
       <>
-        <LogoutButton err={setConnError} msg={setSuccessMessage} />
+        <LogoutButton setConnErr={setConnError} success={setSuccessMessage} />
         <Link to="/update-password">
           <UpdatePasswordButton />
         </Link>
-        <DeleteAccountButton err={setConnError} msg={setSuccessMessage} />
+        <DeleteAccountButton
+          setConnErr={setConnError}
+          connErr={connError}
+          success={setSuccessMessage}
+        />
       </>
     );
   }
