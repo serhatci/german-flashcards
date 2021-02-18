@@ -1,5 +1,4 @@
 import "./icons.css";
-import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
@@ -111,15 +110,17 @@ export const EditIcon = () => {
   function openEditPage() {
     if (!currentUser) return;
 
-    console.log(location.pathname);
+    if (location.pathname === "/") {
+      return "/edit-homepage";
+    } else {
+      return "/edit-homepage";
+    }
   }
 
   return (
-    <i
-      className={iconType()}
-      id="edit-icon"
-      alt="editIcon"
-      onClick={() => openEditPage()}></i>
+    <Link to={openEditPage()}>
+      <i className={iconType()} id="edit-icon" alt="editIcon"></i>
+    </Link>
   );
 };
 
