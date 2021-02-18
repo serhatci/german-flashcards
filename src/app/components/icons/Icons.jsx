@@ -1,4 +1,5 @@
 import "./icons.css";
+import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
@@ -40,8 +41,7 @@ export const UserIcon = () => {
         id="user-icon"
         alt="user"
         className={iconType}
-        onClick={setThemeToDay}
-      ></i>
+        onClick={setThemeToDay}></i>
     </Link>
   );
 };
@@ -64,8 +64,7 @@ export const SettingsIcon = () => {
       className={iconType()}
       id="setting-icon"
       alt="settings"
-      onClick={useSettingsUpdate()}
-    ></i>
+      onClick={useSettingsUpdate()}></i>
   );
 };
 
@@ -79,8 +78,7 @@ export const ShuffleIcon = () => {
       className={iconType}
       id="shuffle-icon"
       alt="shuffle"
-      onClick={useShuffleUpdate()}
-    ></i>
+      onClick={useShuffleUpdate()}></i>
   );
 };
 
@@ -96,8 +94,32 @@ export const ThemeIcon = () => {
       className={iconType}
       id="night-mode-icon"
       alt="nightMode"
-      onClick={useThemeUpdate()}
-    ></i>
+      onClick={useThemeUpdate()}></i>
+  );
+};
+
+export const EditIcon = () => {
+  const { currentUser } = useAuth();
+  const location = useLocation();
+
+  function iconType() {
+    return currentUser
+      ? "bi bi bi-pen white icon adjusted"
+      : "bi bi bi-pen grey icon adjusted";
+  }
+
+  function openEditPage() {
+    if (!currentUser) return;
+
+    console.log(location.pathname);
+  }
+
+  return (
+    <i
+      className={iconType()}
+      id="edit-icon"
+      alt="editIcon"
+      onClick={() => openEditPage()}></i>
   );
 };
 
@@ -109,8 +131,7 @@ export const FlipIcon = (props) => {
       id="flip-icon"
       alt="flip"
       onClick={() => props.func()}
-      style={theme.flipButton}
-    ></i>
+      style={theme.flipButton}></i>
   );
 };
 
@@ -122,8 +143,7 @@ export const CorrectIcon = (props) => {
       id="correct-icon"
       alt="correct"
       onClick={() => props.func(true)}
-      style={theme.correctButton}
-    ></i>
+      style={theme.correctButton}></i>
   );
 };
 
@@ -135,8 +155,7 @@ export const WrongIcon = (props) => {
       id="wrong-icon"
       alt="wrong"
       onClick={() => props.func(false)}
-      style={theme.wrongButton}
-    ></i>
+      style={theme.wrongButton}></i>
   );
 };
 
@@ -145,7 +164,6 @@ export const LoadingIcon = () => {
     <i
       className="bi bi-gear-wide icon large rotate white"
       id="loading-icon"
-      alt="loading"
-    ></i>
+      alt="loading"></i>
   );
 };
