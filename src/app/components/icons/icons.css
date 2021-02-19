@@ -1,6 +1,8 @@
 .icon {
   font-size: 32px;
   line-height: 0px;
+
+  cursor: pointer;
 }
 
 .icon.medium {
