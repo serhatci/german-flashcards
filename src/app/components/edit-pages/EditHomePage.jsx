@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/AuthContext";
 import { useTheme, useThemeUpdate } from "../../contexts/ThemeContext";
 import {
   EditSaveButton,
@@ -13,7 +12,6 @@ const EditHomePage = () => {
   const theme = useTheme();
   const updateTheme = useThemeUpdate();
 
-  const { currentUser } = useAuth();
   const [buttonTitles, setButtonTitles] = useState([]);
   const [error, setError] = useState(false);
 
@@ -60,7 +58,7 @@ const EditMainPage = (props) => {
     <>
       <div className="edit-main-but-container" id="edit-main-buttons">
         <EditSaveButton />
-        <EditCancelButton />
+        <EditCancelButton setButtons={props.setButtons} />
       </div>
       <div className="button-container" id="button-container">
         <div className="plusIcon-container" id="plusIcon-container">
