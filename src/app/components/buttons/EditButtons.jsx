@@ -1,5 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ContentEditable from "react-contenteditable";
+import { PlusIcon } from "../icons/Icons";
+import { checkInput, toCamelCase } from "../edit-pages/inputCheckFunctions";
 import "./buttons.css";
 
 export const EditPageButton = (props) => {
@@ -13,32 +15,57 @@ export const EditPageButton = (props) => {
   return (
     <>
       <EditDeleteButton deleteButton={deleteButton} />
-      <div className="edit-home-buttons" id="edit-buttons" style={props.style}>
+      <div className="edit-page-buttons" id="edit-buttons" style={props.style}>
         {props.title}
       </div>
     </>
   );
 };
 
-export const NewButton = (props) => {
-  const text = useRef(props.title);
+export const AddButton = (props) => {
+  const [clicked, setClicked] = useState(false);
+
+  return clicked ? (
+    <NewButton
+      title={props.title}
+      style={props.style}
+      setButtons={props.setButtons}
+      setClicked={setClicked}
+    />
+  ) : (
+    <PlusIcon setClicked={setClicked} />
+  );
+};
+
+const NewButton = (props) => {
+  const text = useRef("");
 
   const handleChange = (evt) => {
     text.current = evt.target.value;
   };
 
-  const handleBlur = () => {
-    console.log(text.current);
-  };
+  function confirmButton() {
+    const correctedText = checkInput(text.current);
+    let buttons = JSON.parse(localStorage.getItem("titles"));
+    const newButton = {
+      camelCase: toCamelCase(correctedText),
+      str: correctedText,
+    };
+    buttons.unshift(newButton);
+    localStorage.setItem("titles", JSON.stringify(buttons));
+    props.setButtons();
+    props.setClicked(false);
+  }
+
   return (
     <>
+      <EditConfirmButton confirm={confirmButton} />
       <div
-        className="edit-home-buttons"
-        id="edit-home-buttons"
+        className="edit-page-buttons new"
+        id="edit-page-buttons"
         style={props.style}>
         <ContentEditable
           html={text.current}
-          onBlur={handleBlur}
           onChange={handleChange}
           style={{ outline: "0px solid transparent" }}
         />
@@ -50,10 +77,21 @@ export const NewButton = (props) => {
 export const EditDeleteButton = (props) => {
   return (
     <button
-      className="edit-delete-but"
+      className="edit-title-buttons delete"
       id="delete-button"
       onClick={() => props.deleteButton()}>
       DELETE
+    </button>
+  );
+};
+
+export const EditConfirmButton = (props) => {
+  return (
+    <button
+      className="edit-title-buttons confirm"
+      id="confirm-button"
+      onClick={() => props.confirm()}>
+      CONFIRM
     </button>
   );
 };
