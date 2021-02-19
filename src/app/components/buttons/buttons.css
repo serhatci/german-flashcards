@@ -17,6 +17,7 @@
   text-align: center;
   color: #1d50af;
 
+  word-wrap: break-word;
   cursor: pointer;
 }
 
@@ -88,7 +89,7 @@
   background-color: rgb(224, 101, 19);
 }
 
-.edit-home-buttons {
+.edit-page-buttons {
   display: block;
 
   margin-bottom: 0.5em;
@@ -106,19 +107,35 @@
   text-decoration: none;
   text-align: center;
   color: #1d50af;
+
+  word-wrap: break-word;
+}
+
+.edit-page-buttons.new {
+  border-radius: 6px;
+  border: 1px solid #0b35a0;
 }
 
 .edit-but-container {
   padding: 0px 1px;
 }
 
-.edit-delete-but {
-  width: 20%;
+.edit-title-buttons {
+  width: 25%;
   border-radius: 5px 5px 0px 0px;
   color: white;
-  background-color: rgb(224, 101, 19);
 
   cursor: pointer;
+}
+
+.edit-title-buttons.delete {
+  background-color: rgb(224, 101, 19);
+}
+
+.edit-title-buttons.confirm {
+  width: 35%;
+  height: 2em;
+  background-color: rgb(3, 116, 78);
 }
 
 .edit-main-buttons {
