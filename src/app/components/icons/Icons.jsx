@@ -173,3 +173,13 @@ export const LoadingIcon = () => {
       alt="loading"></i>
   );
 };
+
+export const PlusIcon = (props) => {
+  return (
+    <i
+      className="bi bi-plus icon medium dark-green"
+      id="plus-icon"
+      alt="addNewTitle"
+      onClick={() => props.setClicked(true)}></i>
+  );
+};
