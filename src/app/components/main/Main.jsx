@@ -8,6 +8,8 @@ import Login from "../authentication-pages/Login";
 import UserPage from "../authentication-pages/UserPage";
 import ForgotPassword from "../authentication-pages/ForgotPassword";
 import UpdatePassword from "../authentication-pages/UpdatePassword";
+import PrivateRoute from "../authentication-pages/PrivateRoute";
+import EditHomePage from "../edit-pages/EditHomePage";
 
 const Main = () => {
   return (
@@ -19,6 +21,7 @@ const Main = () => {
       <Route path="/login" component={Login} />
       <Route path="/user-page" component={UserPage} />
       <Route path="/forgot-password" component={ForgotPassword} />
+      <PrivateRoute path="/edit-homepage" component={EditHomePage} />
     </Switch>
   );
 };
