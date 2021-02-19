@@ -87,3 +87,58 @@
 
   background-color: rgb(224, 101, 19);
 }
+
+.edit-home-buttons {
+  display: block;
+
+  margin-bottom: 0.5em;
+  padding: 16px 24px;
+
+  background-color: rgb(242, 248, 243);
+
+  border-radius: 0px 6px 6px 6px;
+  border: 1px solid #dcdcdc;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  font-size: 1.3em;
+  font-weight: bolder;
+  text-decoration: none;
+  text-align: center;
+  color: #1d50af;
+}
+
+.edit-but-container {
+  padding: 0px 1px;
+}
+
+.edit-delete-but {
+  width: 20%;
+  border-radius: 5px 5px 0px 0px;
+  color: white;
+  background-color: rgb(224, 101, 19);
+
+  cursor: pointer;
+}
+
+.edit-main-buttons {
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 0.2em 1em;
+  margin: 1em 0.5em;
+  font-size: large;
+
+  cursor: pointer;
+}
+
+.edit-main-buttons:hover {
+  box-shadow: -2px -2px 5px rgb(149, 161, 152) inset;
+}
+
+.save-changes {
+  background-color: #c3e7c3;
+}
+
+.edit-cancel {
+  background-color: #f5afaf;
+}
