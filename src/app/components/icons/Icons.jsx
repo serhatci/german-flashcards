@@ -1,4 +1,3 @@
-import "./icons.css";
 import { useLocation, Link } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
@@ -8,6 +7,7 @@ import {
   useSettings,
   useSettingsUpdate,
 } from "../../contexts/SettingsContext";
+import "./icons.css";
 
 export const HomeIcon = () => {
   return (
@@ -100,6 +100,7 @@ export const ThemeIcon = () => {
 export const EditIcon = () => {
   const { currentUser } = useAuth();
   const location = useLocation();
+  const closeSettings = useSettingsUpdate();
 
   function iconType() {
     return currentUser
@@ -113,13 +114,17 @@ export const EditIcon = () => {
     if (location.pathname === "/") {
       return "/edit-homepage";
     } else {
-      return "/edit-homepage";
+      return "/edit-flashcards";
     }
   }
 
   return (
     <Link to={openEditPage()}>
-      <i className={iconType()} id="edit-icon" alt="editIcon"></i>
+      <i
+        className={iconType()}
+        id="edit-icon"
+        alt="editIcon"
+        onClick={() => closeSettings()}></i>
     </Link>
   );
 };
