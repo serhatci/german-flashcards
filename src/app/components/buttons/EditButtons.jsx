@@ -98,10 +98,26 @@ export const EditConfirmButton = (props) => {
 
 export const EditSaveButton = () => {
   return (
-    <button className="edit-main-buttons save-changes">Save Changes</button>
+    <button className="edit-main-buttons save-changes" id="edit-save-button">
+      Save Changes
+    </button>
   );
 };
 
-export const EditCancelButton = () => {
-  return <button className="edit-main-buttons edit-cancel">Cancel</button>;
+export const EditCancelButton = (props) => {
+  const initialButtons = useRef(JSON.parse(localStorage.getItem("titles")));
+
+  function setInitialButtons() {
+    localStorage.setItem("titles", JSON.stringify(initialButtons.current));
+    props.setButtons();
+  }
+
+  return (
+    <button
+      className="edit-main-buttons edit-cancel"
+      id="edit-cancel-button"
+      onClick={() => setInitialButtons()}>
+      Cancel
+    </button>
+  );
 };
