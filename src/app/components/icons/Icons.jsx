@@ -114,7 +114,8 @@ export const EditIcon = () => {
     if (location.pathname === "/") {
       return "/edit-homepage";
     } else {
-      return "/edit-flashcards";
+      const title = location.pathname.replace("/flashcards/", "");
+      return "/edit-flashcards/" + title;
     }
   }
 
