@@ -17,6 +17,9 @@ export function correctInput(text) {
   corrected = corrected.replaceAll("</br>", "");
   corrected = corrected.replaceAll("&nbsp", "");
   corrected = corrected.replaceAll(";", "");
+  corrected = corrected.toLowerCase().replace(/^.|\s\S/g, (a) => {
+    return a.toUpperCase();
+  });
   return corrected;
 }
 
