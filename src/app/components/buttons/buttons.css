@@ -91,13 +91,14 @@
 
 .edit-page-buttons {
   display: block;
+  position: relative;
 
   margin-bottom: 0.5em;
   padding: 16px 24px;
 
   background-color: rgb(242, 248, 243);
 
-  border-radius: 0px 6px 6px 6px;
+  border-radius: 6px;
   border: 1px solid #dcdcdc;
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -116,26 +117,34 @@
   border: 1px solid #0b35a0;
 }
 
-.edit-but-container {
-  padding: 0px 1px;
-}
-
 .edit-title-buttons {
-  width: 25%;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 0px 6px 0px 6px;
   color: white;
+  max-width: 90px;
 
   cursor: pointer;
 }
 
 .edit-title-buttons.delete {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 25%;
+
+  border-radius: 6px 0px 6px 0px;
   background-color: rgb(224, 101, 19);
 }
 
-.edit-title-buttons.confirm {
+.edit-title-buttons.add-title {
+  position: absolute;
+  top: -1px;
+  right: -1px;
   width: 35%;
-  height: 2em;
   background-color: rgb(3, 116, 78);
+}
+
+.add-title-container {
+  text-align: right;
 }
 
 .edit-main-buttons {
@@ -156,6 +165,6 @@
   background-color: #c3e7c3;
 }
 
-.edit-cancel {
+.edit-reset {
   background-color: #f5afaf;
 }
