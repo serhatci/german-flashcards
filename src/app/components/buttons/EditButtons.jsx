@@ -14,7 +14,10 @@ export const EditPageButton = (props) => {
 
   return (
     <>
-      <div className="edit-page-buttons" id="edit-buttons" style={props.style}>
+      <div
+        className="edit-page-buttons fade-in"
+        id="edit-buttons"
+        style={props.style}>
         <EditDeleteButton deleteButton={deleteButton} />
         {props.title}
       </div>
@@ -61,7 +64,7 @@ const NewButton = (props) => {
 
   return (
     <div
-      className="edit-page-buttons new"
+      className="edit-page-buttons new fade-in"
       id="edit-page-buttons"
       style={props.style}>
       <ContentEditable
