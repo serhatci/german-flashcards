@@ -25,7 +25,7 @@ const UserPage = () => {
 
   function userPageView() {
     return (
-      <>
+      <div className="fade-in" id="userpage-container">
         <LogoutButton setConnErr={setConnError} success={setSuccessMessage} />
         <Link to="/update-password">
           <UpdatePasswordButton />
@@ -35,7 +35,7 @@ const UserPage = () => {
           connErr={connError}
           success={setSuccessMessage}
         />
-      </>
+      </div>
     );
   }
 
