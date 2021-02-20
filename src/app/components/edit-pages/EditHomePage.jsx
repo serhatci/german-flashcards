@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTheme, useThemeUpdate } from "../../contexts/ThemeContext";
 import {
   EditSaveButton,
-  EditCancelButton,
+  EditResetButton,
   EditPageButton,
   AddButton,
 } from "../buttons/EditButtons";
@@ -17,7 +17,10 @@ const EditHomePage = () => {
 
   useEffect(() => {
     if (theme.name === "Night") updateTheme();
-    if (localStorage.getItem("titles")) {
+
+    let titles = JSON.parse(localStorage.getItem("titles"));
+    if (titles) {
+      localStorage.setItem("mockTitles", JSON.stringify(titles));
       return setButtons();
     } else {
       setError(true);
@@ -25,7 +28,7 @@ const EditHomePage = () => {
   }, [theme, updateTheme, setError]);
 
   function setButtons() {
-    setButtonTitles(JSON.parse(localStorage.getItem("titles")));
+    setButtonTitles(JSON.parse(localStorage.getItem("mockTitles")));
   }
 
   function createButtons() {
@@ -58,7 +61,7 @@ const EditMainPage = (props) => {
     <>
       <div className="edit-main-but-container" id="edit-main-buttons">
         <EditSaveButton />
-        <EditCancelButton setButtons={props.setButtons} />
+        <EditResetButton setButtons={props.setButtons} />
       </div>
       <div className="button-container" id="button-container">
         <div className="plusIcon-container" id="plusIcon-container">
