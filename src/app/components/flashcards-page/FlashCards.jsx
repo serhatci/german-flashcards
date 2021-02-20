@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "./flash-cards.css";
+
 import { Words, Score, PlayAgain, GameButtons } from "./Flashcards-components";
 import { useShuffle } from "../../contexts/ShuffleContext";
+import "./flash-cards.css";
 
 const FlashCards = (props) => {
   const data = JSON.parse(localStorage.getItem(props.match.params.title));
