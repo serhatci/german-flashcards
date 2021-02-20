@@ -10,7 +10,7 @@ export function toCamelCase(sentence) {
   );
 }
 
-export function checkInput(text) {
+export function correctInput(text) {
   let corrected = text.replaceAll("<div>", "");
   corrected = corrected.replaceAll("</div>", "");
   corrected = corrected.replaceAll("<br>", "");
@@ -18,4 +18,8 @@ export function checkInput(text) {
   corrected = corrected.replaceAll("&nbsp", "");
   corrected = corrected.replaceAll(";", "");
   return corrected;
+}
+
+export function duplicateCheck(corrected, buttons) {
+  return buttons.find((el) => el.str === corrected);
 }
