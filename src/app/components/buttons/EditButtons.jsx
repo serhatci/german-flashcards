@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 import ContentEditable from "react-contenteditable";
 import { PlusIcon } from "../icons/Icons";
-import { checkInput, toCamelCase } from "../edit-pages/inputCheckFunctions";
+import {
+  correctInput,
+  toCamelCase,
+  duplicateCheck,
+} from "../edit-pages/inputCheckFunctions";
 import "./buttons.css";
 
 export const EditPageButton = (props) => {
@@ -50,8 +54,11 @@ const NewButton = (props) => {
   function addTitle() {
     if (text.current === "") return props.setClicked(false);
 
-    const correctedText = checkInput(text.current);
     let buttons = JSON.parse(localStorage.getItem("mockTitles"));
+    const correctedText = correctInput(text.current);
+
+    if (duplicateCheck(correctedText, buttons)) return;
+
     const newButton = {
       camelCase: toCamelCase(correctedText),
       str: correctedText,
