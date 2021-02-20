@@ -10,6 +10,7 @@ import ForgotPassword from "../authentication-pages/ForgotPassword";
 import UpdatePassword from "../authentication-pages/UpdatePassword";
 import PrivateRoute from "../authentication-pages/PrivateRoute";
 import EditHomePage from "../edit-pages/EditHomePage";
+import EditFlashcards from "../edit-pages/EditFlashcards";
 
 const Main = () => {
   return (
@@ -22,6 +23,10 @@ const Main = () => {
       <Route path="/user-page" component={UserPage} />
       <Route path="/forgot-password" component={ForgotPassword} />
       <PrivateRoute path="/edit-homepage" component={EditHomePage} />
+      <PrivateRoute
+        path="/edit-flashcards/:title"
+        component={EditFlashcards}
+      />
     </Switch>
   );
 };
