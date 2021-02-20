@@ -6,16 +6,16 @@ import "./buttons.css";
 
 export const EditPageButton = (props) => {
   function deleteButton() {
-    const buttons = JSON.parse(localStorage.getItem("titles"));
+    const buttons = JSON.parse(localStorage.getItem("mockTitles"));
     const newButtons = buttons.filter((button) => button.str !== props.title);
-    localStorage.setItem("titles", JSON.stringify(newButtons));
+    localStorage.setItem("mockTitles", JSON.stringify(newButtons));
     props.setButtons();
   }
 
   return (
     <>
-      <EditDeleteButton deleteButton={deleteButton} />
       <div className="edit-page-buttons" id="edit-buttons" style={props.style}>
+        <EditDeleteButton deleteButton={deleteButton} />
         {props.title}
       </div>
     </>
@@ -44,33 +44,33 @@ const NewButton = (props) => {
     text.current = evt.target.value;
   };
 
-  function confirmButton() {
+  function addTitle() {
+    if (text.current === "") return props.setClicked(false);
+
     const correctedText = checkInput(text.current);
-    let buttons = JSON.parse(localStorage.getItem("titles"));
+    let buttons = JSON.parse(localStorage.getItem("mockTitles"));
     const newButton = {
       camelCase: toCamelCase(correctedText),
       str: correctedText,
     };
     buttons.unshift(newButton);
-    localStorage.setItem("titles", JSON.stringify(buttons));
+    localStorage.setItem("mockTitles", JSON.stringify(buttons));
     props.setButtons();
     props.setClicked(false);
   }
 
   return (
-    <>
-      <EditConfirmButton confirm={confirmButton} />
-      <div
-        className="edit-page-buttons new"
-        id="edit-page-buttons"
-        style={props.style}>
-        <ContentEditable
-          html={text.current}
-          onChange={handleChange}
-          style={{ outline: "0px solid transparent" }}
-        />
-      </div>
-    </>
+    <div
+      className="edit-page-buttons new"
+      id="edit-page-buttons"
+      style={props.style}>
+      <ContentEditable
+        html={text.current}
+        onChange={handleChange}
+        style={{ outline: "0px solid transparent" }}
+      />
+      <EditAddTitle addTitle={addTitle} />
+    </div>
   );
 };
 
@@ -85,13 +85,13 @@ export const EditDeleteButton = (props) => {
   );
 };
 
-export const EditConfirmButton = (props) => {
+export const EditAddTitle = (props) => {
   return (
     <button
-      className="edit-title-buttons confirm"
-      id="confirm-button"
-      onClick={() => props.confirm()}>
-      CONFIRM
+      className="edit-title-buttons add-title"
+      id="add-title-button"
+      onClick={() => props.addTitle()}>
+      ADD TITLE
     </button>
   );
 };
@@ -104,20 +104,20 @@ export const EditSaveButton = () => {
   );
 };
 
-export const EditCancelButton = (props) => {
+export const EditResetButton = (props) => {
   const initialButtons = useRef(JSON.parse(localStorage.getItem("titles")));
 
   function setInitialButtons() {
-    localStorage.setItem("titles", JSON.stringify(initialButtons.current));
+    localStorage.setItem("mockTitles", JSON.stringify(initialButtons.current));
     props.setButtons();
   }
 
   return (
     <button
-      className="edit-main-buttons edit-cancel"
-      id="edit-cancel-button"
+      className="edit-main-buttons edit-reset"
+      id="edit-reset-button"
       onClick={() => setInitialButtons()}>
-      Cancel
+      Reset
     </button>
   );
 };
