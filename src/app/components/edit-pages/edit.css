@@ -1,7 +1,26 @@
-.edit-main-but-container {
+.edit-box-container {
+  z-index: 1;
+  position: absolute;
+  top: 40px;
+  width: 100%;
+}
+
+.edit-box {
+  max-width: 768px;
   margin: auto;
-  max-width: 480px;
+
   text-align: center;
+
+  background-color: #dce2da;
+
+  border-width: 0px 1px 1px 1px;
+  border-color: grey;
+  border-style: solid;
+  border-radius: 0 0 6px 6px;
+}
+.edit-button-container {
+  padding: 10px 0px;
+  margin-top: 50px;
 }
 
 .plusIcon-container {
