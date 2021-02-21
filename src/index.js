@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./app/App.jsx";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router } from "react-router-dom";
+import { MemoryRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./app/contexts/AuthContext.jsx";
 import { ThemeProvider } from "./app/contexts/ThemeContext.jsx";
 
