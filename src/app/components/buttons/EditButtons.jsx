@@ -108,7 +108,7 @@ export const EditAddTitle = (props) => {
 
 export const EditSaveButton = () => {
   return (
-    <button className="edit-main-buttons save-changes" id="edit-save-button">
+    <button className="edit-box-buttons save-changes" id="edit-save-button">
       Save Changes
     </button>
   );
@@ -124,7 +124,7 @@ export const EditResetButton = (props) => {
 
   return (
     <button
-      className="edit-main-buttons edit-reset"
+      className="edit-box-buttons edit-reset"
       id="edit-reset-button"
       onClick={() => setInitialButtons()}>
       Reset
