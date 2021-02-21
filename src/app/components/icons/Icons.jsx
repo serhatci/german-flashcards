@@ -108,7 +108,7 @@ export const EditIcon = () => {
       : "bi bi bi-pen grey icon adjusted";
   }
 
-  function openEditPage() {
+  const openEditPage = () => {
     if (!currentUser) return;
 
     if (location.pathname === "/") {
@@ -117,10 +117,10 @@ export const EditIcon = () => {
       const title = location.pathname.replace("/flashcards/", "");
       return "/edit-flashcards/" + title;
     }
-  }
+  };
 
   return (
-    <Link to={openEditPage()}>
+    <Link to={openEditPage}>
       <i
         className={iconType()}
         id="edit-icon"
