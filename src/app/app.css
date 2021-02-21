@@ -48,6 +48,8 @@ footer {
   background-color: rgb(21, 77, 122);
   border-top: 1px solid rgb(0, 0, 0);
   color: aliceblue;
+
+  z-index: 1;
 }
 
 /* Main page can be scrolled if content is larger */
