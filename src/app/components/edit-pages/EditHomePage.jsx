@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTheme, useThemeUpdate } from "../../contexts/ThemeContext";
-import {
-  EditSaveButton,
-  EditResetButton,
-  EditPageButton,
-  AddButton,
-} from "../buttons/EditButtons";
+import { EditPageButton, AddButton } from "../buttons/EditButtons";
 import "./edit.css";
 
 const EditHomePage = () => {
@@ -54,18 +49,12 @@ const EditHomePage = () => {
 
 const EditMainPage = (props) => {
   return (
-    <>
-      <div className="edit-main-but-container" id="edit-main-buttons">
-        <EditSaveButton />
-        <EditResetButton setButtons={props.setButtons} />
+    <div className="edit-button-container" id="button-container">
+      <div className="plusIcon-container" id="plusIcon-container">
+        <AddButton setButtons={props.setButtons} />
       </div>
-      <div className="edit-button-container" id="button-container">
-        <div className="plusIcon-container" id="plusIcon-container">
-          <AddButton setButtons={props.setButtons} />
-        </div>
-        <nav aria-labelledby="content-navigation">{props.create()}</nav>
-      </div>
-    </>
+      <nav aria-labelledby="content-navigation">{props.create()}</nav>
+    </div>
   );
 };
 
