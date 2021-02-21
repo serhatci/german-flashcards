@@ -46,11 +46,7 @@ const EditHomePage = () => {
       {error ? (
         <p>Error occurred! Click HOME icon and try again..."</p>
       ) : (
-        <EditMainPage
-          create={createButtons}
-          theme={theme}
-          setButtons={setButtons}
-        />
+        <EditMainPage create={createButtons} setButtons={setButtons} />
       )}
     </div>
   );
@@ -63,7 +59,7 @@ const EditMainPage = (props) => {
         <EditSaveButton />
         <EditResetButton setButtons={props.setButtons} />
       </div>
-      <div className="button-container" id="button-container">
+      <div className="edit-button-container" id="button-container">
         <div className="plusIcon-container" id="plusIcon-container">
           <AddButton setButtons={props.setButtons} />
         </div>
