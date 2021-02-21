@@ -178,7 +178,7 @@ export const LoadingIcon = () => {
 export const PlusIcon = (props) => {
   return (
     <i
-      className="bi bi-plus icon large dark-green"
+      className="bi bi-plus icon large light-green"
       id="plus-icon"
       alt="addNewTitle"
       onClick={() => props.setClicked(true)}></i>
