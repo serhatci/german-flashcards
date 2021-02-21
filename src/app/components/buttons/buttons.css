@@ -147,24 +147,26 @@
   text-align: right;
 }
 
-.edit-main-buttons {
+.edit-box-buttons {
   border: 1px solid black;
   border-radius: 6px;
   padding: 0.2em 1em;
-  margin: 1em 0.5em;
+  margin: 0.6em 0.5em;
   font-size: large;
+  color: #eaefeb;
 
   cursor: pointer;
 }
 
-.edit-main-buttons:hover {
-  box-shadow: -2px -2px 5px rgb(149, 161, 152) inset;
+.edit-box-buttons:hover {
+  border: 1px solid rgb(233, 221, 221);
+  color: white;
 }
 
 .save-changes {
-  background-color: #c3e7c3;
+  background-color: #208820;
 }
 
 .edit-reset {
-  background-color: #f5afaf;
+  background-color: #e06513;
 }
