@@ -1,12 +1,8 @@
 import { useLocation, Link } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
-import { useShuffle, useShuffleUpdate } from "../../contexts/ShuffleContext";
 import { useTheme, useThemeUpdate } from "../../contexts/ThemeContext";
-import {
-  useSettings,
-  useSettingsUpdate,
-} from "../../contexts/SettingsContext";
+import { useButtons } from "../../contexts/ButtonsContext";
 import "./icons.css";
 
 export const HomeIcon = () => {
@@ -26,12 +22,11 @@ export const UserIcon = () => {
   const targetPath = currentUser ? "/user-page" : "/login";
   const theme = useTheme();
   const updateTheme = useThemeUpdate();
-  const settingsClicked = useSettings();
-  const updateSettingsClicked = useSettingsUpdate();
+  const button = useButtons();
 
   function setThemeToDay() {
     if (theme.name === "Night") updateTheme();
-    if (settingsClicked) updateSettingsClicked();
+    if (button.settingsClicked) button.settingsHandler();
   }
 
   return (
@@ -46,13 +41,13 @@ export const UserIcon = () => {
 };
 
 export const SettingsIcon = () => {
-  const clicked = useSettings();
+  const button = useButtons();
   const loc = useLocation();
 
   // Settings are disabled at authorization pages
   const iconType = () => {
     if (loc.pathname === "/" || loc.pathname.includes("flashcards"))
-      return clicked
+      return button.settingsClicked
         ? "bi bi-x-circle-fill red icon"
         : "bi bi-gear-fill white icon";
     return "bi bi-gear-fill grey icon";
@@ -63,13 +58,13 @@ export const SettingsIcon = () => {
       className={iconType()}
       id="setting-icon"
       alt="settings"
-      onClick={useSettingsUpdate()}></i>
+      onClick={() => button.settingsHandler()}></i>
   );
 };
 
 export const ShuffleIcon = () => {
-  const shuffle = useShuffle();
-  const iconType = shuffle
+  const button = useButtons();
+  const iconType = button.shuffle
     ? "bi bi-shuffle dark-blue icon adjusted"
     : "bi bi-shuffle white icon adjusted";
   return (
@@ -77,7 +72,7 @@ export const ShuffleIcon = () => {
       className={iconType}
       id="shuffle-icon"
       alt="shuffle"
-      onClick={useShuffleUpdate()}></i>
+      onClick={() => button.shuffleHandler()}></i>
   );
 };
 
@@ -100,7 +95,7 @@ export const ThemeIcon = () => {
 export const EditIcon = () => {
   const { currentUser } = useAuth();
   const location = useLocation();
-  const closeSettings = useSettingsUpdate();
+  const button = useButtons();
 
   function iconType() {
     return currentUser
@@ -125,7 +120,7 @@ export const EditIcon = () => {
         className={iconType()}
         id="edit-icon"
         alt="editIcon"
-        onClick={() => closeSettings()}></i>
+        onClick={() => button.settingsHandler()}></i>
     </Link>
   );
 };
