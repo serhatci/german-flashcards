@@ -16,7 +16,7 @@ export function SettingsProvider({ children }) {
   const [settingsClicked, setSettingsClicked] = useState(false);
   const loc = useLocation();
 
-  // settings are disabled at authorization pages
+  // settings are disabled except home and flashcard pages
   function settingsHandler() {
     if (loc.pathname === "/" || loc.pathname.includes("flashcards")) {
       setSettingsClicked((settingsClicked) => !settingsClicked);
