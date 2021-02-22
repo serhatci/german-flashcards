@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+
 import App from "./app/App.jsx";
 import reportWebVitals from "./reportWebVitals";
 import { MemoryRouter as Router } from "react-router-dom";
-import { AuthProvider } from "./app/contexts/AuthContext.jsx";
-import { ThemeProvider } from "./app/contexts/ThemeContext.jsx";
+import { AuthProvider } from "./app/contexts/AuthContext";
+import { ThemeProvider } from "./app/contexts/ThemeContext";
+import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
