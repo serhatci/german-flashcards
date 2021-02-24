@@ -1,6 +1,5 @@
 import React from "react";
 import { useTheme } from "./contexts/ThemeContext";
-import EditBox from "./components/edit-pages/EditBox";
 import "./app.css";
 
 // Main App components
@@ -9,6 +8,7 @@ import Main from "./components/main/Main.jsx";
 import Footer from "./components/header-footer/Footer.jsx";
 import Settings from "./components/settings-page/Settings.jsx";
 import { ButtonsProvider } from "./contexts/ButtonsContext";
+import SaveAndResetContainer from "./components/edit-pages/SaveAndResetContainer";
 
 const App = () => {
   let theme = useTheme();
@@ -26,7 +26,7 @@ const App = () => {
           <Footer />
         </footer>
         <Settings />
-        <EditBox />
+        <SaveAndResetContainer />
       </div>
     </ButtonsProvider>
   );
