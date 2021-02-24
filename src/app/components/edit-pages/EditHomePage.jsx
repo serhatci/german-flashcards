@@ -6,8 +6,9 @@ import ContentEditable from "react-contenteditable";
 import {
   correctInput,
   toCamelCase,
-  duplicateCheck,
+  duplicateTitleCheck,
 } from "../edit-pages/inputCheckFunctions";
+
 import "./edit.css";
 
 const EditHomePage = () => {
@@ -80,13 +81,13 @@ const HomePageTitleInput = (props) => {
   function addTitle() {
     const correctedText = correctInput(text.current);
 
-    if (duplicateCheck(correctedText, titles)) return;
+    if (duplicateTitleCheck(correctedText, titles)) return;
 
-    const HomePageTitleInput = {
+    const homePageTitleInput = {
       camelCase: toCamelCase(correctedText),
       str: correctedText,
     };
-    const newTitles = [HomePageTitleInput].concat(titles);
+    const newTitles = [homePageTitleInput].concat(titles);
     setTitles(newTitles);
     props.setClicked(false);
   }
