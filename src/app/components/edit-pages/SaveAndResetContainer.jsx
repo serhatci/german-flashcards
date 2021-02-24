@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { EditSaveButton, EditResetButton } from "../buttons/EditButtons";
 import "./edit.css";
 
-const EditBox = () => {
+const SaveAndResetContainer = () => {
   const location = useLocation();
 
   function getStyle() {
@@ -23,4 +23,4 @@ const EditBox = () => {
   );
 };
 
-export default EditBox;
+export default SaveAndResetContainer;
