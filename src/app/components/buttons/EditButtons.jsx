@@ -8,34 +8,89 @@ import {
 } from "../edit-pages/inputCheckFunctions";
 import "./buttons.css";
 import { useData } from "../../contexts/DataContext";
+import update from "immutability-helper";
 
 export const EditButton = (props) => {
+  function getEditButtons() {
+    if (props.editPage === "homepage") {
+      return <DeleteHomePageTitleButton title={props.title} />;
+    }
+    return (
+      <>
+        <DeleteFlashcardButton
+          flashcardsTitle={props.flashcardsTitle}
+          answer={props.answer}
+          question={props.question}
+        />
+        <EditFlashcardButton
+          flashcardsTitle={props.flashcardsTitle}
+          answer={props.answer}
+          question={props.question}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="edit-page-buttons fade-in" id="edit-buttons">
-      <DeleteButton title={props.title} editPage={props.editPage} />
+      {getEditButtons()}
       {props.title}
     </div>
   );
 };
 
-export const DeleteButton = (props) => {
+export const DeleteHomePageTitleButton = (props) => {
   const { titles, setTitles } = useData();
 
-  function deleteButton() {
-    if (props.editPage === "homepage") {
-      const HomePageTitleInputs = titles.filter(
-        (title) => title.str !== props.title
-      );
-      setTitles(HomePageTitleInputs);
-    }
+  function deleteTitle() {
+    const newHomePageTitles = titles.filter(
+      (title) => title.str !== props.title
+    );
+    setTitles(newHomePageTitles);
   }
 
   return (
     <button
       className="edit-title-buttons delete"
-      id="delete-button"
-      onClick={() => deleteButton()}>
+      id="delete-homepage-title-button"
+      onClick={() => deleteTitle()}>
       DELETE
+    </button>
+  );
+};
+
+export const DeleteFlashcardButton = (props) => {
+  const { flashcards, setFlashcards } = useData();
+
+  function deleteFlashcard() {
+    const newTitles = flashcards[props.flashcardsTitle].filter(
+      (card) => card.answer !== props.answer
+    );
+    const newFlashcards = update(flashcards, {
+      [props.flashcardsTitle]: { $set: newTitles },
+    });
+    setFlashcards(newFlashcards);
+  }
+
+  return (
+    <button
+      className="edit-title-buttons delete"
+      id="delete-flashcard-button"
+      onClick={() => deleteFlashcard()}>
+      DELETE
+    </button>
+  );
+};
+
+export const EditFlashcardButton = (props) => {
+  function editFlashcard() {}
+
+  return (
+    <button
+      className="edit-title-buttons add-title"
+      id="edit-flashcard-button"
+      onClick={() => editFlashcard()}>
+      EDIT
     </button>
   );
 };
