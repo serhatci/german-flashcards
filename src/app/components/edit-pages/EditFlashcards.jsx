@@ -183,6 +183,7 @@ const FlashcardsInput = (props) => {
         />
       </div>
       <AddButton add={addFlashcard} />
+      <CancelButton setClicked={props.setClicked} />
     </div>
   );
 };
@@ -194,6 +195,17 @@ const AddButton = (props) => {
       id="add-title-button"
       onClick={() => props.add()}>
       ADD CARD
+    </button>
+  );
+};
+
+const CancelButton = (props) => {
+  return (
+    <button
+      className="edit-title-buttons cancel"
+      id="cancel-flashcard-button"
+      onClick={() => props.setClicked(false)}>
+      CANCEL
     </button>
   );
 };

@@ -100,6 +100,7 @@ const HomePageTitleInput = (props) => {
         style={{ outline: "0px solid transparent" }}
       />
       <AddButton add={addTitle} />
+      <CancelButton setClicked={props.setClicked} />
     </div>
   );
 };
@@ -111,6 +112,17 @@ const AddButton = (props) => {
       id="add-title-button"
       onClick={() => props.add()}>
       ADD TITLE
+    </button>
+  );
+};
+
+const CancelButton = (props) => {
+  return (
+    <button
+      className="edit-title-buttons cancel"
+      id="cancel-flashcard-button"
+      onClick={() => props.setClicked(false)}>
+      CANCEL
     </button>
   );
 };
