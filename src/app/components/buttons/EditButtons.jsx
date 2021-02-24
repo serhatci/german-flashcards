@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import ContentEditable from "react-contenteditable";
 import { PlusIcon } from "../icons/Icons";
 import {
@@ -8,7 +8,6 @@ import {
 } from "../edit-pages/inputCheckFunctions";
 import "./buttons.css";
 import { useData } from "../../contexts/DataContext";
-import { useLocation } from "react-router-dom";
 
 export const EditButton = (props) => {
   return (
@@ -106,22 +105,14 @@ export const EditSaveButton = () => {
   );
 };
 
-export const EditResetButton = () => {
+export const EditResetButton = (props) => {
   const { setTitles, setFlashcards } = useData();
-  const location = useLocation();
-  const initialTitles = useRef();
-  const initialFlashcards = useRef();
-
-  useEffect(() => {
-    initialTitles.current = JSON.parse(localStorage.getItem("titles"));
-    initialFlashcards.current = JSON.parse(localStorage.getItem("flashcards"));
-  }, []);
 
   function setInitialButtons() {
-    if (location.pathname.includes("/edit-homepage")) {
-      setTitles(initialTitles.current);
+    if (props.editPage === "homepage") {
+      setTitles(props.initialTitles);
     }
-    setFlashcards(initialFlashcards.current);
+    setFlashcards(props.initialFlashcards);
   }
 
   return (
