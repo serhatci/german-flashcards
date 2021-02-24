@@ -32,5 +32,8 @@ export function duplicateTitleCheck(newTitle, buttons) {
 }
 
 export function duplicateFlashcardsCheck(newFlashcard, flashcards) {
-  return flashcards.find((card) => card === newFlashcard);
+  return flashcards.find(
+    ({ question, answer }) =>
+      answer === newFlashcard.answer && question === newFlashcard.question
+  );
 }
