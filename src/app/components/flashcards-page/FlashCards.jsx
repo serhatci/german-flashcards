@@ -2,11 +2,12 @@ import React, { useState } from "react";
 
 import { Words, Score, PlayAgain, GameButtons } from "./Flashcards-components";
 import { useButtons } from "../../contexts/ButtonsContext";
+import { useData } from "../../contexts/DataContext";
 import "./flash-cards.css";
 
 const FlashCards = (props) => {
-  let data = JSON.parse(localStorage.getItem("flashcards"));
-  data = data[props.match.params.title];
+  const { flashcards } = useData();
+  const data = flashcards[props.match.params.title];
 
   const regularOrder = useButtons();
   const [isCardAQuestion, setIsCardAQuestion] = useState(true);
