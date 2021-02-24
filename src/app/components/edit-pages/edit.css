@@ -85,7 +85,7 @@
   text-align: left;
 }
 
-.edit-page-buttons > div {
+.edit-page-buttons.flashcards > div {
   border-radius: 6px;
   border-bottom: 1px solid #0b35a0;
   margin: 10px 0;
@@ -113,6 +113,16 @@
 
   border-radius: 6px 0px 6px 0px;
   background-color: rgb(224, 101, 19);
+}
+
+.edit-title-buttons.cancel {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 25%;
+
+  border-radius: 6px 0px 6px 0px;
+  background-color: rgb(247, 43, 16);
 }
 
 .edit-title-buttons.add-title {
