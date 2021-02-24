@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { EditSaveButton, EditResetButton } from "../buttons/EditButtons";
 import { useData } from "../../contexts/DataContext";
 import "./edit.css";
 
@@ -44,6 +43,34 @@ const SaveAndResetContainer = () => {
         />
       </div>
     </div>
+  );
+};
+
+const EditSaveButton = () => {
+  return (
+    <button className="edit-box-buttons save-changes" id="edit-save-button">
+      Save Changes
+    </button>
+  );
+};
+
+const EditResetButton = (props) => {
+  const { setTitles, setFlashcards } = useData();
+
+  function setInitialButtons() {
+    if (props.editPage === "homepage") {
+      setTitles(props.initialTitles);
+    }
+    setFlashcards(props.initialFlashcards);
+  }
+
+  return (
+    <button
+      className="edit-box-buttons edit-reset"
+      id="edit-reset-button"
+      onClick={() => setInitialButtons()}>
+      Reset
+    </button>
   );
 };
 
