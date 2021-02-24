@@ -64,7 +64,8 @@ const DeleteFlashcardButton = (props) => {
 
   function deleteFlashcard() {
     const newTitles = flashcards[props.flashcardsTitle].filter(
-      (card) => card.answer !== props.answer
+      ({ answer, question }) =>
+        answer !== props.answer && question !== props.question
     );
     const newFlashcards = update(flashcards, {
       [props.flashcardsTitle]: { $set: newTitles },
@@ -109,6 +110,7 @@ const AddNewData = (props) => {
 
 const FlashcardsInput = (props) => {
   const { flashcards, setFlashcards } = useData();
+
   const question = useRef("");
   const questionExtra = useRef("");
   const answer = useRef("");
@@ -119,6 +121,8 @@ const FlashcardsInput = (props) => {
     const correctedQuestionExtra = correctInput(questionExtra.current);
     const correctedAnswer = correctInput(answer.current);
     const correctedAnswerExtra = correctInput(answerExtra.current);
+
+    if (!correctedQuestion || !correctedAnswer) return;
 
     const flashcardInput = {
       question: correctedQuestion,
@@ -147,7 +151,7 @@ const FlashcardsInput = (props) => {
       className="edit-page-buttons flashcards fade-in"
       id="edit-flashcard-buttons">
       <div>
-        <p>Question:</p>
+        <p>**Question:</p>
         <ContentEditable
           html={question.current}
           onChange={(evt) => (question.current = evt.target.value)}
@@ -163,7 +167,7 @@ const FlashcardsInput = (props) => {
         />
       </div>
       <div>
-        <p>Answer:</p>
+        <p>**Answer:</p>
         <ContentEditable
           html={answer.current}
           onChange={(evt) => (answer.current = evt.target.value)}
