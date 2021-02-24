@@ -27,6 +27,10 @@ export function WordsToUpperCase(corrected) {
   });
 }
 
-export function duplicateCheck(corrected, buttons) {
-  return buttons.find((el) => el.str === corrected);
+export function duplicateTitleCheck(newTitle, buttons) {
+  return buttons.find((title) => title.str === newTitle);
+}
+
+export function duplicateFlashcardsCheck(newFlashcard, flashcards) {
+  return flashcards.find((card) => card === newFlashcard);
 }
