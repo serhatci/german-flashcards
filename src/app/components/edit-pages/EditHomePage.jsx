@@ -1,59 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useTheme, useThemeUpdate } from "../../contexts/ThemeContext";
-import { EditPageButton, AddButton } from "../buttons/EditButtons";
+import { EditButton, AddNewData } from "../buttons/EditButtons";
+import { useData } from "../../contexts/DataContext";
 import "./edit.css";
 
 const EditHomePage = () => {
-  const theme = useTheme();
-  const updateTheme = useThemeUpdate();
-
-  const [buttonTitles, setButtonTitles] = useState([]);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    if (theme.name === "Night") updateTheme();
-
-    let titles = JSON.parse(localStorage.getItem("titles"));
-    if (titles) {
-      localStorage.setItem("mockTitles", JSON.stringify(titles));
-      return setButtons();
-    } else {
-      setError(true);
-    }
-  }, [theme, updateTheme, setError]);
-
-  function setButtons() {
-    setButtonTitles(JSON.parse(localStorage.getItem("mockTitles")));
-  }
+  const { titles } = useData();
+  const editPage = "homepage";
 
   function createButtons() {
-    return buttonTitles.map((title) => (
-      <EditPageButton
+    return titles.map((title) => (
+      <EditButton
         key={title.camelCase}
         title={title.str}
-        setButtons={setButtons}
+        editPage={editPage}
       />
     ));
   }
 
   return (
     <div className="home-page-container fade-in" id="app-homepage">
-      {error ? (
-        <p>Error occurred! Click HOME icon and try again..."</p>
-      ) : (
-        <EditMainPage create={createButtons} setButtons={setButtons} />
-      )}
-    </div>
-  );
-};
-
-const EditMainPage = (props) => {
-  return (
-    <div className="edit-button-container" id="button-container">
-      <div className="plusIcon-container" id="plusIcon-container">
-        <AddButton setButtons={props.setButtons} />
+      <div className="edit-button-container" id="button-container">
+        <div className="plusIcon-container" id="plusIcon-container">
+          <AddNewData editPage={editPage} />
+        </div>
+        <nav aria-labelledby="content-navigation">{createButtons()}</nav>
       </div>
-      <nav aria-labelledby="content-navigation">{props.create()}</nav>
     </div>
   );
 };
