@@ -3,16 +3,11 @@ import { useRef, useState } from "react";
 import { useData } from "../../contexts/DataContext";
 import { PlusIcon } from "../icons/Icons";
 import ContentEditable from "react-contenteditable";
-import {
-  correctHomePageInput,
-  toCamelCase,
-  duplicateTitleCheck,
-} from "../edit-pages/inputCheckFunctions";
-
+import { useEditData } from "./EditDataCustomHook";
 import "./edit.css";
 
 const EditHomePage = () => {
-  const { titles, setTitles } = useData();
+  const { titles } = useData();
 
   function createButtons() {
     return titles.map((title) => (
@@ -24,7 +19,7 @@ const EditHomePage = () => {
     <div className="home-page-container fade-in" id="app-homepage">
       <div className="edit-button-container" id="button-container">
         <div className="plusIcon-container" id="plusIcon-container">
-          <AddNewData titles={titles} setTitles={setTitles} />
+          <AddNewData />
         </div>
         <nav aria-labelledby="content-navigation">{createButtons()}</nav>
       </div>
@@ -42,27 +37,21 @@ const EditButton = (props) => {
 };
 
 const DeleteHomePageTitleButton = (props) => {
-  const { titles, setTitles } = useData();
-
-  function deleteTitle() {
-    const newHomePageTitles = titles.filter(
-      (title) => title.str !== props.buttonTitle
-    );
-    setTitles(newHomePageTitles);
-  }
+  const { deleteHomePageTitle } = useEditData();
 
   return (
     <button
       className="edit-title-buttons delete"
       id="delete-homepage-title-button"
-      onClick={() => deleteTitle()}>
+      onClick={() => deleteHomePageTitle(props.buttonTitle)}>
       DELETE
     </button>
   );
 };
 
-const AddNewData = (props) => {
+const AddNewData = () => {
   const [clicked, setClicked] = useState(false);
+
   return clicked ? (
     <HomePageTitleInput setClicked={setClicked} />
   ) : (
@@ -71,26 +60,17 @@ const AddNewData = (props) => {
 };
 
 const HomePageTitleInput = (props) => {
-  const { titles, setTitles } = useData();
+  const { addHomePageTitle } = useEditData();
   const text = useRef("");
 
   const handleChange = (evt) => {
     text.current = evt.target.value;
   };
 
-  function addTitle() {
-    const correctedText = correctHomePageInput(text.current);
-
-    if (duplicateTitleCheck(correctedText, titles)) return;
-
-    const homePageTitleInput = {
-      camelCase: toCamelCase(correctedText),
-      str: correctedText,
-    };
-    const newTitles = [homePageTitleInput].concat(titles);
-    setTitles(newTitles);
+  const addTitle = () => {
+    addHomePageTitle(text.current);
     props.setClicked(false);
-  }
+  };
 
   return (
     <div className="edit-page-buttons new fade-in" id="edit-page-buttons">
