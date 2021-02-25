@@ -46,7 +46,7 @@ export const SettingsIcon = () => {
 
   // Settings are disabled at authorization pages
   const iconType = () => {
-    if (loc.pathname === "/" || loc.pathname.includes("flashcards"))
+    if (loc.pathname === "/" || !loc.pathname.includes("/edit-"))
       return button.settingsClicked
         ? "bi bi-x-circle-fill red icon"
         : "bi bi-gear-fill white icon";
@@ -108,7 +108,9 @@ export const EditIcon = () => {
 
     if (location.pathname === "/") {
       return "/edit-homepage";
-    } else {
+    }
+
+    if (location.pathname.includes("/flashcards")) {
       const title = location.pathname.replace("/flashcards/", "");
       return "/edit-flashcards/" + title;
     }
