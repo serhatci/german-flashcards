@@ -10,6 +10,11 @@ export function toCamelCase(sentence) {
   );
 }
 
+export function correctHomePageInput(text) {
+  let corrected = correctInput(text);
+  return WordsToUpperCase(corrected);
+}
+
 export function correctInput(text) {
   let corrected = text.replaceAll("<div>", "");
   corrected = corrected.replaceAll("</div>", "");
@@ -17,11 +22,10 @@ export function correctInput(text) {
   corrected = corrected.replaceAll("</br>", "");
   corrected = corrected.replaceAll("&nbsp", "");
   corrected = corrected.replaceAll(";", "");
-  corrected = WordsToUpperCase(corrected);
   return corrected;
 }
 
-export function WordsToUpperCase(corrected) {
+function WordsToUpperCase(corrected) {
   return corrected.toLowerCase().replace(/^.|\s\S/g, (a) => {
     return a.toUpperCase();
   });
@@ -33,7 +37,6 @@ export function duplicateTitleCheck(newTitle, buttons) {
 
 export function duplicateFlashcardsCheck(newFlashcard, flashcards) {
   return flashcards.find(
-    ({ question, answer }) =>
-      answer === newFlashcard.answer && question === newFlashcard.question
+    (card) => JSON.stringify(card) === JSON.stringify(newFlashcard)
   );
 }
