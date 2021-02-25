@@ -14,12 +14,13 @@ const EditFlashcards = () => {
   const flashcardsData = flashcards[flashcardsTitle];
 
   function createButtons() {
-    return flashcardsData.map((card) => (
+    return flashcardsData.map((card, index) => (
       <EditButton
-        key={`${card.question} - ${card.answer}`}
+        key={`${card.question} - ${index}`}
         buttonTitle={`${card.question} - ${card.answer}`}
         flashcardsTitle={flashcardsTitle}
         card={card}
+        index={index}
       />
     ));
   }
@@ -44,6 +45,7 @@ const EditButton = (props) => {
       setClicked={setEditFlashcardsClicked}
       flashcardsTitle={props.flashcardsTitle}
       card={props.card}
+      index={props.index}
       method="edit"
     />
   ) : (
@@ -130,7 +132,8 @@ const FlashcardsInput = (props) => {
           answer.current,
           answerExtra.current,
           props.flashcardsTitle,
-          props.card
+          props.card,
+          props.index
         );
       }
     };
