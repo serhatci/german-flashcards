@@ -1,14 +1,10 @@
 import { useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import update from "immutability-helper";
 
 import { PlusIcon } from "../icons/Icons";
 import ContentEditable from "react-contenteditable";
 import { useData } from "../../contexts/DataContext";
-import {
-  correctInput,
-  duplicateFlashcardsCheck,
-} from "../edit-pages/inputCheckFunctions";
+import { useEditData } from "./EditDataCustomHook";
 import "./edit.css";
 
 const EditFlashcards = () => {
@@ -48,10 +44,7 @@ const EditButton = (props) => {
       setClicked={setEditFlashcardsClicked}
       flashcardsTitle={props.flashcardsTitle}
       card={props.card}
-      question={props.card.question}
-      questionExtra={props.card.questionExtra}
-      answer={props.card.answer}
-      answerExtra={props.card.answerExtra}
+      method="edit"
     />
   ) : (
     <div className="edit-page-buttons fade-in" id="edit-buttons">
@@ -70,23 +63,13 @@ const EditButton = (props) => {
 };
 
 const DeleteFlashcardButton = (props) => {
-  const { flashcards, setFlashcards } = useData();
-
-  function deleteFlashcard() {
-    const newTitles = flashcards[props.flashcardsTitle].filter(
-      (card) => JSON.stringify(card) !== JSON.stringify(props.card)
-    );
-    const newFlashcards = update(flashcards, {
-      [props.flashcardsTitle]: { $set: newTitles },
-    });
-    setFlashcards(newFlashcards);
-  }
+  const { deleteFlashcard } = useEditData();
 
   return (
     <button
       className="edit-title-buttons delete"
       id="delete-flashcard-button"
-      onClick={() => deleteFlashcard()}>
+      onClick={() => deleteFlashcard(props.flashcardsTitle, props.card)}>
       DELETE
     </button>
   );
@@ -109,6 +92,7 @@ const AddNewData = (props) => {
     <FlashcardsInput
       setClicked={setClicked}
       flashcardsTitle={props.flashcardsTitle}
+      method="add"
     />
   ) : (
     <PlusIcon setClicked={setClicked} />
@@ -116,50 +100,41 @@ const AddNewData = (props) => {
 };
 
 const FlashcardsInput = (props) => {
-  const { flashcards, setFlashcards } = useData();
+  const { addFlashcard, editFlashcard } = useEditData();
 
-  const question = useRef(`${props.question ? props.question : ""}`);
-  const questionExtra = useRef(
-    `${props.questionExtra ? props.questionExtra : ""}`
+  const question = useRef(
+    `${props.method === "edit" ? props.card.question : ""}`
   );
-  const answer = useRef(`${props.answer ? props.answer : ""}`);
-  const answerExtra = useRef(`${props.answerExtra ? props.answerExtra : ""}`);
+  const questionExtra = useRef(
+    `${props.method === "edit" ? props.card.questionExtra : ""}`
+  );
+  const answer = useRef(`${props.method === "edit" ? props.card.answer : ""}`);
+  const answerExtra = useRef(
+    `${props.method === "edit" ? props.card.answerExtra : ""}`
+  );
 
-  function addFlashcard() {
-    const correctedQuestion = correctInput(question.current);
-    const correctedQuestionExtra = correctInput(questionExtra.current);
-    const correctedAnswer = correctInput(answer.current);
-    const correctedAnswerExtra = correctInput(answerExtra.current);
-
-    if (!correctedQuestion || !correctedAnswer) return;
-
-    const flashcardInput = {
-      question: correctedQuestion,
-      questionExtra: correctedQuestionExtra,
-      answer: correctedAnswer,
-      answerExtra: correctedAnswerExtra,
+  function handleInput() {
+    let result = () => {
+      if (props.method === "add") {
+        return addFlashcard(
+          question.current,
+          questionExtra.current,
+          answer.current,
+          answerExtra.current,
+          props.flashcardsTitle
+        );
+      } else {
+        return editFlashcard(
+          question.current,
+          questionExtra.current,
+          answer.current,
+          answerExtra.current,
+          props.flashcardsTitle,
+          props.card
+        );
+      }
     };
-
-    if (
-      duplicateFlashcardsCheck(
-        flashcardInput,
-        flashcards[props.flashcardsTitle]
-      )
-    )
-      return;
-
-    const newFlashcards = update(flashcards, {
-      [props.flashcardsTitle]: { $unshift: [flashcardInput] },
-    });
-
-    if (props.question) {
-      newFlashcards[props.flashcardsTitle] = newFlashcards[
-        props.flashcardsTitle
-      ].filter((card) => JSON.stringify(card) !== JSON.stringify(props.card));
-    }
-
-    setFlashcards(newFlashcards);
-    props.setClicked(false);
+    if (result()) return props.setClicked(false);
   }
 
   return (
@@ -198,21 +173,21 @@ const FlashcardsInput = (props) => {
           style={{ outline: "0px solid transparent", paddingLeft: "10%" }}
         />
       </div>
-      <AddButton
-        add={addFlashcard}
-        title={props.question ? "CONFIRM" : "ADD CARD"}
+      <AddOrEditButton
+        action={handleInput}
+        title={props.method === "add" ? "ADD CARD" : "CONFIRM"}
       />
       <CancelButton setClicked={props.setClicked} />
     </div>
   );
 };
 
-const AddButton = (props) => {
+const AddOrEditButton = (props) => {
   return (
     <button
       className="edit-title-buttons add-title"
       id="add-title-button"
-      onClick={() => props.add()}>
+      onClick={() => props.action()}>
       {props.title}
     </button>
   );
