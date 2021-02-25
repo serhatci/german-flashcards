@@ -4,7 +4,7 @@ import { useData } from "../../contexts/DataContext";
 import { PlusIcon } from "../icons/Icons";
 import ContentEditable from "react-contenteditable";
 import {
-  correctInput,
+  correctHomePageInput,
   toCamelCase,
   duplicateTitleCheck,
 } from "../edit-pages/inputCheckFunctions";
@@ -79,7 +79,7 @@ const HomePageTitleInput = (props) => {
   };
 
   function addTitle() {
-    const correctedText = correctInput(text.current);
+    const correctedText = correctHomePageInput(text.current);
 
     if (duplicateTitleCheck(correctedText, titles)) return;
 
