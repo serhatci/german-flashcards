@@ -14,7 +14,7 @@ export function ButtonsProvider({ children }) {
 
   // settings are disabled except home and flashcard pages
   function settingsHandler() {
-    if (loc.pathname === "/" || loc.pathname.includes("flashcards")) {
+    if (loc.pathname === "/" || !loc.pathname.includes("/edit-")) {
       setSettingsClicked((settingsClicked) => !settingsClicked);
     }
   }
