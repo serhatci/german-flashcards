@@ -60,7 +60,8 @@ export function useEditData() {
     answer,
     answerExtra,
     title,
-    card
+    card,
+    index
   ) {
     const correctedQuestion = correctInput(question);
     const correctedQuestionExtra = correctInput(questionExtra);
@@ -79,15 +80,9 @@ export function useEditData() {
     if (duplicateFlashcardsCheck(flashcardInput, flashcards[title]))
       return false;
 
-    // Adds new card
     let newFlashcards = update(flashcards, {
-      [title]: { $unshift: [flashcardInput] },
+      [title]: { [index]: { $set: flashcardInput } },
     });
-
-    // Deletes already edited card
-    newFlashcards[title] = newFlashcards[title].filter(
-      (titleCard) => JSON.stringify(titleCard) !== JSON.stringify(card)
-    );
 
     setFlashcards(newFlashcards);
     return true;
