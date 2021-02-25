@@ -21,6 +21,8 @@ export function correctInput(text) {
   corrected = corrected.replaceAll("<br>", "");
   corrected = corrected.replaceAll("</br>", "");
   corrected = corrected.replaceAll("&nbsp", "");
+  corrected = corrected.replaceAll("&lt", "");
+  corrected = corrected.replaceAll("&gt", "");
   corrected = corrected.replaceAll(";", "");
   return corrected;
 }
