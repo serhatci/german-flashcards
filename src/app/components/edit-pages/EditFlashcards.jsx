@@ -20,11 +20,10 @@ const EditFlashcards = () => {
   function createButtons() {
     return flashcardsData.map((card) => (
       <EditButton
-        key={`${card.answer} - ${card.question}`}
-        buttonTitle={`${card.answer} - ${card.question}`}
+        key={`${card.question} - ${card.answer}`}
+        buttonTitle={`${card.question} - ${card.answer}`}
         flashcardsTitle={flashcardsTitle}
-        answer={card.answer}
-        question={card.question}
+        card={card}
       />
     ));
   }
@@ -42,21 +41,32 @@ const EditFlashcards = () => {
 };
 
 const EditButton = (props) => {
-  return (
+  const [editFlashcardsClicked, setEditFlashcardsClicked] = useState(false);
+
+  const targetView = editFlashcardsClicked ? (
+    <FlashcardsInput
+      setClicked={setEditFlashcardsClicked}
+      flashcardsTitle={props.flashcardsTitle}
+      card={props.card}
+      question={props.card.question}
+      questionExtra={props.card.questionExtra}
+      answer={props.card.answer}
+      answerExtra={props.card.answerExtra}
+    />
+  ) : (
     <div className="edit-page-buttons fade-in" id="edit-buttons">
       <DeleteFlashcardButton
         flashcardsTitle={props.flashcardsTitle}
-        answer={props.answer}
-        question={props.question}
+        card={props.card}
       />
       <EditFlashcardButton
-        flashcardsTitle={props.flashcardsTitle}
-        answer={props.answer}
-        question={props.question}
+        setEditFlashcardsClicked={setEditFlashcardsClicked}
       />
       {props.buttonTitle}
     </div>
   );
+
+  return targetView;
 };
 
 const DeleteFlashcardButton = (props) => {
@@ -64,8 +74,7 @@ const DeleteFlashcardButton = (props) => {
 
   function deleteFlashcard() {
     const newTitles = flashcards[props.flashcardsTitle].filter(
-      ({ answer, question }) =>
-        answer !== props.answer && question !== props.question
+      (card) => JSON.stringify(card) !== JSON.stringify(props.card)
     );
     const newFlashcards = update(flashcards, {
       [props.flashcardsTitle]: { $set: newTitles },
@@ -84,13 +93,11 @@ const DeleteFlashcardButton = (props) => {
 };
 
 const EditFlashcardButton = (props) => {
-  function editFlashcard() {}
-
   return (
     <button
       className="edit-title-buttons add-title"
       id="edit-flashcard-button"
-      onClick={() => editFlashcard()}>
+      onClick={() => props.setEditFlashcardsClicked(true)}>
       EDIT
     </button>
   );
@@ -111,10 +118,12 @@ const AddNewData = (props) => {
 const FlashcardsInput = (props) => {
   const { flashcards, setFlashcards } = useData();
 
-  const question = useRef("");
-  const questionExtra = useRef("");
-  const answer = useRef("");
-  const answerExtra = useRef("");
+  const question = useRef(`${props.question ? props.question : ""}`);
+  const questionExtra = useRef(
+    `${props.questionExtra ? props.questionExtra : ""}`
+  );
+  const answer = useRef(`${props.answer ? props.answer : ""}`);
+  const answerExtra = useRef(`${props.answerExtra ? props.answerExtra : ""}`);
 
   function addFlashcard() {
     const correctedQuestion = correctInput(question.current);
@@ -142,6 +151,13 @@ const FlashcardsInput = (props) => {
     const newFlashcards = update(flashcards, {
       [props.flashcardsTitle]: { $unshift: [flashcardInput] },
     });
+
+    if (props.question) {
+      newFlashcards[props.flashcardsTitle] = newFlashcards[
+        props.flashcardsTitle
+      ].filter((card) => JSON.stringify(card) !== JSON.stringify(props.card));
+    }
+
     setFlashcards(newFlashcards);
     props.setClicked(false);
   }
@@ -151,7 +167,7 @@ const FlashcardsInput = (props) => {
       className="edit-page-buttons flashcards fade-in"
       id="edit-flashcard-buttons">
       <div>
-        <p>**Question:</p>
+        <p>**QUESTION:</p>
         <ContentEditable
           html={question.current}
           onChange={(evt) => (question.current = evt.target.value)}
@@ -167,7 +183,7 @@ const FlashcardsInput = (props) => {
         />
       </div>
       <div>
-        <p>**Answer:</p>
+        <p>**ANSWER:</p>
         <ContentEditable
           html={answer.current}
           onChange={(evt) => (answer.current = evt.target.value)}
@@ -182,7 +198,10 @@ const FlashcardsInput = (props) => {
           style={{ outline: "0px solid transparent", paddingLeft: "10%" }}
         />
       </div>
-      <AddButton add={addFlashcard} />
+      <AddButton
+        add={addFlashcard}
+        title={props.question ? "CONFIRM" : "ADD CARD"}
+      />
       <CancelButton setClicked={props.setClicked} />
     </div>
   );
@@ -194,7 +213,7 @@ const AddButton = (props) => {
       className="edit-title-buttons add-title"
       id="add-title-button"
       onClick={() => props.add()}>
-      ADD CARD
+      {props.title}
     </button>
   );
 };
