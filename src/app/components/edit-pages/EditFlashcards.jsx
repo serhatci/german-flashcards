@@ -140,7 +140,7 @@ const FlashcardsInput = (props) => {
       return;
 
     const newFlashcards = update(flashcards, {
-      [props.flashcardsTitle]: { $push: [flashcardInput] },
+      [props.flashcardsTitle]: { $unshift: [flashcardInput] },
     });
     setFlashcards(newFlashcards);
     props.setClicked(false);
