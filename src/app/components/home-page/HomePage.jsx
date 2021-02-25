@@ -43,7 +43,8 @@ const MainPage = () => {
 };
 
 const WelcomeInfo = () => {
-  const { currentUser, username } = useAuth();
+  const { currentUser } = useAuth();
+  const { username } = useData();
   const env = process.env.NODE_ENV;
 
   if (username === "master" && !currentUser)
