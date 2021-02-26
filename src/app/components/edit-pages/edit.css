@@ -160,3 +160,18 @@
 .edit-reset {
   background-color: #e06513;
 }
+
+.edit-message-box {
+  text-align: center;
+  color: #070000;
+  font-weight: bolder;
+  padding: 2% 0;
+}
+
+.edit-message-box.success {
+  background-color: rgba(157, 233, 157);
+}
+
+.edit-message-box.fail {
+  background-color: #ff2525;
+}
