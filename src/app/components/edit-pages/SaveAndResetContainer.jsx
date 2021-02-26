@@ -6,6 +6,7 @@ import "./edit.css";
 const SaveAndResetContainer = () => {
   const { setTitles, setFlashcards } = useData();
   const location = useLocation();
+
   const style = location.pathname.includes("edit-")
     ? "edit-box-container show"
     : "edit-box-container hide";
@@ -46,9 +47,21 @@ const SaveAndResetContainer = () => {
   );
 };
 
-const EditSaveButton = () => {
+const EditSaveButton = (props) => {
+  const { titles, flashcards } = useData();
+
+  function saveToLocalStorage() {
+    if (props.editPage === "homepage") {
+      localStorage.setItem("titles", JSON.stringify(titles));
+    }
+    localStorage.setItem("flashcards", JSON.stringify(flashcards));
+  }
+
   return (
-    <button className="edit-box-buttons save-changes" id="edit-save-button">
+    <button
+      className="edit-box-buttons save-changes"
+      id="edit-save-button"
+      onClick={() => saveToLocalStorage()}>
       Save Changes
     </button>
   );
