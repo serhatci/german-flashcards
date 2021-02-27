@@ -20,7 +20,7 @@
 }
 .edit-button-container {
   padding: 10px 0px;
-  margin-top: 50px;
+  margin-top: 75px;
 }
 
 .plusIcon-container {
@@ -77,7 +77,6 @@
 .edit-page-buttons.new {
   border-radius: 6px;
   border: 1px solid #0b35a0;
-  margin-top: 15px;
 }
 
 .edit-page-buttons.flashcards {
