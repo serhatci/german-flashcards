@@ -1,10 +1,10 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, memo } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useData } from "../../contexts/DataContext";
 import "./edit.css";
 
-const SaveAndResetContainer = () => {
+const SaveAndResetContainer = memo(() => {
   const { currentUser } = useAuth();
   const location = useLocation();
   const [successMsg, setSuccessMsg] = useState();
@@ -40,7 +40,7 @@ const SaveAndResetContainer = () => {
       </div>
     </div>
   );
-};
+});
 
 const EditSaveButton = (props) => {
   const { currentUser } = useAuth();
