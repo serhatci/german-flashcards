@@ -59,6 +59,7 @@ export function DataProvider({ children }) {
         username,
         setUsername,
         fetchAgain,
+        reFetch,
       }}>
       {children}
     </DataContext.Provider>
