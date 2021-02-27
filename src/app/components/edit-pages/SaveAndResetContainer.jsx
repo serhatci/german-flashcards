@@ -62,20 +62,24 @@ const EditSaveButton = (props) => {
 
   const msgBody =
     props.editPage === "homepage"
-      ? { id: currentUser.uid, topics: titles }
+      ? { id: currentUser.uid, topics: titles.map((title) => title.str) }
       : { id: currentUser.uid, cards: flashcards };
 
   async function saveToDB() {
     const options = {
-      method: "POST",
+      method: "PUT",
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify(msgBody),
     };
 
-    await fetch("http://127.0.0.1:5000/api/save-data", options)
-      .then(() => {
-        saveToLocalStorage();
-        props.setSuccessMsg("Saved!");
+    await fetch("http://127.0.0.1:5000/api/update-data", options)
+      .then((response) => {
+        if (response.ok) {
+          saveToLocalStorage();
+          props.setSuccessMsg("Saved!");
+        } else {
+          throw Error;
+        }
       })
       .catch(() => props.setSuccessMsg("Failed to Save :(("));
   }
