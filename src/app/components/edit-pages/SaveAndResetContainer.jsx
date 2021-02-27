@@ -58,7 +58,7 @@ const SaveAndResetContainer = () => {
 
 const EditSaveButton = (props) => {
   const { currentUser } = useAuth();
-  const { titles, flashcards } = useData();
+  const { titles, flashcards, fetchAgain } = useData();
 
   const msgBody =
     props.editPage === "homepage"
@@ -75,20 +75,13 @@ const EditSaveButton = (props) => {
     await fetch("http://127.0.0.1:5000/api/update-data", options)
       .then((response) => {
         if (response.ok) {
-          saveToLocalStorage();
+          fetchAgain();
           props.setSuccessMsg("Saved!");
         } else {
           throw Error;
         }
       })
       .catch(() => props.setSuccessMsg("Failed to Save :(("));
-  }
-
-  function saveToLocalStorage() {
-    if (props.editPage === "homepage") {
-      localStorage.setItem("titles", JSON.stringify(titles));
-    }
-    localStorage.setItem("flashcards", JSON.stringify(flashcards));
   }
 
   return (
