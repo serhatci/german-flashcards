@@ -165,7 +165,10 @@
   text-align: center;
   color: #070000;
   font-weight: bolder;
-  padding: 2% 0;
+
+  padding: 1% 0;
+
+  border-radius: 0px 0px 6px 6px;
 }
 
 .edit-message-box.success {
