@@ -1,9 +1,10 @@
-import "./settings.css";
+import { memo } from "react";
+
 import { useButtons } from "../../contexts/ButtonsContext";
-
 import { ShuffleIcon, ThemeIcon, EditIcon } from "../icons/Icons.jsx";
+import "./settings.css";
 
-const Settings = () => {
+const Settings = memo(() => {
   const button = useButtons();
 
   // setting is disabled at authorization pages
@@ -24,6 +25,6 @@ const Settings = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Settings;
