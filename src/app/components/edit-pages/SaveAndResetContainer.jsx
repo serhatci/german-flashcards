@@ -5,7 +5,6 @@ import { useData } from "../../contexts/DataContext";
 import "./edit.css";
 
 const SaveAndResetContainer = () => {
-  const { setTitles, setFlashcards } = useData();
   const location = useLocation();
   const [successMsg, setSuccessMsg] = useState();
 
@@ -16,35 +15,19 @@ const SaveAndResetContainer = () => {
     ? "homepage"
     : "flashcards";
 
-  const initialTitles = useRef();
-  const initialFlashcards = useRef();
-
-  useEffect(() => {
-    initialTitles.current = JSON.parse(localStorage.getItem("titles"));
-    initialFlashcards.current = JSON.parse(localStorage.getItem("flashcards"));
-
-    if (style.includes("hide")) {
-      setFlashcards(initialFlashcards.current);
-      setTitles(initialTitles.current);
-    }
-  }, [style, setFlashcards, setTitles]);
-
   return (
     <div className={style} id="edit-box-container">
       <div className="edit-box">
         <EditSaveButton
-          initialTitles={initialTitles.current}
-          initialFlashcards={initialFlashcards.current}
           location={location.pathname}
           editPage={editPage}
           setSuccessMsg={setSuccessMsg}
         />
         <EditResetButton
-          initialTitles={initialTitles.current}
-          initialFlashcards={initialFlashcards.current}
           location={location.pathname}
           editPage={editPage}
           setSuccessMsg={setSuccessMsg}
+          style={style}
         />
         {successMsg ? (
           <MessageBox successMsg={successMsg} setSuccessMsg={setSuccessMsg} />
@@ -95,14 +78,26 @@ const EditSaveButton = (props) => {
 };
 
 const EditResetButton = (props) => {
-  const { setTitles, setFlashcards } = useData();
+  const { setTitles, setFlashcards, reFetch } = useData();
+  const initialTitles = useRef();
+  const initialFlashcards = useRef();
+
+  useEffect(() => {
+    initialTitles.current = JSON.parse(localStorage.getItem("titles"));
+    initialFlashcards.current = JSON.parse(localStorage.getItem("flashcards"));
+
+    if (props.style.includes("hide")) {
+      setFlashcards(initialFlashcards.current);
+      setTitles(initialTitles.current);
+    }
+  }, [reFetch, props, setFlashcards, setTitles]);
 
   function setInitialButtons() {
     if (props.editPage === "homepage") {
-      setTitles(props.initialTitles);
+      setTitles(initialTitles.current);
       return props.setSuccessMsg("Reset Done!");
     }
-    setFlashcards(props.initialFlashcards);
+    setFlashcards(initialFlashcards.current);
     props.setSuccessMsg("Reset Done!");
   }
 
@@ -126,7 +121,7 @@ const MessageBox = (props) => {
     document.getElementById("edit-reset-button").disabled = true;
     setTimeout(() => {
       props.setSuccessMsg("");
-    }, 3000);
+    }, 2500);
 
     return () => {
       document.getElementById("edit-save-button").disabled = false;
