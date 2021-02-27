@@ -4,7 +4,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useData } from "../../contexts/DataContext";
 import "./edit.css";
 
-const SaveAndResetContainer = memo(() => {
+const SaveAndResetContainer = () => {
   const { currentUser } = useAuth();
   const location = useLocation();
   const [successMsg, setSuccessMsg] = useState();
@@ -40,11 +40,12 @@ const SaveAndResetContainer = memo(() => {
       </div>
     </div>
   );
-});
+};
 
-const EditSaveButton = (props) => {
+const EditSaveButton = memo((props) => {
   const { currentUser } = useAuth();
   const { titles, flashcards, fetchAgain } = useData();
+  console.log("rendered");
 
   const msgBody =
     props.editPage === "homepage"
@@ -78,7 +79,7 @@ const EditSaveButton = (props) => {
       Save Changes
     </button>
   );
-};
+});
 
 const EditResetButton = (props) => {
   const { setTitles, setFlashcards, reFetch } = useData();
