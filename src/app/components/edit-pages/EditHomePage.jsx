@@ -68,6 +68,7 @@ const HomePageTitleInput = (props) => {
   };
 
   const addTitle = () => {
+    if (text.current === "") return;
     addHomePageTitle(text.current);
     props.setClicked(false);
   };
