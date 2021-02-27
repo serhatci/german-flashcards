@@ -15,6 +15,11 @@ export function DataProvider({ children }) {
   const [titles, setTitles] = useState([]);
   const [flashcards, setFlashcards] = useState([]);
   const [username, setUsername] = useState("");
+  const [reFetch, setReFetch] = useState(false);
+
+  function fetchAgain() {
+    setReFetch(!reFetch);
+  }
 
   useEffect(() => {
     const headers = {
@@ -38,7 +43,7 @@ export function DataProvider({ children }) {
       })
       .catch((error) => setFetchError(error.message))
       .finally(() => setLoading(false));
-  }, [currentUser]);
+  }, [currentUser, reFetch]);
 
   return (
     <DataContext.Provider
@@ -53,6 +58,7 @@ export function DataProvider({ children }) {
         setFlashcards,
         username,
         setUsername,
+        fetchAgain,
       }}>
       {children}
     </DataContext.Provider>
