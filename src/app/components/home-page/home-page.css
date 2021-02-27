@@ -16,3 +16,10 @@
 .button-container {
   padding: 10px 0px;
 }
+
+.empty-title-msg > p {
+  text-align: center;
+  padding: 15% 0%;
+  font-size: x-large;
+  font-weight: bolder;
+}
