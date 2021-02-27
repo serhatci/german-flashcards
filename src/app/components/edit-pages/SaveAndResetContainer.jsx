@@ -5,6 +5,7 @@ import { useData } from "../../contexts/DataContext";
 import "./edit.css";
 
 const SaveAndResetContainer = () => {
+  const { currentUser } = useAuth();
   const location = useLocation();
   const [successMsg, setSuccessMsg] = useState();
 
@@ -14,6 +15,8 @@ const SaveAndResetContainer = () => {
   const editPage = location.pathname.includes("/edit-homepage")
     ? "homepage"
     : "flashcards";
+
+  if (!currentUser) return "";
 
   return (
     <div className={style} id="edit-box-container">
