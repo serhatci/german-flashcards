@@ -38,6 +38,7 @@ const MainPage = () => {
       <div className="button-container" id="button-container">
         <nav aria-labelledby="content-navigation">{createButtons()}</nav>
       </div>
+      {titles.length ? "" : <EmptyTitlesMessage />}
     </>
   );
 };
@@ -66,6 +67,14 @@ const MessageBoard = () => {
   return (
     <div className="loading-container">
       {isLoading ? <LoadingIcon /> : fetchError}
+    </div>
+  );
+};
+
+const EmptyTitlesMessage = () => {
+  return (
+    <div className="empty-title-msg" id="empty-title-msg">
+      <p>Nothing here :((</p>
     </div>
   );
 };
