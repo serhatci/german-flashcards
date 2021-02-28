@@ -30,7 +30,7 @@ const UpdatePassword = () => {
       {success ? (
         <SuccessMessage />
       ) : (
-        <ProfileUpdateForm setConErr={setConnError} success={setSuccess} />
+        <ProfileUpdateForm setConnErr={setConnError} setSuccess={setSuccess} />
       )}
     </div>
   );
@@ -47,13 +47,13 @@ const SuccessMessage = () => {
 const ProfileUpdateForm = (props) => {
   const { updatePassword } = useAuth();
 
-  function submitForm(values) {
+  async function submitForm(values) {
     props.setConnErr("");
-    updatePassword(values.password)
-      .then(() => props.success(true))
+    await updatePassword(values.password)
+      .then(() => props.setSuccess(true))
       .catch((err) => {
         props.setConnErr(err.message);
-        props.success(false);
+        props.setSuccess(false);
       });
   }
   return (
