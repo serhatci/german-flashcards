@@ -28,7 +28,11 @@ const Signup = () => {
       {success ? (
         <SuccessMessage />
       ) : (
-        <SignupForm connErr={setConnError} success={setSuccess} />
+        <SignupForm
+          connErr={connError}
+          setConnErr={setConnError}
+          success={setSuccess}
+        />
       )}
     </div>
   );
@@ -39,27 +43,25 @@ const SuccessMessage = () => {
 };
 
 const SignupForm = (props) => {
-  const { signup, deleteUser } = useAuth();
+  const { signup, currentUser } = useAuth();
+  const { deleteUser } = useAuth();
 
   async function submitForm(values, setSubmitting) {
-    props.connErr("");
-    try {
-      var newUser = await signup(values.email, values.password);
-    } catch (err) {
-      props.connErr(err.message);
-      props.success(false);
+    props.setConnErr("");
+    await signup(values.email, values.password)
+      .then((newUser) => addUserToDB(newUser.user, values.username))
+      .then(() => {
+        localStorage.clear();
+        props.success(true);
+      })
+      .catch((err) => {
+        props.setConnErr(err.message);
+        props.success(false);
+      });
+
+    if (props.connErr) {
+      deleteUser(currentUser.user);
     }
-
-    if (!newUser.user) return;
-
-    try {
-      await addUserToDB(newUser.user, values.username);
-    } catch (err) {
-      await deleteUser(newUser.user);
-      props.connErr(err.message);
-      props.success(false);
-    }
-
     setSubmitting(true);
   }
 
@@ -74,18 +76,9 @@ const SignupForm = (props) => {
       }),
     };
 
-    const response = await fetch(
-      "http://127.0.0.1:5000/api/add-user",
-      options
-    );
-
-    if (response.ok) {
-      localStorage.clear();
-      props.success(true);
-    } else {
-      const err = await response.json();
-      throw new Error(err.message);
-    }
+    await fetch("http://127.0.0.1:5000/api/add-user", options).then((res) => {
+      if (!res.ok) throw new Error(res.message);
+    });
   }
 
   return (
