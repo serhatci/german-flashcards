@@ -42,25 +42,34 @@ export const DeleteAccountButton = (props) => {
   const { deleteUser, currentUser } = useAuth();
   const [question, setQuestion] = useState(false);
 
-  function deleteAccount() {
+  async function deleteAccount() {
     props.setConnErr("");
-    deleteUser(currentUser).catch((error) => {
-      props.setConnErr(error.message);
-      props.success("");
-    });
+    await deleteUSerFromDB()
+      .then(() => {
+        deleteUser(currentUser);
+      })
+      .then(() => {
+        localStorage.clear();
+        props.success("Your account has been successfully deleted!");
+      })
+      .catch((error) => {
+        props.setConnErr(error.message);
+        props.success("");
+      });
+  }
 
-    if (props.connErr !== "") return;
-
+  async function deleteUSerFromDB() {
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ id: currentUser.uid }),
+      body: JSON.stringify({ userID: currentUser.uid }),
     };
 
-    fetch("http://127.0.0.1:5000/api/delete-user", options).then(() => {
-      localStorage.clear();
-      props.success("Account has been successfully deleted!");
-    });
+    await fetch("http://127.0.0.1:5000/api/delete-user", options).then(
+      (res) => {
+        if (!res.ok) throw new Error(res.message);
+      }
+    );
   }
 
   return (
