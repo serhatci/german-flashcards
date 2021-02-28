@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { useData } from "../../contexts/DataContext";
 import "./buttons.css";
 
 export const LogoutButton = (props) => {
   const { logout } = useAuth();
+  const { fetchAgain } = useData();
 
-  function logoutClicked() {
-    logout().then(
+  async function logoutClicked() {
+    await logout().then(
       () => {
         props.setConnErr("");
         localStorage.clear();
         props.success("You have been successfully logged out!");
+        fetchAgain();
       },
       (error) => {
         props.setConnErr(error.message);
@@ -41,6 +44,7 @@ export const UpdatePasswordButton = () => {
 export const DeleteAccountButton = (props) => {
   const { deleteUser, currentUser } = useAuth();
   const [question, setQuestion] = useState(false);
+  const { fetchAgain } = useData();
 
   async function deleteAccount() {
     props.setConnErr("");
@@ -49,7 +53,9 @@ export const DeleteAccountButton = (props) => {
         deleteUser(currentUser);
       })
       .then(() => {
+        localStorage.clear();
         props.success("Your account has been successfully deleted!");
+        fetchAgain();
       })
       .catch((error) => {
         props.setConnErr(error.message);

@@ -40,8 +40,8 @@ const SuccessMessage = () => {
 const ForgotPassForm = (props) => {
   const { resetPassword } = useAuth();
 
-  function submitForm(values) {
-    resetPassword(values.email).then(
+  async function submitForm(values) {
+    await resetPassword(values.email).then(
       () => {
         props.success(true);
         props.connErr("");
