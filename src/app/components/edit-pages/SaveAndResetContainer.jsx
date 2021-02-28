@@ -44,13 +44,17 @@ const SaveAndResetContainer = () => {
 
 const EditSaveButton = memo((props) => {
   const { currentUser } = useAuth();
+  const { username } = useData();
   const { titles, flashcards, fetchAgain } = useData();
-  console.log("rendered");
 
   const msgBody =
     props.editPage === "homepage"
-      ? { id: currentUser.uid, topics: titles.map((title) => title.str) }
-      : { id: currentUser.uid, cards: flashcards };
+      ? {
+          uid: currentUser.uid,
+          userName: username,
+          topics: titles.map((title) => title.str),
+        }
+      : { uid: currentUser.uid, userName: username, cards: flashcards };
 
   async function saveToDB() {
     const options = {
