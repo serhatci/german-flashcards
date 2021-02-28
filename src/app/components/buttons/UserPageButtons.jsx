@@ -49,7 +49,6 @@ export const DeleteAccountButton = (props) => {
         deleteUser(currentUser);
       })
       .then(() => {
-        localStorage.clear();
         props.success("Your account has been successfully deleted!");
       })
       .catch((error) => {
