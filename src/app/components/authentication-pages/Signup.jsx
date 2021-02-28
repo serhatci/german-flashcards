@@ -68,7 +68,7 @@ const SignupForm = (props) => {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify({
-        id: newUser.uid,
+        userID: newUser.uid,
         username: username,
         email: newUser.email,
       }),
