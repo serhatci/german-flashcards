@@ -19,7 +19,8 @@ export function useEditData() {
   function addHomePageTitle(text) {
     const correctedText = correctHomePageInput(text);
 
-    if (duplicateTitleCheck(correctedText, titles)) return;
+    if (correctedText === "") return false;
+    if (duplicateTitleCheck(correctedText, titles)) return false;
 
     const homePageTitleInput = {
       camelCase: toCamelCase(correctedText),
@@ -27,6 +28,7 @@ export function useEditData() {
     };
     const newTitles = [homePageTitleInput].concat(titles);
     setTitles(newTitles);
+    return true;
   }
 
   function addFlashcard(question, questionExtra, answer, answerExtra, title) {
