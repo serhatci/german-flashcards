@@ -7,6 +7,7 @@ import Input from "../form-components/Input";
 import SubmitButton from "../form-components/SubmitButton";
 import { useAuth } from "../../contexts/AuthContext";
 import "./authentication.css";
+import { useData } from "../../contexts/DataContext";
 
 const Signup = () => {
   const [connError, setConnError] = useState("");
@@ -43,23 +44,24 @@ const SuccessMessage = () => {
 };
 
 const SignupForm = (props) => {
-  const { signup, currentUser } = useAuth();
-  const { deleteUser } = useAuth();
+  const { signup, currentUser, deleteUser } = useAuth();
+  const { fetchAgain } = useData();
 
-  async function submitForm(values, setSubmitting) {
+  function submitForm(values, setSubmitting) {
     props.setConnErr("");
-    await signup(values.email, values.password)
+    signup(values.email, values.password)
       .then((newUser) => addUserToDB(newUser.user, values.username))
       .then(() => {
         localStorage.clear();
         props.success(true);
+        fetchAgain();
       })
       .catch((err) => {
         props.setConnErr(err.message);
         props.success(false);
       });
 
-    if (props.connErr) {
+    if (props.connErr && currentUser.user) {
       deleteUser(currentUser.user);
     }
     setSubmitting(true);
@@ -76,9 +78,8 @@ const SignupForm = (props) => {
       }),
     };
 
-    await fetch("http://127.0.0.1:5000/api/add-user", options).then((res) => {
-      if (!res.ok) throw new Error(res.message);
-    });
+    let response = await fetch("http://127.0.0.1:5000/api/add-user", options);
+    if (!response.ok) throw new Error(response.message);
   }
 
   return (
