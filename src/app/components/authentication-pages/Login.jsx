@@ -4,7 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 
 import { LoginValSchema } from "../form-components/Validation";
 import { useAuth } from "../../contexts/AuthContext";
-import { useData } from "../../contexts/DataContext";
 import Input from "../form-components/Input";
 import SubmitButton from "../form-components/SubmitButton";
 import "./authentication.css";
@@ -42,7 +41,6 @@ const SuccessMessage = () => {
 
 const LoginForm = (props) => {
   const { login } = useAuth();
-  const { fetchAgain } = useData();
 
   async function submitForm(values) {
     props.err("");
@@ -51,7 +49,6 @@ const LoginForm = (props) => {
         localStorage.clear();
         props.success(true);
         props.err("");
-        fetchAgain();
       },
       (error) => {
         props.err(error.message);

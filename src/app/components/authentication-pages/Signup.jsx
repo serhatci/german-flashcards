@@ -7,7 +7,6 @@ import Input from "../form-components/Input";
 import SubmitButton from "../form-components/SubmitButton";
 import { useAuth } from "../../contexts/AuthContext";
 import "./authentication.css";
-import { useData } from "../../contexts/DataContext";
 
 const Signup = () => {
   const [connError, setConnError] = useState("");
@@ -45,16 +44,14 @@ const SuccessMessage = () => {
 
 const SignupForm = (props) => {
   const { signup, currentUser, deleteUser } = useAuth();
-  const { fetchAgain } = useData();
 
   function submitForm(values, setSubmitting) {
     props.setConnErr("");
+    localStorage.clear();
     signup(values.email, values.password)
       .then((newUser) => addUserToDB(newUser.user, values.username))
       .then(() => {
-        localStorage.clear();
         props.success(true);
-        fetchAgain();
       })
       .catch((err) => {
         props.setConnErr(err.message);
