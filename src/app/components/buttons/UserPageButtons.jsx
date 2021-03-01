@@ -44,12 +44,11 @@ export const DeleteAccountButton = (props) => {
 
   async function deleteAccount() {
     props.setConnErr("");
-    await deleteUSerFromDB()
+    await deleteUserFromDB()
       .then(() => {
         deleteUser(currentUser);
       })
       .then(() => {
-        localStorage.clear();
         props.success("Your account has been successfully deleted!");
       })
       .catch((error) => {
@@ -58,7 +57,7 @@ export const DeleteAccountButton = (props) => {
       });
   }
 
-  async function deleteUSerFromDB() {
+  async function deleteUserFromDB() {
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
