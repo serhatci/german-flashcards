@@ -14,6 +14,10 @@ export function useEditData() {
   function deleteHomePageTitle(buttonTitle) {
     let newTitles = titles.filter((title) => title.str !== buttonTitle);
     setTitles(newTitles);
+
+    // Deletes connecting flashcards belongs to deleted title
+    delete flashcards[toCamelCase(buttonTitle)];
+    setFlashcards(flashcards);
   }
 
   function addHomePageTitle(text) {
@@ -28,6 +32,10 @@ export function useEditData() {
     };
     const newTitles = [homePageTitleInput].concat(titles);
     setTitles(newTitles);
+
+    // Add new empty flashcards for the new title
+    flashcards[toCamelCase(correctedText)] = [];
+    setFlashcards(flashcards);
     return true;
   }
 
