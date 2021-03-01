@@ -15,11 +15,8 @@ export function DataProvider({ children }) {
   const [titles, setTitles] = useState([]);
   const [flashcards, setFlashcards] = useState([]);
   const [username, setUsername] = useState("");
-  const storageFilled = localStorage.getItem("titles");
 
   useEffect(() => {
-    if (storageFilled) return;
-
     const headers = {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -30,18 +27,20 @@ export function DataProvider({ children }) {
     setLoading(true);
     fetch("http://127.0.0.1:5000/api/", headers)
       .then((response) => response.json())
-      .then((data) => {
-        if (!data.titles) throw new Error(data.message);
-        for (let title in data) {
-          localStorage.setItem(title, JSON.stringify(data[title]));
-        }
-        setTitles(JSON.parse(localStorage.getItem("titles")));
-        setFlashcards(JSON.parse(localStorage.getItem("flashcards")));
-        setUsername(JSON.parse(localStorage.getItem("username")));
-      })
+      .then((data) => setupTitles(data))
       .catch((error) => setFetchError(error.message))
       .finally(() => setLoading(false));
-  }, [currentUser, storageFilled]);
+  }, [currentUser]);
+
+  function setupTitles(data) {
+    if (!data.titles) throw new Error(data.message);
+    for (let title in data) {
+      localStorage.setItem(title, JSON.stringify(data[title]));
+    }
+    setTitles(JSON.parse(localStorage.getItem("titles")));
+    setFlashcards(JSON.parse(localStorage.getItem("flashcards")));
+    setUsername(JSON.parse(localStorage.getItem("username")));
+  }
 
   return (
     <DataContext.Provider
