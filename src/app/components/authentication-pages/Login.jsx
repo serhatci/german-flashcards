@@ -1,42 +1,93 @@
-import React, { useRef, useState } from "react";
-import { useAuth } from "../../contexts/AuthContext";
+import { useState, useEffect } from "react";
+import { Formik, Form } from "formik";
 import { Link, useHistory } from "react-router-dom";
 
-import "./authentication.css";
+import { LoginValSchema } from "../form-components/Validation";
+import { useAuth } from "../../contexts/AuthContext";
 import Input from "../form-components/Input";
-import Form from "../form-components/Form";
-import FormButton from "../form-components/FormButton";
+import SubmitButton from "../form-components/SubmitButton";
+import "./authentication.css";
 
-export default function Login() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const { login } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+const Login = () => {
+  const [connError, setConnError] = useState("");
+  const [success, setSuccess] = useState(false);
   const history = useHistory();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  useEffect(() => {
+    if (!success) return;
 
-    try {
-      setError("");
-      setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
+    var timer = setTimeout(() => {
       history.push("/");
-    } catch {
-      setError("Failed to log in");
-    }
+    }, 2000);
 
-    setLoading(false);
-  }
+    return () => clearTimeout(timer);
+  }, [success, history]);
 
   return (
     <div className="auth-container">
-      <Form id="login" method="post">
-        <Input label="Email" id="email" type="email" />
-        <Input label="Password" id="password" type="password" />
-        <FormButton title="Submit" type="submit" />
-      </Form>
+      <div className="auth-error">{connError}</div>
+      {success ? (
+        <SuccessMessage />
+      ) : (
+        <LoginForm err={setConnError} success={setSuccess} />
+      )}
     </div>
   );
-}
+};
+
+const SuccessMessage = () => {
+  return <p className="success-message">You have successfully logged in!</p>;
+};
+
+const LoginForm = (props) => {
+  const { login } = useAuth();
+
+  async function submitForm(values) {
+    props.err("");
+    await login(values.email, values.password).then(
+      () => {
+        localStorage.clear();
+        props.success(true);
+        props.err("");
+      },
+      (error) => {
+        props.err(error.message);
+        props.success(false);
+      }
+    );
+  }
+
+  return (
+    <>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={LoginValSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          submitForm(values);
+          setSubmitting(false);
+        }}>
+        <Form id="login">
+          <Input label="Email:" name="email" type="email" />
+          <Input label="Password:" name="password" type="password" />
+          <SubmitButton />
+        </Form>
+      </Formik>
+      <div className="links-container">
+        Do you need an account?
+        <Link to="/signup">
+          <strong> Sign Up</strong>
+        </Link>
+        <br></br>
+        or did you
+        <Link to="/forgot-password">
+          <strong> forget your password?</strong>
+        </Link>
+      </div>
+    </>
+  );
+};
+
+export default Login;

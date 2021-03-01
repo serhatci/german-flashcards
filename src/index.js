@@ -1,17 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+
 import App from "./app/App.jsx";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router } from "react-router-dom";
-import { AuthProvider } from "./app/contexts/AuthContext.jsx";
+import { MemoryRouter as Router } from "react-router-dom";
+import { AuthProvider } from "./app/contexts/AuthContext";
+import { ThemeProvider } from "./app/contexts/ThemeContext";
+import "./index.css";
+import { DataProvider } from "./app/contexts/DataContext.jsx";
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <Router>
-        <App />
-      </Router>
+      <DataProvider>
+        <ThemeProvider>
+          <Router>
+            <App />
+          </Router>
+        </ThemeProvider>
+      </DataProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")

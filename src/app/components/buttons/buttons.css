@@ -11,16 +11,56 @@
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
-  font-size: 1.4em;
+  font-size: 1.3em;
   font-weight: bolder;
   text-decoration: none;
   text-align: center;
   color: #1d50af;
 
+  word-wrap: break-word;
   cursor: pointer;
 }
 
 .home-buttons:hover {
   box-shadow: -1px -1px rgb(169, 177, 171) inset;
   text-decoration: none;
+}
+
+.auth-button {
+  display: block;
+  margin: 15px auto 0px;
+  padding: 2% 10%;
+
+  border-radius: 6px;
+  border: 1px solid #2c2a2a;
+
+  font-size: large;
+  font-weight: bolder;
+  color: rgb(228, 236, 230);
+  background-color: rgb(114, 143, 133);
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.auth-button:hover {
+  box-shadow: -2px -2px 5px rgb(157, 167, 159) inset;
+  border-color: rgb(246, 247, 248);
+
+  color: aliceblue;
+}
+
+.auth-button:disabled {
+  box-shadow: -2px -2px 5px rgb(157, 167, 159) inset;
+  border-color: rgb(246, 247, 248);
+
+  color: rgb(5, 5, 5);
+}
+
+.but-userpage {
+  padding: 0.7em;
+  margin: 15px auto 35px;
+
+  width: 70%;
+  max-width: 300px;
 }

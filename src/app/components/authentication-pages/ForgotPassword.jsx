@@ -1,55 +1,86 @@
-import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
-import { useAuth } from "../../contexts/AuthContext";
+import { useState } from "react";
+import { Formik, Form } from "formik";
 import { Link } from "react-router-dom";
 
-export default function ForgotPassword() {
-  const emailRef = useRef();
+import { resetPasswordValSchema } from "../form-components/Validation";
+import Input from "../form-components/Input";
+import SubmitButton from "../form-components/SubmitButton";
+import { useAuth } from "../../contexts/AuthContext";
+import "./authentication.css";
+
+const ForgotPassword = () => {
+  const [connError, setConnError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  return (
+    <div className="auth-container">
+      <div className="auth-error">{connError}</div>
+      {success ? (
+        <SuccessMessage />
+      ) : (
+        <ForgotPassForm connErr={setConnError} success={setSuccess} />
+      )}
+    </div>
+  );
+};
+
+const SuccessMessage = () => {
+  return (
+    <>
+      <p className="success-message">
+        Your new password has been sent to your email address
+      </p>
+      <p>
+        <Link to="/login">Log In?</Link>
+      </p>
+    </>
+  );
+};
+
+const ForgotPassForm = (props) => {
   const { resetPassword } = useAuth();
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    try {
-      setMessage("");
-      setError("");
-      setLoading(true);
-      await resetPassword(emailRef.current.value);
-      setMessage("Check your inbox for further instructions");
-    } catch {
-      setError("Failed to reset password");
-    }
-
-    setLoading(false);
+  async function submitForm(values) {
+    await resetPassword(values.email).then(
+      () => {
+        props.success(true);
+        props.connErr("");
+      },
+      (error) => {
+        let errorMessage = error.message;
+        props.connErr(errorMessage);
+        props.success(false);
+      }
+    );
   }
 
   return (
-    <div className="authentication-container">
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-2">Password Reset</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Reset Password
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/login">Login</Link>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
+    <>
+      <Formik
+        initialValues={{ email: "" }}
+        validationSchema={resetPasswordValSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          submitForm(values);
+          setSubmitting(false);
+        }}>
+        <Form id="reset-password">
+          <Input label="Email:" name="email" type="email" key="email" />
+          <SubmitButton />
+        </Form>
+      </Formik>
+      <div className="links-container">
+        Do you need to
+        <Link to="/signup">
+          <strong> Sign Up?</strong>
+        </Link>
+        <br></br>
+        or want to
+        <Link to="/login">
+          <strong> Log In?</strong>
+        </Link>
       </div>
-    </div>
+    </>
   );
-}
+};
+
+export default ForgotPassword;

@@ -1,22 +1,10 @@
 .header-footer-container {
   max-width: 768px;
-  margin: auto;
+  margin: 0 auto;
   height: 100%;
-  padding: 0px 7px;
+  padding: 0px 6px;
 }
 
-header {
-  background-color: rgb(224, 101, 19);
-  padding: 1px 5px;
-  border-bottom: 1px solid rgb(143, 143, 143);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  color: aliceblue;
-}
-
-footer {
-  grid-area: footer;
-  background-color: rgb(21, 77, 122);
-  padding: 1px 5px;
-  border-top: 1px solid rgb(0, 0, 0);
-  color: aliceblue;
+h1 {
+  font-size: 1.35em;
 }

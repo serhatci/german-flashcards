@@ -1,39 +1,82 @@
-import React from "react";
-import Button from "../buttons/HomePageButtons.jsx";
+import Button from "../buttons/HomePageButtons";
+import { useTheme } from "../../contexts/ThemeContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { LoadingIcon } from "../icons/Icons";
+import { useData } from "../../contexts/DataContext";
 import "./home-page.css";
-import { homeButtonsData } from "../../database/mock-db.js";
 
-const WelcomeInfo = () => {
-  const info =
-    "ENV: " +
-    process.env.NODE_ENV +
-    " ID: " +
-    process.env.REACT_APP_FIREBASE_PROJECT_ID;
-  return <p>{info}</p>;
+const HomePage = () => {
+  const { isLoading, fetchError } = useData();
+
+  return (
+    <div className="home-page-container fade-in" id="app-homepage">
+      {isLoading || fetchError ? <MessageBoard /> : <MainPage />}
+    </div>
+  );
 };
 
-class HomePage extends React.Component {
-  createButtons = () => {
-    let buttons = homeButtonsData.map((item) => (
-      <Button key={item.title} title={item.title} targetPage="/flashcards" />
-    ));
-    return buttons;
-  };
+const MainPage = () => {
+  const theme = useTheme();
+  const { titles } = useData();
 
-  render() {
-    return (
-      <div className="home-page-container" id="app-homepage">
-        <div className="welcome-info" id="app-welcome-info">
-          <WelcomeInfo />
-        </div>
-        <div className="button-container" id="app-button-container">
-          <nav aria-labelledby="content-navigation">
-            {this.createButtons()}
-          </nav>
-        </div>
-      </div>
-    );
+  function createButtons() {
+    return titles.map((title) => (
+      <Button
+        key={title.camelCase}
+        title={title.str}
+        targetPage={"/flashcards/" + title.camelCase}
+        style={theme.button}
+      />
+    ));
   }
-}
+
+  return (
+    <>
+      <div style={theme.welcome} className="welcome-info" id="welcome-info">
+        <WelcomeInfo />
+      </div>
+      <div className="button-container" id="button-container">
+        <nav aria-labelledby="content-navigation">{createButtons()}</nav>
+      </div>
+      {titles.length ? "" : <EmptyTitlesMessage />}
+    </>
+  );
+};
+
+const WelcomeInfo = () => {
+  const { currentUser } = useAuth();
+  const { username } = useData();
+  const env = process.env.NODE_ENV;
+
+  if (username === "master" && !currentUser)
+    return (
+      <p>{`(${env}) Hello Guest! You can signup and have your own flashcards`}</p>
+    );
+
+  if (username === "master" && currentUser)
+    return <p>{`(${env}) Welcome Master!`}</p>;
+
+  return (
+    <p>{`(${env}) Hello ${username}! Use settings button to create your own flashcards.`}</p>
+  );
+};
+
+const MessageBoard = () => {
+  const { isLoading, fetchError } = useData();
+
+  return (
+    <div className="loading-container">
+      {isLoading ? <LoadingIcon /> : fetchError}
+    </div>
+  );
+};
+
+const EmptyTitlesMessage = () => {
+  return (
+    <div className="empty-title-msg" id="empty-title-msg">
+      <p>Nothing here :((</p>
+    </div>
+  );
+};
 
 export default HomePage;

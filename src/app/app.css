@@ -7,7 +7,6 @@ html,
 body,
 #root {
   height: 100%;
-  background-color: rgb(220, 226, 218);
 }
 
 /* Does not support responsiveness below 280px width */
@@ -36,14 +35,21 @@ body {
   height: 100%;
 }
 
-/* Additional styles of header can be found in header-footer.css */
 header {
   grid-area: header;
+  background-color: rgb(224, 101, 19);
+  border-bottom: 1px solid rgb(143, 143, 143);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  color: aliceblue;
 }
 
-/* Additional styles of footer can be found in header-footer.css */
 footer {
   grid-area: footer;
+  background-color: rgb(21, 77, 122);
+  border-top: 1px solid rgb(0, 0, 0);
+  color: aliceblue;
+
+  z-index: 1;
 }
 
 /* Main page can be scrolled if content is larger */
@@ -54,7 +60,6 @@ footer {
 
 /* Shared css classes among all elements of this project */
 /* ----------------------------------------------- */
-
 .flex-horizontal {
   display: flex;
   flex-direction: row;
@@ -78,4 +83,56 @@ footer {
 
 .none-decoration {
   text-decoration: none;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 6em 1em;
+  font-weight: bolder;
+}
+
+/* APP colors */
+.white {
+  color: #ffffff;
+}
+
+.grey {
+  color: #afaaaa;
+}
+
+.dark-green {
+  color: #086108ec;
+}
+
+.light-green {
+  color: #28b228ec;
+}
+
+.red {
+  color: rgb(221, 25, 25);
+}
+
+.dark-red {
+  color: rgb(122, 2, 2);
+}
+
+.dark-blue {
+  color: rgb(21, 77, 122);
+}
+
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.2s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -1,68 +1,119 @@
-import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
-import { useAuth } from "../../contexts/AuthContext";
+import { useState, useEffect } from "react";
+import { Formik, Form } from "formik";
 import { Link, useHistory } from "react-router-dom";
 
-export default function Signup() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+import { SignupValSchema } from "../form-components/Validation";
+import Input from "../form-components/Input";
+import SubmitButton from "../form-components/SubmitButton";
+import { useAuth } from "../../contexts/AuthContext";
+import "./authentication.css";
+
+const Signup = () => {
+  const [connError, setConnError] = useState("");
+  const [success, setSuccess] = useState(false);
   const history = useHistory();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  useEffect(() => {
+    if (!success) return;
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
-    }
-
-    try {
-      setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+    var timer = setTimeout(() => {
       history.push("/");
-    } catch {
-      setError("Failed to create an account");
-    }
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [history, success]);
 
-    setLoading(false);
+  return (
+    <div className="auth-container">
+      <div className="auth-error">{connError}</div>
+      {success ? (
+        <SuccessMessage />
+      ) : (
+        <SignupForm
+          connErr={connError}
+          setConnErr={setConnError}
+          success={setSuccess}
+        />
+      )}
+    </div>
+  );
+};
+
+const SuccessMessage = () => {
+  return <p className="success-message">You are successfully registered!</p>;
+};
+
+const SignupForm = (props) => {
+  const { signup, currentUser, deleteUser } = useAuth();
+
+  function submitForm(values, setSubmitting) {
+    props.setConnErr("");
+    signup(values.email, values.password)
+      .then((newUser) => addUserToDB(newUser.user, values.username))
+      .then(() => {
+        props.success(true);
+      })
+      .catch((err) => {
+        props.setConnErr(err.message);
+        props.success(false);
+      });
+
+    if (props.connErr && currentUser.user) {
+      deleteUser(currentUser.user);
+    }
+    setSubmitting(true);
+  }
+
+  async function addUserToDB(newUser, username) {
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        userID: newUser.uid,
+        username: username,
+        email: newUser.email,
+      }),
+    };
+
+    let response = await fetch("http://127.0.0.1:5000/api/add-user", options);
+    if (!response.ok) throw new Error(response.message);
   }
 
   return (
-    <div className="authentication-container">
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-2">Sign Up</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control
-                type="password"
-                ref={passwordConfirmRef}
-                required
-              />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Sign Up
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Log In</Link>
+    <>
+      <Formik
+        initialValues={{
+          username: "",
+          email: "",
+          password: "",
+          passConfirm: "",
+        }}
+        validationSchema={SignupValSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          if (values.username === "master") {
+            return props.connErr("username master is already occupied :(");
+          }
+          submitForm(values, setSubmitting);
+        }}>
+        <Form id="signup">
+          <Input label="User Name:" name="username" type="text" />
+          <Input label="Email:" name="email" type="email" />
+          <Input label="Password:" name="password" type="password" />
+          <Input
+            label="Confirm Password:"
+            name="passConfirm"
+            type="password"
+          />
+          <SubmitButton />
+        </Form>
+      </Formik>
+      <div className="links-container">
+        Already have an account?{" "}
+        <Link to="/login">
+          <strong>Log In</strong>
+        </Link>
       </div>
-    </div>
+    </>
   );
-}
+};
+
+export default Signup;

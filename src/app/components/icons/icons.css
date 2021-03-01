@@ -1,30 +1,49 @@
 .icon {
   font-size: 32px;
   line-height: 0px;
+
+  cursor: pointer;
 }
 
-.settings-icon {
+.icon.medium {
   font-size: 48px;
-  line-height: 0px;
 }
 
-.small-icon {
+.icon.large {
+  font-size: 82px;
+}
+
+/* some icons need visual size adjustment */
+.icon.adjusted {
   font-size: 42px;
-  line-height: 0px;
 }
 
-.white {
-  color: #ffffff;
+.rotate {
+  animation-name: rotate;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  display: inline-block;
 }
 
-.dark-green {
-  color: #086108ec;
+.rotate.delayed {
+  animation-name: rotate-delayed;
+  animation-duration: 5s;
 }
 
-.red {
-  color: rgb(221, 25, 25);
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.dark-red {
-  color: rgb(122, 2, 2);
+@keyframes rotate-delayed {
+  70% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

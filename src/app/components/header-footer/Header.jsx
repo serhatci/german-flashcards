@@ -1,8 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { HomeIcon, UserIcon } from "../icons/Icons.jsx";
 import "./header-footer.css";
-import { UserProvider } from "../../contexts/UserContext";
 
 const Header = () => {
   return (
@@ -10,21 +8,9 @@ const Header = () => {
       className="flex-horizontal header-footer-container"
       id="header-container"
     >
-      <div id="home-icon">
-        <Link to="/">
-          <HomeIcon />
-        </Link>
-      </div>
-      <div id="title">
-        <h2>German Flashcards</h2>
-      </div>
-      <div id="user-icon">
-        <Link to="/login">
-          <UserProvider>
-            <UserIcon />
-          </UserProvider>
-        </Link>
-      </div>
+      <HomeIcon />
+      <h1 id="app-title">German Flashcards</h1>
+      <UserIcon />
     </div>
   );
 };

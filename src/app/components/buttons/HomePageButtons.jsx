@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Button = (props) => {
   return (
     <Link to={props.targetPage} className="none-decoration">
-      <div className="home-buttons" id="home-buttons">
+      <div className="home-buttons" id="home-buttons" style={props.style}>
         {props.title}
       </div>
     </Link>
