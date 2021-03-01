@@ -47,7 +47,6 @@ const SignupForm = (props) => {
 
   function submitForm(values, setSubmitting) {
     props.setConnErr("");
-    localStorage.clear();
     signup(values.email, values.password)
       .then((newUser) => addUserToDB(newUser.user, values.username))
       .then(() => {
