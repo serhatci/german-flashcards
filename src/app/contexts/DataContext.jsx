@@ -15,13 +15,11 @@ export function DataProvider({ children }) {
   const [titles, setTitles] = useState([]);
   const [flashcards, setFlashcards] = useState([]);
   const [username, setUsername] = useState("");
-  const [reFetch, setReFetch] = useState(false);
-
-  function fetchAgain() {
-    setReFetch(!reFetch);
-  }
+  const storageFilled = localStorage.getItem("titles");
 
   useEffect(() => {
+    if (storageFilled) return;
+
     const headers = {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -43,7 +41,7 @@ export function DataProvider({ children }) {
       })
       .catch((error) => setFetchError(error.message))
       .finally(() => setLoading(false));
-  }, [currentUser, reFetch]);
+  }, [currentUser, storageFilled]);
 
   return (
     <DataContext.Provider
@@ -58,8 +56,6 @@ export function DataProvider({ children }) {
         setFlashcards,
         username,
         setUsername,
-        fetchAgain,
-        reFetch,
       }}>
       {children}
     </DataContext.Provider>
