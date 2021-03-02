@@ -25,7 +25,7 @@ export function DataProvider({ children }) {
     };
 
     setLoading(true);
-    fetch("http://127.0.0.1:5000/api/", headers)
+    fetch("https://flashcards-backend.herokuapp.com/api/", headers)
       .then((response) => response.json())
       .then((data) => setupTitles(data))
       .catch((error) => setFetchError(error.message))
