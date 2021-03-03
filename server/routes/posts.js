@@ -1,16 +1,15 @@
 import express from "express";
 import {
-  getData,
+  getUserFlashcards,
   addUser,
   updateData,
   deleteUser,
-  getMasterData,
 } from "../controllers/posts.js";
 const router = express.Router();
 
-router.get("/", getMasterData);
+router.post("/", getUserFlashcards);
 router.post("/add-user", addUser);
-router.delete("/delete-user", deleteUser);
-router.patch("/update-data", updateData);
+router.post("/delete-user", deleteUser);
+router.put("/update-data", updateData);
 
 export default router;
