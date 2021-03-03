@@ -47,10 +47,7 @@ const EditSaveButton = memo((props) => {
       body: JSON.stringify(msgBody),
     };
 
-    await fetch(
-      "https://flashcards-backend.herokuapp.com/api/update-data",
-      options
-    )
+    await fetch("http://localhost:5000/api/update-data", options)
       .then((response) => {
         if (response.ok) {
           localStorage.setItem("titles", JSON.stringify(titles));
