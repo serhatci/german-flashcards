@@ -17,15 +17,16 @@ export function DataProvider({ children }) {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    const headers = {
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        Authentication: currentUser ? currentUser.uid : "guest",
-      },
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        userID: currentUser ? currentUser.uid : "guest",
+      }),
     };
 
     setLoading(true);
-    fetch("https://flashcards-backend.herokuapp.com/api/", headers)
+    fetch("http://localhost:5000/api/", options)
       .then((response) => response.json())
       .then((data) => setupTitles(data))
       .catch((error) => setFetchError(error.message))
