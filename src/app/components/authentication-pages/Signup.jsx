@@ -69,15 +69,12 @@ const SignupForm = (props) => {
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify({
         userID: newUser.uid,
-        username: username,
+        userName: username,
         email: newUser.email,
       }),
     };
 
-    let response = await fetch(
-      "https://flashcards-backend.herokuapp.com/api/add-user",
-      options
-    );
+    let response = await fetch("http://localhost:5000/api/add-user", options);
     if (!response.ok) throw new Error(response.message);
   }
 
