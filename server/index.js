@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("flashcards-backend");
+  res.send("flashcards-backend is working!");
 });
 app.use("/api", postRoutes);
 
