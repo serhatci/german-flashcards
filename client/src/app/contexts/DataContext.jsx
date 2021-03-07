@@ -26,7 +26,7 @@ export function DataProvider({ children }) {
     };
 
     setLoading(true);
-    fetch("http://localhost:5000/api/", options)
+    fetch("/api", options)
       .then((response) => response.json())
       .then((data) => setupTitles(data))
       .catch((error) => setFetchError(error.message))

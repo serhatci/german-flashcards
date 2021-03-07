@@ -48,7 +48,10 @@ const SignupForm = (props) => {
   function submitForm(values, setSubmitting) {
     props.setConnErr("");
     signup(values.email, values.password)
-      .then((newUser) => addUserToDB(newUser.user, values.username))
+      .then((newUser) => {
+        localStorage.clear();
+        addUserToDB(newUser.user, values.username);
+      })
       .then(() => {
         props.success(true);
       })
@@ -74,7 +77,7 @@ const SignupForm = (props) => {
       }),
     };
 
-    let response = await fetch("http://localhost:5000/api/add-user", options);
+    let response = await fetch("/api/add-user", options);
     if (!response.ok) throw new Error(response.message);
   }
 

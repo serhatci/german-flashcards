@@ -46,6 +46,7 @@ export const DeleteAccountButton = (props) => {
     props.setConnErr("");
     await deleteUserFromDB()
       .then(() => {
+        localStorage.clear();
         deleteUser(currentUser);
       })
       .then(() => {
@@ -64,11 +65,9 @@ export const DeleteAccountButton = (props) => {
       body: JSON.stringify({ userID: currentUser.uid }),
     };
 
-    await fetch("http://127.0.0.1:5000/api/delete-user", options).then(
-      (res) => {
-        if (!res.ok) throw new Error(res.message);
-      }
-    );
+    await fetch("api/delete-user", options).then((res) => {
+      if (!res.ok) throw new Error(res.message);
+    });
   }
 
   return (
