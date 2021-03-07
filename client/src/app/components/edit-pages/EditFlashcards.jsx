@@ -5,7 +5,7 @@ import { PlusIcon } from "../icons/Icons";
 import ContentEditable from "react-contenteditable";
 import { useData } from "../../contexts/DataContext";
 import { useEditData } from "./EditDataCustomHook";
-import ContentEditable from "react-contenteditable";
+import { pasteAsPlainText } from "./inputCheckFunctions";
 import "./edit.css";
 
 const EditFlashcards = () => {
