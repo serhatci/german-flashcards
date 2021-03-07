@@ -46,17 +46,14 @@ const MainPage = () => {
 const WelcomeInfo = () => {
   const { currentUser } = useAuth();
   const { username } = useData();
-  const env = process.env.NODE_ENV;
 
   if (username === "master" && !currentUser)
-    return (
-      <p>{`(Hello Guest! You can signup and have your own flashcards`}</p>
-    );
+    return <p>{`Hello Guest! You can signup and have your own flashcards`}</p>;
 
-  if (username === "master" && currentUser) return <p>{`(Welcome Master!`}</p>;
+  if (username === "master" && currentUser) return <p>{`Welcome Master!`}</p>;
 
   return (
-    <p>{`(Hello ${username}! Use settings button to create your own flashcards.`}</p>
+    <p>{`Hello ${username}! Use settings button to create your own flashcards.`}</p>
   );
 };
 

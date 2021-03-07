@@ -79,7 +79,7 @@ const ProfileUpdateForm = (props) => {
         </Form>
       </Formik>
       <div className="links-container">
-        <Link to="/user-page">
+        <Link to="auth/user-page">
           <strong>GO BACK</strong>
         </Link>
       </div>

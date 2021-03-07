@@ -77,12 +77,12 @@ const LoginForm = (props) => {
       </Formik>
       <div className="links-container">
         Do you need an account?
-        <Link to="/signup">
+        <Link to="auth/signup">
           <strong> Sign Up</strong>
         </Link>
         <br></br>
         or did you
-        <Link to="/forgot-password">
+        <Link to="auth/forgot-password">
           <strong> forget your password?</strong>
         </Link>
       </div>

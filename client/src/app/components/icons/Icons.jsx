@@ -19,7 +19,7 @@ export const UserIcon = () => {
     ? "bi bi-person-check-fill dark-green icon"
     : "bi bi-person-fill white icon";
 
-  const targetPath = currentUser ? "/user-page" : "/login";
+  const targetPath = currentUser ? "/auth/user-page" : "/auth/login";
   const theme = useTheme();
   const updateTheme = useThemeUpdate();
   const button = useButtons();
@@ -46,11 +46,11 @@ export const SettingsIcon = () => {
 
   // Settings are disabled at authorization pages
   const iconType = () => {
-    if (loc.pathname === "/" || !loc.pathname.includes("/edit-"))
-      return button.settingsClicked
-        ? "bi bi-x-circle-fill red icon"
-        : "bi bi-gear-fill white icon";
-    return "bi bi-gear-fill grey icon";
+    if (loc.pathname.includes("/auth/")) return "bi bi-gear-fill grey icon";
+
+    return button.settingsClicked
+      ? "bi bi-x-circle-fill red icon"
+      : "bi bi-gear-fill white icon";
   };
 
   return (

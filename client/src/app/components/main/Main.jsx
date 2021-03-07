@@ -17,11 +17,11 @@ const Main = () => {
     <Switch>
       <Route path="/" exact component={HomePage} />
       <Route path="/flashcards/:title" component={FlashCards} />
-      <Route path="/update-password" component={UpdatePassword} />
-      <Route path="/signup" component={Signup} />
-      <Route path="/login" component={Login} />
-      <Route path="/user-page" component={UserPage} />
-      <Route path="/forgot-password" component={ForgotPassword} />
+      <Route path="/auth/update-password" component={UpdatePassword} />
+      <Route path="/auth/signup" component={Signup} />
+      <Route path="/auth/login" component={Login} />
+      <Route path="/auth/user-page" component={UserPage} />
+      <Route path="/auth/forgot-password" component={ForgotPassword} />
       <PrivateRoute path="/edit-homepage" component={EditHomePage} />
       <PrivateRoute
         path="/edit-flashcards/:title"

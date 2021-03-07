@@ -27,7 +27,7 @@ const UserPage = () => {
     return (
       <div className="fade-in" id="userpage-container">
         <LogoutButton setConnErr={setConnError} success={setSuccessMessage} />
-        <Link to="/update-password">
+        <Link to="auth/update-password">
           <UpdatePasswordButton />
         </Link>
         <DeleteAccountButton
