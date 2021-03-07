@@ -8,10 +8,17 @@ const SaveAndResetContainer = () => {
   const { currentUser } = useAuth();
   const location = useLocation();
   const [successMsg, setSuccessMsg] = useState();
+  const { setTitles } = useData();
 
   const style = location.pathname.includes("edit-")
     ? "edit-box-container show"
     : "edit-box-container hide";
+
+  useEffect(() => {
+    return () => {
+      setTitles(JSON.parse(localStorage.getItem("titles")));
+    };
+  }, [style, setTitles]);
 
   if (!currentUser) return "";
 
