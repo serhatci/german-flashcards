@@ -21,7 +21,6 @@ Learning German is not easy... Regular repetition of new words and other grammar
 - Frontend: React -- Formik, React-Router,Context API, Contenteditable
 - Backend: Node -- Express, Mongoose
 - Database: MongoDB Atlas
--  
 
   
   
