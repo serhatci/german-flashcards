@@ -50,14 +50,13 @@ const WelcomeInfo = () => {
 
   if (username === "master" && !currentUser)
     return (
-      <p>{`(${env}) Hello Guest! You can signup and have your own flashcards`}</p>
+      <p>{`(Hello Guest! You can signup and have your own flashcards`}</p>
     );
 
-  if (username === "master" && currentUser)
-    return <p>{`(${env}) Welcome Master!`}</p>;
+  if (username === "master" && currentUser) return <p>{`(Welcome Master!`}</p>;
 
   return (
-    <p>{`(${env}) Hello ${username}! Use settings button to create your own flashcards.`}</p>
+    <p>{`(Hello ${username}! Use settings button to create your own flashcards.`}</p>
   );
 };
 
