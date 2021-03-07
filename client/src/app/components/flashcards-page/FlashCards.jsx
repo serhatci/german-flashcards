@@ -10,7 +10,7 @@ const FlashCards = (props) => {
   const data = flashcards[props.match.params.title];
 
   const regularOrder = useButtons();
-  const [isCardAQuestion, setIsCardAQuestion] = useState(true);
+  const [isCardAQuestion, setIsCardAQuestion] = useState(false);
   const [progress, setProgress] = useState({
     total: 0,
     correctAnswer: 0,
