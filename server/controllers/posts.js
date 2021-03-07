@@ -72,6 +72,13 @@ export const addUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   const user = req.body;
+
+  if (user.userID === process.env.MASTER_UID) {
+    return res.status(409).json({
+      message: "master user can not be deleted",
+    });
+  }
+
   try {
     const deletedUser = await User.deleteOne(user);
     res.json(deletedUser);
