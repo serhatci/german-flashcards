@@ -10,7 +10,7 @@ const FlashCards = (props) => {
   const data = flashcards[props.match.params.title];
 
   const regularOrder = useButtons();
-  const [isCardAQuestion, setIsCardAQuestion] = useState(false);
+  const [isCardAQuestion, setIsCardAQuestion] = useState(true);
   const [progress, setProgress] = useState({
     total: 0,
     correctAnswer: 0,
@@ -42,7 +42,7 @@ const FlashCards = (props) => {
     cardData = regularOrder.shuffle
       ? cardData
       : [cardData[2], cardData[3], cardData[0], cardData[1]];
-    return isCardAQuestion ? cardData.slice(0, 2) : cardData.slice(2, 4);
+    return isCardAQuestion ? cardData.slice(2, 4) : cardData.slice(0, 2);
   }
 
   function reverseCards() {
