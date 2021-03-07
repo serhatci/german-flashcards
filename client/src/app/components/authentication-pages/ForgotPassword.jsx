@@ -31,7 +31,7 @@ const SuccessMessage = () => {
         Your new password has been sent to your email address
       </p>
       <p>
-        <Link to="auth/login">Log In?</Link>
+        <Link to="/auth/login">Log In?</Link>
       </p>
     </>
   );
@@ -70,12 +70,12 @@ const ForgotPassForm = (props) => {
       </Formik>
       <div className="links-container">
         Do you need to
-        <Link to="auth/signup">
+        <Link to="/auth/signup">
           <strong> Sign Up?</strong>
         </Link>
         <br></br>
         or want to
-        <Link to="auth/login">
+        <Link to="/auth/login">
           <strong> Log In?</strong>
         </Link>
       </div>

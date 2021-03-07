@@ -111,7 +111,7 @@ const SignupForm = (props) => {
       </Formik>
       <div className="links-container">
         Already have an account?{" "}
-        <Link to="auth/login">
+        <Link to="/auth/login">
           <strong>Log In</strong>
         </Link>
       </div>
