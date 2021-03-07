@@ -42,3 +42,10 @@ export function duplicateFlashcardsCheck(newFlashcard, flashcards) {
     (card) => JSON.stringify(card) === JSON.stringify(newFlashcard)
   );
 }
+
+export const pasteAsPlainText = (event) => {
+  event.preventDefault();
+
+  const text = event.clipboardData.getData("text/plain");
+  document.execCommand("insertHTML", false, text);
+};

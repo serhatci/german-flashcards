@@ -5,6 +5,7 @@ import { PlusIcon } from "../icons/Icons";
 import ContentEditable from "react-contenteditable";
 import { useData } from "../../contexts/DataContext";
 import { useEditData } from "./EditDataCustomHook";
+import ContentEditable from "react-contenteditable";
 import "./edit.css";
 
 const EditFlashcards = () => {
@@ -149,6 +150,7 @@ const FlashcardsInput = (props) => {
         <ContentEditable
           html={question.current}
           onChange={(evt) => (question.current = evt.target.value)}
+          onPaste={pasteAsPlainText}
           style={{ outline: "0px solid transparent", paddingLeft: "10%" }}
         />
       </div>
@@ -157,6 +159,7 @@ const FlashcardsInput = (props) => {
         <ContentEditable
           html={questionExtra.current}
           onChange={(evt) => (questionExtra.current = evt.target.value)}
+          onPaste={pasteAsPlainText}
           style={{ outline: "0px solid transparent", paddingLeft: "10%" }}
         />
       </div>
@@ -165,6 +168,7 @@ const FlashcardsInput = (props) => {
         <ContentEditable
           html={answer.current}
           onChange={(evt) => (answer.current = evt.target.value)}
+          onPaste={pasteAsPlainText}
           style={{ outline: "0px solid transparent", paddingLeft: "10%" }}
         />
       </div>
@@ -173,6 +177,7 @@ const FlashcardsInput = (props) => {
         <ContentEditable
           html={answerExtra.current}
           onChange={(evt) => (answerExtra.current = evt.target.value)}
+          onPaste={pasteAsPlainText}
           style={{ outline: "0px solid transparent", paddingLeft: "10%" }}
         />
       </div>

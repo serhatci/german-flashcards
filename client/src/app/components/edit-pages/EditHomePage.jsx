@@ -4,6 +4,7 @@ import { useData } from "../../contexts/DataContext";
 import { PlusIcon } from "../icons/Icons";
 import ContentEditable from "react-contenteditable";
 import { useEditData } from "./EditDataCustomHook";
+import { pasteAsPlainText } from "./inputCheckFunctions";
 import "./edit.css";
 
 const EditHomePage = () => {
@@ -77,6 +78,7 @@ const HomePageTitleInput = (props) => {
       <ContentEditable
         html={text.current}
         onChange={handleChange}
+        onPaste={pasteAsPlainText}
         style={{ outline: "0px solid transparent" }}
       />
       <AddButton add={addTitle} />
