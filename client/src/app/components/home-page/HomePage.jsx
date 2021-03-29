@@ -18,6 +18,17 @@ const HomePage = () => {
 const MainPage = () => {
   const theme = useTheme();
   const { titles } = useData();
+  titles.sort((a, b) => {
+    var nameA = a.camelCase;
+    var nameB = b.camelCase;
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
 
   function createButtons() {
     return titles.map((title) => (
