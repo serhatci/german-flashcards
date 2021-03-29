@@ -9,6 +9,20 @@ const FlashCards = (props) => {
   const { flashcards } = useData();
   const data = shuffleArray(flashcards[props.match.params.title]);
 
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
+
+  return <FlashCardsGame data={data} />;
+};
+
+const FlashCardsGame = (props) => {
   const regularOrder = useButtons();
   const [isCardAQuestion, setIsCardAQuestion] = useState(true);
   const [progress, setProgress] = useState({
@@ -18,16 +32,8 @@ const FlashCards = (props) => {
   });
   const [completed, setCompleted] = useState(false);
 
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
   function getPage() {
-    if (!data.length) {
+    if (!props.data.length) {
       return [
         <Words cardData={["Empty!", "Use settings to add new flashcards"]} />,
         [],
@@ -46,7 +52,7 @@ const FlashCards = (props) => {
   }
 
   function getCardData() {
-    let cardData = Object.values(data[progress.total]);
+    let cardData = Object.values(props.data[progress.total]);
     cardData = regularOrder.shuffle
       ? cardData
       : [cardData[2], cardData[3], cardData[0], cardData[1]];
@@ -71,7 +77,7 @@ const FlashCards = (props) => {
         });
 
     setIsCardAQuestion(!isCardAQuestion);
-    if (data.length === progress.total) {
+    if (props.data.length === progress.total) {
       setCompleted(!completed);
     }
   }
