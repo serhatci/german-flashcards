@@ -7,7 +7,7 @@ import "./flash-cards.css";
 
 const FlashCards = (props) => {
   const { flashcards } = useData();
-  const data = flashcards[props.match.params.title];
+  const data = shuffleArray(flashcards[props.match.params.title]);
 
   const regularOrder = useButtons();
   const [isCardAQuestion, setIsCardAQuestion] = useState(true);
@@ -17,6 +17,14 @@ const FlashCards = (props) => {
     wrongAnswer: 0,
   });
   const [completed, setCompleted] = useState(false);
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
 
   function getPage() {
     if (!data.length) {
